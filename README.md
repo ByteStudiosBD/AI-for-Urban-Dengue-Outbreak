@@ -199,7 +199,7 @@ Interactive docs: http://localhost:8000/docs
 | Sheikh Sifat Hakim | [@sifat252212](https://github.com/sifat252212) | Team Leader & Developer |
 | Taki Tazwar Moon | [@codertazwar](https://github.com/codertazwar) |  Desginer & Developer |
 
-> **TODO (team):** confirm each member's role and who the Team Leader is.
+
 
 ## AI tools and external API disclosure
 
