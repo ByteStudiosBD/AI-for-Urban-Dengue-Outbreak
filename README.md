@@ -232,7 +232,7 @@ Interactive docs: http://localhost:8000/docs
 ## Demo
 
 - **Local:** `./start.sh` (macOS / Linux) or `.\start.ps1` (Windows), then http://localhost:8000
-- **Deployed URL:** _Pending — Vercel deployment not yet published._
+- **Deployed URL:** https://ai-for-urban-dengue-outbreak.vercel.app/ (Vercel; the first load after an idle period can take a few seconds)
 - **Video (2 min, uncut, live on localhost, with voiceover):** _Pending — not yet uploaded._ The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
 
 ## Recent changes
