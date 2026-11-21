@@ -42,7 +42,7 @@ function useMinWidth(px: number) {
 
 function PaneHeader({ title, action }: { title: ReactNode; action?: ReactNode }) {
   return (
-    <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-line bg-[#0c0c11] px-4">
+    <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-line bg-pane-head px-4">
       <h2 className="truncate text-[15px] font-semibold text-ink">{title}</h2>
       {action}
     </div>
@@ -50,7 +50,7 @@ function PaneHeader({ title, action }: { title: ReactNode; action?: ReactNode })
 }
 
 function SectionTitle({ children }: { children: ReactNode }) {
-  return <h3 className="border-b border-line-soft bg-[#0f0f15] px-4 py-2 text-[13px] font-semibold text-ink">{children}</h3>
+  return <h3 className="border-b border-line-soft bg-pane-sub px-4 py-2 text-[13px] font-semibold text-ink">{children}</h3>
 }
 
 function Dot({ color, hollow, stripes }: { color: string; hollow?: boolean; stripes?: boolean }) {
@@ -89,9 +89,9 @@ function WardTile({ w, p, selected, layer, height, onSelect }: {
         aria-pressed={selected}
         style={{ height, background: critical ? `${CRITICAL_PATTERN}, ${fill}` : fill }}
         className={cn(
-          'relative flex w-full min-w-0 flex-col justify-between overflow-hidden rounded-[6px] p-2 text-left transition-[transform,box-shadow,filter,opacity] duration-150 ease-[var(--ease-out-expo)] hover:z-10 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.9)]',
+          'relative flex w-full min-w-0 flex-col justify-between overflow-hidden rounded-[6px] p-2 text-left transition-[transform,box-shadow,filter,opacity] duration-150 ease-[var(--ease-out-expo)] hover:z-10 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[var(--shadow-lift)]',
           critical && 'shadow-[inset_0_0_0_2px_rgba(255,255,255,0.92)]',
-          selected && 'z-10 ring-2 ring-white ring-offset-2 ring-offset-[#101016]',
+          selected && 'z-10 ring-2 ring-ink ring-offset-2 ring-offset-gis-canvas',
           p ? 'text-[#0b0b10]' : 'text-ink',
         )}
       >
@@ -135,14 +135,14 @@ function CaseHistogram({ preds, th }: { preds: PredictionResult[]; th: { medium:
         ))}
         {([['M', th.medium], ['H', th.high], ['C', th.critical]] as Array<[string, number]>).map(([m, v]) => (
           <g key={m}>
-            <line x1={x(v)} x2={x(v)} y1={0} y2={H} stroke="#ffffff" strokeOpacity={0.35} strokeDasharray="2 2" />
-            <text x={x(v) + 2} y={8} fill="#9b9baa" fontSize={8} fontWeight={700}>{m}</text>
+            <line x1={x(v)} x2={x(v)} y1={0} y2={H} stroke="var(--color-ink)" strokeOpacity={0.35} strokeDasharray="2 2" />
+            <text x={x(v) + 2} y={8} fill="var(--color-muted)" fontSize={8} fontWeight={700}>{m}</text>
           </g>
         ))}
-        <line x1={0} x2={W} y1={H} y2={H} stroke="#30303b" />
-        <text x={0} y={H + 11} fill="#9b9baa" fontSize={9}>0</text>
-        <text x={W / 2} y={H + 11} fill="#9b9baa" fontSize={9} textAnchor="middle">{t('ro.distributionAxis')}</text>
-        <text x={W} y={H + 11} fill="#9b9baa" fontSize={9} textAnchor="end">{fmtNum(nBins * binW, 0)}</text>
+        <line x1={0} x2={W} y1={H} y2={H} stroke="var(--color-line)" />
+        <text x={0} y={H + 11} fill="var(--color-muted)" fontSize={9}>0</text>
+        <text x={W / 2} y={H + 11} fill="var(--color-muted)" fontSize={9} textAnchor="middle">{t('ro.distributionAxis')}</text>
+        <text x={W} y={H + 11} fill="var(--color-muted)" fontSize={9} textAnchor="end">{fmtNum(nBins * binW, 0)}</text>
       </svg>
       <p className="mt-1 text-[11px] text-faint">{t('ro.distributionSub', { n: vals.length })}</p>
     </div>
@@ -285,12 +285,12 @@ export default function RiskOverview() {
           <input
             id="ro-week" type="date" value={asOf} min={meta?.as_of_range.min} max={meta?.as_of_range.max}
             onChange={(e) => e.target.value && set({ asOf: e.target.value })}
-            className="h-8 min-w-0 flex-1 rounded-md border border-line bg-black px-2 text-[13px] text-ink [color-scheme:dark] focus-visible:border-accent focus-visible:outline-none"
+            className="h-8 min-w-0 flex-1 rounded-md border border-line bg-pane px-2 text-[13px] text-ink focus-visible:border-accent focus-visible:outline-none"
           />
           <Button size="icon" variant="ghost" className="size-8" disabled={wi < 0 || wi >= weeks.length - 1} onClick={() => set({ asOf: weeks[wi + 1] })} aria-label={t('top.nextWeek')}><ChevronRight /></Button>
         </div>
         <span className="text-xs text-muted" id="ro-h">{t('ro.horizon')}</span>
-        <div role="radiogroup" aria-labelledby="ro-h" className="grid grid-cols-3 gap-1 rounded-md border border-line bg-black p-0.5">
+        <div role="radiogroup" aria-labelledby="ro-h" className="grid grid-cols-3 gap-1 rounded-md border border-line bg-pane p-0.5">
           {([2, 3, 4] as Horizon[]).map((n) => (
             <button key={n} role="radio" aria-checked={h === n} onClick={() => set({ h: n })}
               className={cn('h-7 rounded text-xs font-semibold transition-colors', h === n ? 'bg-ink text-canvas' : 'text-muted hover:text-ink')}>
@@ -311,7 +311,7 @@ export default function RiskOverview() {
             <li key={c || 'all'}>
               <button onClick={() => patchParams({ rcity: c || null })} aria-pressed={active}
                 className={cn('flex w-full items-center justify-between px-4 py-1.5 text-left text-[13px] transition-colors', active ? 'bg-panel-2 text-ink' : 'text-muted hover:bg-panel/60 hover:text-ink')}>
-                <span className="flex items-center gap-2.5"><Dot color={active ? 'var(--color-accent)' : '#6e6e7c'} hollow={!active} />{c || t('ro.allCities')}</span>
+                <span className="flex items-center gap-2.5"><Dot color={active ? 'var(--color-accent)' : 'var(--color-faint)'} hollow={!active} />{c || t('ro.allCities')}</span>
                 <span className="num text-[11px] text-faint">{n}</span>
               </button>
             </li>
@@ -324,7 +324,7 @@ export default function RiskOverview() {
         <span className="sr-only">{t('ro.search')}</span>
         <Search aria-hidden className="pointer-events-none absolute top-1/2 left-6.5 size-4 -translate-y-1/2 text-faint" />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="DNCC_Ward_05" maxLength={32}
-          className="h-8 w-full rounded-md border border-line bg-black pr-2 pl-8 font-mono text-[13px] text-ink placeholder:text-faint focus-visible:border-accent focus-visible:outline-none" />
+          className="h-8 w-full rounded-md border border-line bg-pane pr-2 pl-8 font-mono text-[13px] text-ink placeholder:text-faint focus-visible:border-accent focus-visible:outline-none" />
       </label>
 
       <SectionTitle>{t('ro.tiers')}</SectionTitle>
@@ -344,7 +344,7 @@ export default function RiskOverview() {
         })}
       </ul>
       {all.data && meta && (
-        <div className="mx-3 mb-3 rounded-lg border border-line-soft bg-[#121219]">
+        <div className="mx-3 mb-3 rounded-lg border border-line-soft bg-pane-sub">
           <p className="px-4 pt-3 text-xs font-semibold text-ink">{t('ro.distribution')}</p>
           <CaseHistogram preds={visiblePreds} th={meta.risk_tiers.thresholds_cases} />
         </div>
@@ -355,7 +355,7 @@ export default function RiskOverview() {
         {LAYERS.map((v) => (
           <button key={v} role="radio" aria-checked={layer === v} onClick={() => setLayer(v)}
             className={cn('flex items-center gap-2.5 px-4 py-1.5 text-left text-[13px] transition-colors hover:bg-panel/60', layer === v ? 'text-ink' : 'text-muted')}>
-            <Dot color={layer === v ? 'var(--color-accent)' : '#6e6e7c'} hollow={layer !== v} />{t(LAYER_KEY[v])}
+            <Dot color={layer === v ? 'var(--color-accent)' : 'var(--color-faint)'} hollow={layer !== v} />{t(LAYER_KEY[v])}
           </button>
         ))}
       </div>
@@ -366,15 +366,15 @@ export default function RiskOverview() {
   const ctrl = (label: string, icon: ReactNode, onClick: () => void, disabled = false) => (
     <Tooltip content={label} side="left">
       <button onClick={onClick} disabled={disabled} aria-label={label}
-        className="grid size-9 place-items-center border-b border-line bg-black/85 text-ink backdrop-blur transition-colors last:border-b-0 hover:bg-panel-2 disabled:text-faint [&_svg]:size-4">
+        className="grid size-9 place-items-center border-b border-line bg-pane/85 text-ink backdrop-blur transition-colors last:border-b-0 hover:bg-panel-2 disabled:text-faint [&_svg]:size-4">
         {icon}
       </button>
     </Tooltip>
   )
 
   const canvas = (
-    <section aria-labelledby="ro-title" className="relative flex min-h-[520px] min-w-0 flex-col bg-[#101016] lg:min-h-0">
-      <div className="flex shrink-0 flex-wrap items-end justify-between gap-2 border-b border-line-soft bg-black/40 px-4 py-2.5 pr-16">
+    <section aria-labelledby="ro-title" className="relative flex min-h-[520px] min-w-0 flex-col bg-gis-canvas lg:min-h-0">
+      <div className="flex shrink-0 flex-wrap items-end justify-between gap-2 border-b border-line-soft bg-pane/40 px-4 py-2.5 pr-16">
         <div className="min-w-0">
           <h2 id="ro-title" className="text-[15px] font-semibold text-ink">{t('ro.schematicTitle')}</h2>
           {all.data && (
@@ -388,7 +388,7 @@ export default function RiskOverview() {
       </div>
 
       {/* map-style floating controls */}
-      <div role="group" aria-label={t('ro.canvasControls')} className="absolute top-3 right-3 z-20 flex flex-col overflow-hidden rounded-md border border-line shadow-[0_8px_24px_-10px_rgba(0,0,0,0.9)]">
+      <div role="group" aria-label={t('ro.canvasControls')} className="absolute top-3 right-3 z-20 flex flex-col overflow-hidden rounded-md border border-line shadow-[var(--shadow-lift)]">
         {ctrl(t('ro.zoomIn'), <Plus />, () => setZoom((v) => Math.min(ZOOM.length - 1, v + 1)), zoom >= ZOOM.length - 1)}
         {ctrl(t('ro.zoomOut'), <Minus />, () => setZoom((v) => Math.max(0, v - 1)), zoom <= 0)}
         {ctrl(`${t('ro.cycleLabel')}: ${t(LAYER_KEY[layer])}`, <Layers />, () => setLayer(LAYERS[(LAYERS.indexOf(layer) + 1) % LAYERS.length]))}
@@ -396,7 +396,7 @@ export default function RiskOverview() {
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 pr-16"
-        style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px)', backgroundSize: '18px 18px' }}>
+        style={{ backgroundImage: 'radial-gradient(var(--color-grid-dot) 1px, transparent 1px)', backgroundSize: '18px 18px' }}>
         {all.error ? <ErrorState error={all.error} onRetry={all.retry} /> : !all.data ? <LoadingBlock className="h-96" /> : visible.length === 0 ? (
           <p className="rounded-lg border border-dashed border-line p-6 text-center text-sm text-muted">{t('ro.noMatch')}</p>
         ) : (
@@ -405,7 +405,7 @@ export default function RiskOverview() {
               const ws = visible.filter((w) => w.city === c)
               if (!ws.length) return null
               return (
-                <section key={c} aria-label={c} className="rounded-lg border border-line-soft bg-black/55 p-3 backdrop-blur-[1px]">
+                <section key={c} aria-label={c} className="rounded-lg border border-line-soft bg-pane/55 p-3 backdrop-blur-[1px]">
                   <div className="mb-2.5 flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="text-[13px] font-semibold tracking-wide text-ink uppercase">{c}</h3>
                     <span className="flex items-center gap-3 text-[11px] text-muted">
@@ -430,7 +430,7 @@ export default function RiskOverview() {
       </div>
 
       {/* bottom strip: compact legend + honest attribution, like a map's scale bar */}
-      <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1.5 border-t border-line-soft bg-black/70 px-4 py-2 text-[11px]">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1.5 border-t border-line-soft bg-pane/70 px-4 py-2 text-[11px]">
         <ul className="flex flex-wrap items-center gap-x-3.5 gap-y-1 text-ink" aria-label={t('ro.legend')}>
           <li className="flex items-center gap-1.5"><Dot color={OVERVIEW_FILL.Low} />{t('ro.legendLow')}</li>
           <li className="flex items-center gap-1.5"><Dot color={OVERVIEW_FILL.Medium} />{t('ro.legendMedium')}</li>
@@ -455,7 +455,7 @@ export default function RiskOverview() {
         </Button>
       </div>
 
-      <div className="grid overflow-hidden rounded-xl border border-line bg-black lg:h-[calc(100dvh-13.5rem)] lg:min-h-[620px] lg:grid-cols-[268px_minmax(0,1fr)] xl:grid-cols-[268px_minmax(0,1fr)_400px]">
+      <div className="grid overflow-hidden rounded-xl border border-line bg-pane lg:h-[calc(100dvh-13.5rem)] lg:min-h-[620px] lg:grid-cols-[268px_minmax(0,1fr)] xl:grid-cols-[268px_minmax(0,1fr)_400px]">
         <aside id="ro-filters" aria-label={t('ro.filters')} className={cn('min-h-0 flex-col border-b border-line lg:flex lg:border-r lg:border-b-0', showFilters ? 'flex' : 'hidden')}>
           <PaneHeader title={t('ro.dataLayers')} action={<Button size="icon" variant="ghost" className="size-8" onClick={resetAll} aria-label={t('ro.reset')}><RotateCcw /></Button>} />
           <div className="min-h-0 flex-1 overflow-y-auto">{leftPane}</div>
@@ -464,7 +464,7 @@ export default function RiskOverview() {
         {canvas}
 
         {wide && (
-          <aside aria-label={selectedInfo ? selectedInfo.ward_id : t('ro.info')} className="flex min-h-0 flex-col border-l border-line bg-[#08080c]">
+          <aside aria-label={selectedInfo ? selectedInfo.ward_id : t('ro.info')} className="flex min-h-0 flex-col border-l border-line bg-pane">
             {selectedInfo ? <WardDetailPanel wardId={selectedInfo.ward_id} onClose={close} /> : (
               <>
                 <PaneHeader title={t('ro.info')} />
@@ -482,7 +482,7 @@ export default function RiskOverview() {
         <>
           <div className="fixed inset-0 z-40 bg-black/60" onClick={close} aria-hidden />
           <aside aria-label={selectedInfo.ward_id}
-            className="fixed inset-x-0 bottom-0 z-50 flex max-h-[88dvh] flex-col overflow-hidden rounded-t-2xl border border-line bg-[#08080c] shadow-[var(--shadow-lift)] sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-[440px] sm:rounded-none sm:rounded-l-2xl">
+            className="fixed inset-x-0 bottom-0 z-50 flex max-h-[88dvh] flex-col overflow-hidden rounded-t-2xl border border-line bg-pane shadow-[var(--shadow-lift)] sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-[440px] sm:rounded-none sm:rounded-l-2xl">
             <WardDetailPanel wardId={selectedInfo.ward_id} onClose={close} />
           </aside>
         </>
