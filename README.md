@@ -205,17 +205,15 @@ Interactive docs: http://localhost:8000/docs
 
 | Tool / API | Used for |
 |---|---|
-| **Claude Code** (Anthropic, Claude models, via claude.ai/code) | Inspected the brief, rulebook, dataset and design references. Implemented the data pipeline, models, FastAPI backend, React frontend, tests, start scripts and this documentation, under the team's direction and review. |
+| **Claude Code** (Anthropic, Claude models; via claude.ai/code and the VS Code extension) | Software implementation, debugging, UI development and documentation assistance: inspected the brief, rulebook, dataset and design references; implemented the data pipeline, models, FastAPI backend, React frontend, tests, start scripts and this documentation, under the team's direction and review. |
 | **Impeccable** skill (open source, `pbakaus/impeccable`, Apache-2.0), loaded into Claude Code | Design-quality guidance (contrast, states, motion and type checklist) during UI work. |
-| **ChatGPT** (OpenAI) | **TODO (team): confirm and describe use** — for example, drafting the implementation prompt. Remove this row if it was not used. |
+| **ChatGPT** (OpenAI) | Planning and review, not code in this repository: interpreting the official hackathon requirements and evaluation criteria; planning the dashboard UI/UX; researching geographic mapping options and assessing dataset limitations; designing the ward-level heatmap interaction strategy; preparing implementation prompts and development instructions for Claude Code; reviewing project features against the hackathon requirements; guidance on documentation and submission preparation. |
 
 **At runtime:** no LLM, model endpoint or external API is called. All predictions come from the locally trained scikit-learn models, and the token cost is zero.
 
 ## Attributions
 
 - **Dataset:** official hackathon dataset supplied by the organizers (EDU Computer Club / XPONENT).
-- **Homepage hero photo** (`frontend/src/assets/photos/operating-room-hero.png`, operating-room team): supplied by the team. **TODO (team): add its source and licence.**
-- **Photos** (`design/medical-*.{png,jpg}`): supplied by the team; `medical-corridor.jpg` is used on the sign-in page. **TODO (team): add each photo's source and licence.** Clear the rights before using them outside the hackathon demo.
 - **Design reference:** `design/dashboard-reference.png`, a third-party dribbble-style concept used only as layout inspiration. No content was copied.
 - **Fonts:** Manrope and Noto Sans Bengali, SIL Open Font License 1.1.
 - **Libraries:** see `requirements.txt` and `frontend/package.json`; all are open source under their own licences. No significant third-party code snippets were copied.
@@ -223,4 +221,4 @@ Interactive docs: http://localhost:8000/docs
 ## Demo
 
 - **Local:** `./start.sh` (macOS / Linux) or `.\start.ps1` (Windows), then http://localhost:8000
-- **Video (2 min, uncut, live on localhost, with voiceover):** **TODO (team): add link.** The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
+- **Video (2 min, uncut, live on localhost, with voiceover):** _Pending — not yet uploaded._ The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
