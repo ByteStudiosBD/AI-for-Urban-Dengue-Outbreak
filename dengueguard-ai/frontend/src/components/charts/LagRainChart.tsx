@@ -16,7 +16,7 @@ export function LagRainChart({ lags, height = 200 }: { lags: WeatherLag[]; heigh
           <XAxis dataKey="label" {...axisProps} />
           <YAxis {...axisProps} width={44} />
           <Tooltip
-            cursor={{ fill: 'rgba(255,255,255,0.04)' }}
+            cursor={{ fill: 'var(--color-chart-cursor)' }}
             content={({ active, payload }) => {
               if (!active || !payload?.length) return null
               const d = payload[0].payload as WeatherLag

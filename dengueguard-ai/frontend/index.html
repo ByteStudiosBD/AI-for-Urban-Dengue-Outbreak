@@ -4,9 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <meta name="description" content="DengueGuard AI — ward-level dengue early-warning prototype using multi-week rainfall lags." />
     <title>DengueGuard AI</title>
+    <script>
+      /* Apply the saved theme before first paint so there is no flash of the wrong theme.
+         Dark is the default; only an explicit saved "light" switches it. */
+      (function () {
+        try {
+          if (localStorage.getItem('dg.theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light')
+            document.documentElement.style.background = '#FBF6EA'
+          }
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
