@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { AppShell } from '@/components/layout/AppShell'
 import { PageTransition } from '@/components/layout/PageTransition'
+import { RequireSession } from '@/components/layout/RequireSession'
 import { RouteErrorBoundary } from '@/components/layout/RouteErrorBoundary'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { I18nProvider } from '@/i18n'
@@ -34,9 +35,9 @@ export default function App() {
               <RouteErrorBoundary>
                 <Suspense fallback={<div className="min-h-dvh bg-canvas" />}>
                   <Routes>
-                    <Route path="/" element={<PageTransition><LandingPage /></PageTransition>} />
+                    <Route path="/" element={<RequireSession><PageTransition><LandingPage /></PageTransition></RequireSession>} />
                     <Route path="/login" element={<PageTransition><LoginPage /></PageTransition>} />
-                    <Route element={<AppShell />}>
+                    <Route element={<RequireSession><AppShell /></RequireSession>}>
                       <Route path="/risk" element={<RiskOverview />} />
                       <Route path="/data" element={<ViewData />} />
                       <Route path="/dashboard" element={<Dashboard />} />

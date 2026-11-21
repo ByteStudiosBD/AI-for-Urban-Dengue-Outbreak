@@ -16,6 +16,8 @@ const Q = '?city=Dhaka%20North&ward=DNCC_Ward_05&asOf=2024-08-05&h=2'
   }
   const expectText = async (text) => page.getByText(text, { exact: false }).first().waitFor({ timeout: 8000 })
 
+  await check('sign-in first', async () => { await page.goto(BASE + '/'); await page.waitForURL('**/login**'); await page.goto(BASE + '/data'); await page.waitForURL(/\/login\?next=%2Fdata/) })
+  await check('demo login returns to requested page', async () => { await page.getByRole('button', { name: 'Continue in Demo Mode' }).click(); await page.waitForURL('**/data**') })
   await check('landing', async () => { await page.goto(BASE + '/'); await expectText('Know the risk before the outbreak'); const ok = await page.locator('img[src*="operating-room-hero"]').evaluate((i) => i.complete && i.naturalWidth === 1672); if (!ok) throw new Error('hero photo not loaded'); if (await page.locator('figure img').count()) throw new Error('old collage still present') })
   await check('demo login', async () => { await page.goto(BASE + '/login'); await page.getByRole('button', { name: 'Continue in Demo Mode' }).click(); await page.waitForURL('**/risk**') })
   await check('risk overview: 60 tiles', async () => { await page.goto(BASE + '/risk' + Q); await expectText('Ward Risk Heatmap — Schematic View'); await page.getByRole('button', { name: /^DNCC_Ward_19, Dhaka North: Critical/ }).waitFor({ timeout: 8000 }); const n = await page.getByRole('button', { name: /^[A-Z]+_Ward_\d+, / }).count(); if (n !== 60) throw new Error(`expected 60 ward tiles, got ${n}`) })

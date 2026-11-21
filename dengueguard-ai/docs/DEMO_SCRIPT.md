@@ -14,7 +14,7 @@ The rulebook asks for a 2-minute video and the challenge brief allows up to 3:00
 
 | Time | Screen and action | Say |
 |---|---|---|
-| 0:00 | Landing page. Click **Explore Dashboard**, then **Continue in Demo Mode**. You land on **Risk Overview**. | "DengueGuard AI forecasts dengue for every ward two to four weeks ahead from weekly weather, using the official dataset: sixty wards, 2016 to 2025." |
+| 0:00 | The site opens on the **sign-in page**. Click **Continue in Demo Mode**. You land on **Risk Overview**. | "DengueGuard AI forecasts dengue for every ward two to four weeks ahead from weekly weather, using the official dataset: sixty wards, 2016 to 2025." |
 | 0:12 | Risk Overview. In the left panel set the reference week to **5 Aug 2024** and horizon **2 wk**. | "Each tile is one dataset ward, grouped by city. This is a schematic view, not a map, because no verified ward boundaries exist. The colours come from live model inference for the week and horizon I pick." |
 | 0:28 | Point at the legend, then the striped **DNCC_Ward_19** tile. Switch the horizon to **4 wk**, then back to **2 wk**. | "Green is low, blue medium, red high or critical. Critical wards are also striped with a C. Changing the horizon re-reads the model's forecasts, so the picture shifts as the outbreak builds." |
 | 0:45 | Click **DNCC_Ward_19**. Panel opens on **Overview**. | "Clicking a ward opens its details: the exact four-tier forecast, Critical here, 13.3 cases with a 90% prediction interval, its risk score, and what was actually observed later: 19 cases." |
