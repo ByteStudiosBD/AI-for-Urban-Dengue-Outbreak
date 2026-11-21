@@ -11,13 +11,13 @@ from fastapi import FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from backend.api import auth
 from backend.config import ROOT
-from backend.data_processing.loader import coverage_report
+from backend.data_processing.loader import EXPECTED_COLUMNS, coverage_report
 from backend.prediction_engine.engine import TIERS, ModelUnavailable, get_engine
 
 logging.basicConfig(level=logging.INFO)
@@ -214,6 +214,53 @@ def weather_lags(ward_id: str, as_of: str | None = None, weeks: int = Query(12, 
                     "relative_humidity_pct": _f(r.relative_humidity_pct, 2), "dengue_cases": int(r.dengue_cases)}
                    for r in hist.itertuples()],
     }
+
+
+@app.get("/api/records")
+def records(city: str | None = None, ward_id: str | None = None,
+            from_: str | None = Query(None, alias="from"), to: str | None = None,
+            q: str | None = Query(None, max_length=64, description="Case-insensitive ward_id substring"),
+            sort: str = "date", order: str = Query("asc", pattern="^(asc|desc)$"),
+            page: int = Query(1, ge=1), page_size: int = Query(50, ge=10, le=500),
+            format: str = Query("json", pattern="^(json|csv)$")):
+    """The original dataset rows (all 12 source columns, values unchanged), filtered,
+    sorted and paginated on the server so the browser never downloads all 31,320 rows
+    to show one page. format=csv returns every row matching the filters."""
+    eng = get_engine()
+    _city_or_404(eng, city)
+    if sort not in EXPECTED_COLUMNS:
+        raise ApiError(422, "invalid_parameter", f"sort must be one of: {', '.join(EXPECTED_COLUMNS)}")
+    df = eng.raw[EXPECTED_COLUMNS]
+    if ward_id:
+        _ward(eng, ward_id)
+        df = df[df["ward_id"] == ward_id]
+    if city:
+        df = df[df["city"] == city]
+    lo, hi = _date(from_, "from"), _date(to, "to")
+    if lo is not None:
+        df = df[df["date"] >= lo]
+    if hi is not None:
+        df = df[df["date"] <= hi]
+    if q:
+        df = df[df["ward_id"].str.contains(q.strip(), case=False, regex=False)]
+    keys = [sort] + [k for k in ("ward_id", "date") if k != sort]  # stable, deterministic order
+    df = df.sort_values(keys, ascending=[order == "asc"] + [True] * (len(keys) - 1), kind="mergesort")
+
+    def _out(frame: pd.DataFrame) -> pd.DataFrame:
+        frame = frame.copy()
+        frame["date"] = frame["date"].dt.date.astype(str)
+        return frame.astype(object).where(frame.notna(), None)  # keep nulls as nulls
+
+    if format == "csv":
+        name = f"dengueguard_records_{ward_id or city or 'all'}.csv".replace(" ", "_")
+        return Response(_out(df).to_csv(index=False), media_type="text/csv",
+                        headers={"Content-Disposition": f'attachment; filename="{name}"'})
+    total = len(df)
+    pages = max(1, math.ceil(total / page_size))
+    chunk = df.iloc[(page - 1) * page_size: page * page_size]
+    return {"total": total, "page": page, "page_size": page_size, "pages": pages,
+            "sort": sort, "order": order, "columns": EXPECTED_COLUMNS,
+            "rows": _out(chunk).to_dict("records")}
 
 
 @app.get("/api/predict")
