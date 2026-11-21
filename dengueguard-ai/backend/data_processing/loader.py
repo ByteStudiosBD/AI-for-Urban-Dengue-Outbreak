@@ -5,6 +5,7 @@ Run:  python -m backend.data_processing.loader
 from __future__ import annotations
 
 import json
+import logging
 from functools import lru_cache
 
 import pandas as pd
@@ -77,7 +78,12 @@ def build_csv() -> pd.DataFrame:
     df = clean(pd.read_excel(RAW_XLSX))
     out = df.copy()
     out["date"] = out["date"].dt.strftime("%Y-%m-%d")
-    out.to_csv(DATASET_CSV, index=False)
+    try:
+        out.to_csv(DATASET_CSV, index=False)
+    except OSError as exc:
+        # Read-only deployments (e.g. serverless hosts): the CSV is only a cache,
+        # so keep serving the freshly cleaned data from memory instead of failing.
+        logging.getLogger("dengueguard.loader").warning("Could not write %s (%s); using in-memory data", DATASET_CSV, exc)
     return df
 
 
