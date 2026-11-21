@@ -17,6 +17,6 @@ export function RequireSession({ children }: { children: ReactNode }) {
 }
 
 /** Only same-site paths are allowed as a post-login destination. */
-export function safeNext(raw: string | null, fallback = '/risk') {
+export function safeNext(raw: string | null, fallback = '/') {
   return raw && raw.startsWith('/') && !raw.startsWith('//') && !raw.startsWith('/login') ? raw : fallback
 }

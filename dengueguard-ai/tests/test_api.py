@@ -159,3 +159,15 @@ def test_predict_all_cities_returns_every_ward_once(c, h):
     one = c.get(f"/api/predict?ward_id=CCC_Ward_03&horizon_weeks={h}&as_of=2024-08-05").json()
     match = next(p for p in r["predictions"] if p["ward_id"] == "CCC_Ward_03")
     assert match["risk_tier"] == one["risk_tier"] and match["predicted_cases"] == one["predicted_cases"]
+
+
+def test_html_shell_is_revalidated_and_hashed_assets_are_cached(c):
+    from backend.api.main import DIST
+    if not DIST.exists():
+        pytest.skip("frontend not built")
+    for path in ("/", "/login", "/risk"):
+        r = c.get(path)
+        assert r.status_code == 200 and r.headers["cache-control"] == "no-cache", path
+    asset = next((DIST / "assets").glob("*.js")).name
+    r = c.get(f"/assets/{asset}")
+    assert r.status_code == 200 and "immutable" in r.headers["cache-control"]
