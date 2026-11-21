@@ -16,16 +16,16 @@ Public health officers can see which wards to target before cases climb.
 
 | Page | What it shows |
 |---|---|
-| **Landing** | Hero collage from the three supplied hospital photos, how it works, data coverage, prototype disclaimer |
-| **Login / Demo** | Demo mode with one click; optional local officer accounts (PBKDF2-hashed). Never blocks exploration |
-| **Risk Overview** (default) ★ | *Ward Risk Heatmap — Schematic View*: all 60 dataset wards as tiles grouped by city, coloured from live model inference for the chosen reference week and 2/3/4-week horizon (green Low, blue Medium, red High or Critical; Critical also striped with a "C" marker). Filters for city, ward ID, risk tier and tile label. Clicking a ward opens a panel with its exact 4-tier forecast, interval, risk score, all horizons, model drivers, weather and per-ward rainfall lags, vulnerability indicators, 52-week trends and every original record |
+| **Landing** | Full-width hero on an operating-room photo with a navy overlay and white text, how it works, data coverage, prototype disclaimer |
+| **Login / Demo** | Demo mode with one click; optional local officer accounts (PBKDF2-hashed). Never blocks exploration. Hospital-corridor photo panel whose text stays white and readable in both themes |
+| **Risk Overview** (default) ★ | *Ward Risk Heatmap — Schematic View* in a three-pane GIS-style workspace: a **Data layers** pane (reference week, horizon, city, ward-ID search, risk-tier filters with counts, a histogram of predicted cases with the tier thresholds marked, tile label), a central canvas with map-style controls (larger/smaller tiles, tile label, reset), and an **Info** pane. All 60 dataset wards appear as tiles grouped by city, coloured from live model inference for the chosen reference week and 2/3/4-week horizon (green Low, blue Medium, red High or Critical; Critical also striped with a "C" marker). With no ward selected, the Info pane summarises the window, tier counts and highest-forecast wards; clicking a ward shows its exact 4-tier forecast, interval, risk score, all horizons, model drivers, weather and per-ward rainfall lags, vulnerability indicators, 52-week trends and every original record |
 | **View Data** | The complete original dataset (31,320 rows, all 12 source columns, values unchanged) with city / ward / ID search / date filters, sorting on every column, server-side pagination and CSV download of the filtered rows. The ward panel links here pre-filtered to that ward |
 | **Overview** | City cases this week, wards at High/Critical, selected-ward forecast with interval, ward weather, 26-week history + 2–4 week forecast chart, driver panel, lagged-rainfall chart, ward watchlist |
 | **Risk Predictions** | Side-by-side 2/3/4-week forecasts, interval scale over tier zones, model inputs, provenance and evaluation status, tier and score formulas |
-| **Ward Risk Heatmap (Matrix)** ★ | Ward × horizon and ward × reference-week matrices coloured by model tier, with hover details, click-through and sortable ranking. No invented geography |
+| **Risk Matrix (by week)** ★ | Ward × horizon and ward × reference-week matrices coloured by model tier, with hover details, click-through and sortable ranking. No invented geography |
 | **Weather Data** | Weekly rainfall with toggleable 1–4 week lag series, temperature (avg/max/min), humidity, lag and rolling-total table |
 | **Model Validation** ★ | Chronological split timeline, held-out MAE/RMSE per horizon vs. baseline, interval coverage, filterable actual-vs-predicted chart, candidate models, factor importance, error by city |
-| **Everywhere** | EN / বাংলা switch, alerts count derived from real High/Critical forecasts, CSV export of the current city forecast, filters kept in the URL |
+| **Everywhere** | EN / বাংলা switch; **dark / light theme toggle** (dark by default, choice remembered in the browser, no flash on reload); alerts count derived from real High/Critical forecasts; CSV export of the current city forecast; filters kept in the URL; site footer with project credit and a link to this GitHub repository |
 
 ★ = bonus features (ward-level heatmaps, multi-week prediction intervals, chronological MAE/RMSE dashboard).
 
@@ -111,6 +111,16 @@ cd frontend && npm ci && npm run dev         # http://localhost:5173 (proxies /a
 
 Or run both servers with hot reload: `./dev.sh`.
 
+### Optional: deploy on Vercel
+
+The repository includes a Vercel configuration that runs the same FastAPI app as one Python function and builds the React UI during deployment:
+
+- `dengueguard-ai/app.py`: entry point (re-exports `backend.api.main:app`);
+- `dengueguard-ai/vercel.json`: frontend build command, 60 s max duration, and exclusion of tests, design files and docs from the server bundle;
+- `dengueguard-ai/.python-version`: Python 3.12.
+
+To deploy, import the repository in Vercel, set **Root Directory** to `dengueguard-ai`, keep the **FastAPI** preset, and deploy. No environment variables are needed. Vercel's servers are read-only, so the dataset loader keeps its cleaned data in memory when it cannot write the CSV cache. The first request after an idle period can take 5–15 s while the model loads and scores all wards.
+
 ### Tests
 
 ```bash
@@ -163,10 +173,11 @@ dengueguard-ai/
 ├── frontend/src/{pages,components,i18n,services,types,state}
 ├── data/        hackathon_preli_dataset.xlsx, dataset.csv (generated)
 ├── models/      trained_model.joblib (0.7 MB), model_metadata.json
-├── design/      dashboard reference + 3 hospital photos
-├── docs/        official brief and rulebook
+├── design/      dashboard reference + supplied reference photos
+├── docs/        official brief, rulebook and demo script
 ├── tests/
-└── start.sh · start.ps1 · dev.sh · requirements.txt
+├── start.sh · start.ps1 · dev.sh · requirements.txt
+└── app.py · vercel.json · .python-version   # Vercel deployment
 ```
 
 Architecture, split logic, model choice, calibration and cost controls are covered in [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -221,4 +232,19 @@ Interactive docs: http://localhost:8000/docs
 ## Demo
 
 - **Local:** `./start.sh` (macOS / Linux) or `.\start.ps1` (Windows), then http://localhost:8000
+- **Deployed URL:** _Pending — Vercel deployment not yet published._
 - **Video (2 min, uncut, live on localhost, with voiceover):** _Pending — not yet uploaded._ The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
+
+## Recent changes
+
+Changes merged into `main` since the previous README update (each pull request reviewed and merged by the team):
+
+| PR | Author | Change |
+|---|---|---|
+| #8 | codertazwar | **Vercel deployment support:** `app.py` entry point, `vercel.json` (frontend build, function limits, bundle exclusions) and `.python-version`; the dataset loader now keeps its data in memory instead of crashing when the filesystem is read-only. |
+| #9 | sifat252212 | **Site footer** on every page: project name, "Developed by Byte Studios, EDU AI Engineering Hackathon 2026", a **GitHub Repo** button linking to this repository (opens in a new tab) and the copyright line. The homepage keeps its Overview / Model Validation / Sign in links above it. |
+| #10 | sifat252212 | **Dark / light theme system:** a pill-shaped sun/moon toggle in the top bar, homepage header and sign-in page; a warm cream light palette (`#FBF6EA` background, white cards, `#172033` text) defined once as CSS colour tokens; theme-aware charts, tooltips, dropdowns, inputs and buttons; the choice is saved in the browser and applied before first paint. Dark remains the default and is unchanged. |
+| #11 | codertazwar | **Theme-aware pages:** the Risk Overview workspace, Risk Matrix, Weather Data, data tables, ward panel and footer now follow the active theme (the footer is cream in light mode and a dark band in dark mode). The Risk Overview's green / blue / red tile colours and all thresholds are identical in both themes; only the 4-tier badge text uses slightly deeper shades of the same hues in light mode for readability. |
+| #11 | codertazwar | **Sign-in page photo** replaced with a hospital-corridor image under a fixed dark overlay, so its heading and tagline stay white and readable in both themes and in Bangla. |
+
+No changes were made to the prediction engine, weather-lag pipeline, dataset, model outputs or API in these updates, apart from the read-only-safe dataset cache in #8.
