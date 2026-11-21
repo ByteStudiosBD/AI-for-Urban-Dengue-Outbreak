@@ -33,7 +33,7 @@ export default function LoginPage() {
     setFormError(null)
     try {
       setSession(await api.demo(), remember)
-      nav('/dashboard')
+      nav('/risk')
     } catch (e) {
       setFormError((e as Error).message)
     } finally {
@@ -49,7 +49,7 @@ export default function LoginPage() {
     setBusy('login')
     try {
       setSession(await api.login(email, pw), remember)
-      nav('/dashboard')
+      nav('/risk')
     } catch (err) {
       const code = err instanceof ApiError ? err.code : ''
       setFormError(code === 'no_accounts' ? t('login.noAccounts') : code === 'invalid_credentials' ? t('login.badCreds') : (err as Error).message)

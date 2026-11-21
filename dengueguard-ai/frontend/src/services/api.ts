@@ -1,6 +1,7 @@
 import type {
   HeatmapResponse, Horizon, HorizonsResponse, Metadata, ObservationsResponse, PredictAllResponse,
-  PredictionResult, Session, ValidationResponse, ValidationSeriesResponse, WeatherLagResponse,
+  PredictionResult, RecordsQuery, RecordsResponse, Session, ValidationResponse, ValidationSeriesResponse,
+  WeatherLagResponse,
 } from '@/types/api'
 
 export class ApiError extends Error {
@@ -67,6 +68,10 @@ export const api = {
     get<PredictAllResponse>(`/api/predict-all${qs({ city, as_of, horizon_weeks })}`),
   heatmap: (city: string | null, as_of: string, weeks = 8) =>
     get<HeatmapResponse>(`/api/heatmap${qs({ city, as_of, weeks })}`),
+  /** Original dataset rows, filtered/sorted/paginated on the server (one page per request). */
+  records: (p: RecordsQuery) => get<RecordsResponse>(`/api/records${qs({ ...p })}`),
+  /** Same filters as records(), every matching row as a CSV file (plain link, no JSON round-trip). */
+  recordsCsvUrl: (p: Omit<RecordsQuery, 'page' | 'page_size'>) => `/api/records${qs({ ...p, format: 'csv' })}`,
   validation: () => get<ValidationResponse>('/api/validation'),
   validationSeries: (p: { horizon_weeks: Horizon; ward_id?: string; city?: string; from?: string; to?: string }) =>
     get<ValidationSeriesResponse>(`/api/validation-series${qs(p)}`),
