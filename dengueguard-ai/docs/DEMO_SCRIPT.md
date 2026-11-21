@@ -1,17 +1,36 @@
-# 3-minute uncut demo script (voiceover, no slides)
+# Demo script: live walkthrough (voiceover, no slides)
 
-Start with `./start.sh` already running and the browser at http://localhost:8000.
-Use a held-out test week, so every number shown is out-of-sample: **Dhaka North · DNCC_Ward_05 · 5 Aug 2024**.
+The rulebook asks for a 2-minute video and the challenge brief allows up to 3:00. The **core** steps below run about **1:55**. The steps marked *(optional)* add about a minute; include them only if you stay under 3:00.
 
-| Time | Screen | Say |
+## Before you press record
+
+1. Start the app: `.\start.ps1` (Windows) or `./start.sh` (macOS / Linux). Wait for `DengueGuard AI running at http://localhost:8000`.
+2. Open http://localhost:8000 in a browser at 100% zoom, full screen, with other tabs closed.
+3. Do one dry run first, so every page is already cached and loads instantly.
+4. Record **one continuous take** with your microphone on. No cuts, no slides, no music over the voice.
+5. Demo selection (a held-out test week, so every number is out-of-sample): reference week **5 Aug 2024**, ward **DNCC_Ward_19** (Critical at 2 weeks).
+
+## Script
+
+| Time | Screen and action | Say |
 |---|---|---|
-| 0:00 | Landing page | "DengueGuard AI forecasts dengue for each ward 2 to 4 weeks ahead from weekly weather. It runs locally on the official dataset: 60 wards, 2016 to 2025." Click **Explore Dashboard**. |
-| 0:15 | Login (optional) | Show **Continue in Demo Mode**: "Judges never need an account." |
-| 0:25 | Overview | Set city **Dhaka North**, ward **DNCC_Ward_05**, week **5 Aug 2024**. "Inputs: city, ward, reference week and horizon. The model only sees data up to this week." Point at the KPIs: observed cases, wards at High/Critical, and the selected ward's forecast with its 90% interval. |
-| 0:50 | Overview chart and drivers | "Orange is observed cases. The dashed points are the 2, 3 and 4-week forecasts with prediction intervals, and the orange dots are what actually happened later." Drivers: "Rainfall lags push this forecast up the most. Below that, rain 1 to 4 weeks earlier." |
-| 1:15 | Weather Data | Toggle the t−1 to t−4 lag lines. "Each lag is computed per ward with a groupby-shift, so no ward borrows another's history. Rain takes 2 to 4 weeks to become cases." |
-| 1:35 | Risk Predictions | "All three horizons side by side, each with its tier, risk score, interval, and an evaluation status of held-out test." Point at the tier thresholds: "derived from the training distribution, documented, prototype only." |
-| 1:55 | Heatmap | "Every ward against every horizon, coloured by model tier with text markers. No fake map, because no boundary data was supplied." Click a Critical cell to jump to its prediction. |
-| 2:15 | Model Validation | "Chronological split by target week: train to 2022, validate 2023, test 2024–25. On held-out data the 2-week MAE is about 1.05 cases, 39% better than the baseline, and the 90% intervals cover about 92%." Change the scope filter. |
-| 2:40 | Top bar | Click the alert bell (counted from real forecasts), **Export CSV**, and switch to **বাংলা**. "Models load once, all ward-weeks are scored in a single batch at startup, and there are no LLM or API calls, so inference is free." |
-| 2:55 | — | "Decision support only, not clinical advice. Thank you." |
+| 0:00 | Landing page. Click **Explore Dashboard**, then **Continue in Demo Mode**. You land on **Risk Overview**. | "DengueGuard AI forecasts dengue for every ward two to four weeks ahead from weekly weather, using the official dataset: sixty wards, 2016 to 2025." |
+| 0:12 | Risk Overview. In the left panel set the reference week to **5 Aug 2024** and horizon **2 wk**. | "Each tile is one dataset ward, grouped by city. This is a schematic view, not a map, because no verified ward boundaries exist. The colours come from live model inference for the week and horizon I pick." |
+| 0:28 | Point at the legend, then the striped **DNCC_Ward_19** tile. Switch the horizon to **4 wk**, then back to **2 wk**. | "Green is low, blue medium, red high or critical. Critical wards are also striped with a C. Changing the horizon re-reads the model's forecasts, so the picture shifts as the outbreak builds." |
+| 0:45 | Click **DNCC_Ward_19**. Panel opens on **Overview**. | "Clicking a ward opens its details: the exact four-tier forecast, Critical here, 13.3 cases with a 90% prediction interval, its risk score, and what was actually observed later: 19 cases." |
+| 1:00 | Panel tab **Weather & drivers**. | "The drivers show why. Lagged rainfall and humidity push this forecast up most. Rainfall lags of one to four weeks are computed separately for each ward, because rain takes weeks to become cases. Waterlogging, sanitation and density are here too." |
+| 1:18 | Panel tab **Trends**. | "Fifty-two weeks of observed cases and weather, then the two-, three- and four-week forecasts with their intervals." |
+| 1:28 | Panel tab **All ward data**, then click **Open in View Data**. | "Every original record for this ward is available. View Data shows the full dataset: thirty-one thousand rows, all original columns, unchanged, with sorting, filters and CSV download." |
+| 1:42 | Left sidebar: **Model Validation**. | "We validate chronologically: train to 2022, tune on 2023, test on 2024 and 2025. On unseen data the two-week error is about one case per ward-week, thirty-nine percent better than the baseline." |
+| 1:52 | Stop here for a 2-minute video. | "Models load once and need no API calls, so it runs fast and free. Decision support only, not clinical advice. Thank you." |
+| *(optional)* 1:52 | Back to Risk Overview. Untick **Low** and **Medium**, choose city **Dhaka South**, search `ward_1`. | "Officers can filter to just the high-risk wards in one city, or search by ward ID." |
+| *(optional)* 2:10 | Sidebar: **Ward Risk Heatmap** (matrix). | "The matrix view shows every ward against every horizon and the last eight weeks, to see risk building over time." |
+| *(optional)* 2:25 | Top bar: alert bell, then **বাংলা**. | "Alerts are counted from real High and Critical forecasts, and the whole interface works in Bangla." |
+| *(optional)* 2:40 | Closing line from 1:52. | |
+
+## Checklist after recording
+
+- [ ] The video is no longer than the target (2:00 for the rulebook, 3:00 at most), one continuous take, with clear voice audio.
+- [ ] The browser address bar shows `localhost:8000` at least once.
+- [ ] Upload it (YouTube unlisted or Google Drive, with "Anyone with the link" access), then open the link in an incognito window to confirm it plays.
+- [ ] Paste the link into the **Demo** section of the root `README.md`.

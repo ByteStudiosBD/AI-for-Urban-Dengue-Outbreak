@@ -11,7 +11,7 @@ flowchart LR
   F -->|train.py<br/>chronological split| M[(models/trained_model.joblib<br/>model_metadata.json)]
   M -->|engine.py: load once,<br/>batch-score all rows at startup| T[In-memory prediction table<br/>93,240 rows: forecast, interval,<br/>tier, score, eval status]
   T -->|FastAPI /api/*<br/>look-ups + gzip + Cache-Control| API[REST JSON]
-  API -->|typed client, in-memory<br/>de-duplicated cache| UI[React UI<br/>Overview · Predictions · Heatmap ·<br/>Weather · Validation]
+  API -->|typed client, in-memory<br/>de-duplicated cache| UI[React UI<br/>Risk Overview · View Data · Overview ·<br/>Predictions · Heatmap · Weather · Validation]
 ```
 
 | Step | Module | What happens |
@@ -96,7 +96,8 @@ These are prototype operational tiers, not clinical thresholds.
 | Startup batch scoring of all 93,240 rows | `/predict-all`, `/heatmap` and the alert count are filters, not model calls; typical latency 3–30 ms |
 | Memoised explanations (`lru_cache`, 4,096 entries) | 7 extra model calls per new ward/week/horizon, then free |
 | Cache invalidation | The engine rebuilds automatically when `trained_model.joblib`'s mtime changes; `dataset.csv` is rebuilt when the XLSX is newer |
-| Batched endpoints | `/predict-horizons` returns all 3 horizons in one call; `/predict-all` scores a whole city in one call |
+| Batched endpoints | `/predict-horizons` returns all 3 horizons in one call; `/predict-all` returns all 60 wards (Risk Overview tiles) or one city in one call |
+| Server-side paging | `/records` filters, sorts and pages the 31,320 source rows in pandas and returns one page (default 50); the browser never downloads the full dataset unless the user asks for the CSV |
 | Client cache | Every GET is memoised and de-duplicated for the session; failures are not cached; filters fire on change, never per keystroke |
 | HTTP | gzip above 1 KB; `Cache-Control: private, max-age=300` on API GETs (the data is static) |
 | LLM / external APIs | **None at runtime.** Token cost 0, `llm_calls_per_request: 0` (exposed in `/api/metadata`) |
@@ -111,7 +112,8 @@ These are prototype operational tiers, not clinical thresholds.
 ## 7. Limitations
 
 - **Coverage:** one historical dataset (2016–2025, 60 wards). It is not a live feed, and nothing has been externally validated epidemiologically.
-- **No map:** no ward boundary data was supplied, so the heatmap is a ward × horizon / week matrix, not a choropleth.
+- **No map:** no ward boundary data was supplied, and the dataset's ward IDs (e.g. `DNCC_Ward_05`) cannot be verified against official ward numbers. The Risk Overview is therefore a schematic tile grid grouped by city, and the heatmap is a ward × horizon / week matrix; neither implies geographic position or adjacency.
+- **Overview colours:** the Risk Overview fills tiles with three colours (green Low, blue Medium, red High or Critical). The model and API keep all four tiers; Critical tiles are additionally striped and marked "C", and the ward panel shows the exact tier.
 - **Interval scope:** intervals are marginal per ward-week. City totals in the validation chart sum per-ward bounds, which is a conservative envelope and is labelled as such.
 - **Weather inputs:** forecasting beyond the data uses the last observed weather. No weather forecast is ingested.
 - **Authentication:** prototype only. PBKDF2-hashed local accounts with in-memory sessions; demo mode needs no account.

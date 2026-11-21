@@ -18,6 +18,8 @@ Public health officers can see which wards to target before cases climb.
 |---|---|
 | **Landing** | Hero collage from the three supplied hospital photos, how it works, data coverage, prototype disclaimer |
 | **Login / Demo** | Demo mode with one click; optional local officer accounts (PBKDF2-hashed). Never blocks exploration |
+| **Risk Overview** (default) ★ | *Ward Risk Heatmap — Schematic View*: all 60 dataset wards as tiles grouped by city, coloured from live model inference for the chosen reference week and 2/3/4-week horizon (green Low, blue Medium, red High or Critical; Critical also striped with a "C" marker). Filters for city, ward ID, risk tier and tile label. Clicking a ward opens a panel with its exact 4-tier forecast, interval, risk score, all horizons, model drivers, weather and per-ward rainfall lags, vulnerability indicators, 52-week trends and every original record |
+| **View Data** | The complete original dataset (31,320 rows, all 12 source columns, values unchanged) with city / ward / ID search / date filters, sorting on every column, server-side pagination and CSV download of the filtered rows. The ward panel links here pre-filtered to that ward |
 | **Overview** | City cases this week, wards at High/Critical, selected-ward forecast with interval, ward weather, 26-week history + 2–4 week forecast chart, driver panel, lagged-rainfall chart, ward watchlist |
 | **Risk Predictions** | Side-by-side 2/3/4-week forecasts, interval scale over tier zones, model inputs, provenance and evaluation status, tier and score formulas |
 | **Ward Risk Heatmap (Matrix)** ★ | Ward × horizon and ward × reference-week matrices coloured by model tier, with hover details, click-through and sortable ranking. No invented geography |
@@ -25,7 +27,9 @@ Public health officers can see which wards to target before cases climb.
 | **Model Validation** ★ | Chronological split timeline, held-out MAE/RMSE per horizon vs. baseline, interval coverage, filterable actual-vs-predicted chart, candidate models, factor importance, error by city |
 | **Everywhere** | EN / বাংলা switch, alerts count derived from real High/Critical forecasts, CSV export of the current city forecast, filters kept in the URL |
 
-★ = bonus features (heatmap, multi-week prediction intervals, chronological MAE/RMSE dashboard).
+★ = bonus features (ward-level heatmaps, multi-week prediction intervals, chronological MAE/RMSE dashboard).
+
+**Data limitations.** The dataset has no coordinates or official ward codes, and its ward IDs (for example `DNCC_Ward_05`) are dataset identifiers that may not match official ward numbers. No ward boundary data was used, so the heatmaps are schematic and do not show geographic position. All data is historical (4 Jan 2016 – 29 Dec 2025), not a live feed.
 
 **Held-out test results** (target weeks 2024–2025, 6,300 ward-weeks per horizon):
 
@@ -53,10 +57,24 @@ macOS / Linux:
 ./start.sh
 ```
 
-Windows (PowerShell):
+Windows (PowerShell). The first command allows the script to run in this window only:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+```
 
 ```powershell
 .\start.ps1
+```
+
+On Windows, `python` must be a real Python install, not the Microsoft Store shortcut. If Python or Node.js is missing, install them with winget and then open a new PowerShell window:
+
+```powershell
+winget install -e --id Python.Python.3.12
+```
+
+```powershell
+winget install -e --id OpenJS.NodeJS.LTS
 ```
 
 Then open **http://localhost:8000**.
@@ -103,14 +121,15 @@ python -m pytest -q tests
 cd frontend && npx tsc -b && npm run build
 ```
 
-The 30 backend tests cover:
+The 41 backend tests cover:
 - schema and coverage of the dataset;
 - Excel serial date parsing;
 - lag correctness per ward and no cross-ward contamination;
 - feature invariance when future weeks are altered (leakage);
 - horizon target alignment and disjoint chronological splits;
 - conformal interval properties;
-- every API endpoint, including structured errors.
+- every API endpoint, including structured errors;
+- dataset records returned unchanged, per-ward isolation (`DNCC_Ward_05` never mixes with `DSCC_Ward_05`), and all 60 wards forecast exactly once per week and horizon.
 
 `tests/e2e_smoke.cjs` loads every route in a headless browser and fails on console errors.
 
@@ -160,6 +179,7 @@ Architecture, split logic, model choice, calibration and cost controls are cover
 | `GET /api/metadata` | Cities, wards, coverage, available weeks, tier and interval config |
 | `GET /api/observations?city=&ward_id=&from=&to=` | Weekly observations (ward rows or city aggregates) |
 | `GET /api/weather-lags?ward_id=&as_of=&weeks=` | Lag 1–4 rainfall, rolling totals, recent series |
+| `GET /api/records?city=&ward_id=&q=&from=&to=&sort=&order=&page=&page_size=&format=` | Original dataset rows (12 source columns, unchanged), filtered, sorted and paginated; `format=csv` downloads every matching row |
 | `GET /api/predict?ward_id=&as_of=&horizon_weeks=` | One forecast with interval, tier, score, drivers, test metrics |
 | `GET /api/predict-horizons?ward_id=&as_of=` | All three horizons in one call |
 | `GET /api/predict-all?city=&as_of=&horizon_weeks=` | Batch city forecasts, tier counts, alert count |
@@ -201,5 +221,5 @@ Interactive docs: http://localhost:8000/docs
 
 ## Demo
 
-- **Local:** `./start.sh`, then http://localhost:8000
-- **Video (≤ 3 min, uncut, with voiceover):** **TODO (team): add link.** The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
+- **Local:** `./start.sh` (macOS / Linux) or `.\start.ps1` (Windows), then http://localhost:8000
+- **Video (2 min, uncut, live on localhost, with voiceover):** **TODO (team): add link.** The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
