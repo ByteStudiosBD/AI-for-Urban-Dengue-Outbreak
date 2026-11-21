@@ -14,7 +14,7 @@ const PAGE_SIZES = [25, 50, 100, 200]
 const ALL = '__all__'
 
 const inputCls =
-  'h-10 rounded-xl border border-line bg-panel px-3 text-sm text-ink placeholder:text-faint transition-colors duration-150 hover:border-[#4a4a58] focus-visible:border-accent focus-visible:outline-none [color-scheme:dark]'
+  'h-10 rounded-xl border border-line bg-panel px-3 text-sm text-ink placeholder:text-faint transition-colors duration-150 hover:border-line-strong focus-visible:border-accent focus-visible:outline-none'
 
 /**
  * The original dataset, one server-side page at a time. Column names and cell values are
@@ -143,7 +143,7 @@ export function RecordsTable({ fixedWard, initialCity, initialWard, compact = fa
               </thead>
               <tbody>
                 {data.rows.map((row) => (
-                  <tr key={`${row.ward_id}-${row.date}`} className="border-b border-line-soft odd:bg-white/[0.015] hover:bg-panel-2">
+                  <tr key={`${row.ward_id}-${row.date}`} className="border-b border-line-soft odd:bg-ink/[0.025] hover:bg-panel-2">
                     {data.columns.map((col) => (
                       <td key={col} className={cn('px-3 py-1.5 whitespace-nowrap', typeof row[col] === 'number' ? 'num text-right' : 'text-ink')}>{cell(col, row[col])}</td>
                     ))}

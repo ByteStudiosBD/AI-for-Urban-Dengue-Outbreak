@@ -29,8 +29,8 @@ function Cell({ tier, cases, active, onClick, tip, label }: {
           active && 'ring-2 ring-ink ring-offset-2 ring-offset-panel',
         )}
         style={{
-          background: `color-mix(in oklab, ${TIER_COLOR[tier]} ${tier === "Low" ? 22 : 78}%, #1b1b26)`,
-          color: tier === 'Low' ? '#d6f5e6' : '#0b0b10',
+          background: `color-mix(in oklab, ${TIER_COLOR[tier]} ${tier === "Low" ? 22 : 78}%, var(--color-panel))`,
+          color: tier === 'Low' ? 'var(--color-tier-low-ink)' : '#0b0b10',
         }}
       >
         <span aria-hidden className="text-[9px] opacity-70">{TIER_MARK[tier]}</span>
@@ -75,7 +75,7 @@ export default function WardRiskHeatmap() {
         const th = meta!.risk_tiers.thresholds_cases
         return (
           <li key={tier} className="flex items-center gap-2">
-            <span className="grid h-5 w-7 place-items-center rounded text-[9px] font-bold" style={{ background: `color-mix(in oklab, ${TIER_COLOR[tier]} ${tier === "Low" ? 22 : 78}%, #1b1b26)`, color: tier === 'Low' ? '#d6f5e6' : '#0b0b10' }}>{TIER_MARK[tier]}</span>
+            <span className="grid h-5 w-7 place-items-center rounded text-[9px] font-bold" style={{ background: `color-mix(in oklab, ${TIER_COLOR[tier]} ${tier === "Low" ? 22 : 78}%, var(--color-panel))`, color: tier === 'Low' ? 'var(--color-tier-low-ink)' : '#0b0b10' }}>{TIER_MARK[tier]}</span>
             <span>{t(`risk.${tier}`)}</span>
             <span className="num text-faint">{[`<${th.medium}`, `${th.medium}–${th.high}`, `${th.high}–${th.critical}`, `≥${th.critical}`][i]}</span>
           </li>

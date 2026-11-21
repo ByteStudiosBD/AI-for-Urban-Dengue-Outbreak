@@ -217,7 +217,7 @@ export function WardDetailPanel({ wardId, onClose }: { wardId: string; onClose: 
                         <CartesianGrid stroke={C.grid} vertical={false} />
                         <XAxis dataKey="date" {...axisProps} minTickGap={40} tickFormatter={(d) => fmtDate(d)} />
                         <YAxis {...axisProps} allowDecimals={false} />
-                        <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} content={({ active, payload }) => active && payload?.length ? (
+                        <Tooltip cursor={{ fill: 'var(--color-chart-cursor)' }} content={({ active, payload }) => active && payload?.length ? (
                           <TooltipBox title={fmtDate(String(payload[0].payload.date), 'long')} rows={payload.filter((p) => p.value !== undefined && p.dataKey !== 'err').map((p) => ({
                             label: p.dataKey === 'observed' ? t('ro.observedCases') : t('ro.forecast'), value: fmtNum(Number(p.value), p.dataKey === 'observed' ? 0 : 1), color: p.dataKey === 'observed' ? C.accent : C.ink,
                           }))} />
@@ -241,7 +241,7 @@ export function WardDetailPanel({ wardId, onClose }: { wardId: string; onClose: 
                         <CartesianGrid stroke={C.grid} vertical={false} />
                         <XAxis dataKey="date" {...axisProps} minTickGap={40} tickFormatter={(d) => fmtDate(d)} />
                         <YAxis {...axisProps} />
-                        <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} content={({ active, payload }) => active && payload?.length ? (
+                        <Tooltip cursor={{ fill: 'var(--color-chart-cursor)' }} content={({ active, payload }) => active && payload?.length ? (
                           <TooltipBox title={fmtDate(String(payload[0].payload.date), 'long')} rows={[{ label: t('ro.rainfall'), value: `${fmtNum(Number(payload[0].value), 1)} ${t('common.mm')}`, color: C.rain }]} />
                         ) : null} />
                         <Bar dataKey="rainfall_mm" fill={C.rain} radius={[2, 2, 0, 0]} isAnimationActive animationDuration={ANIM_MS} />

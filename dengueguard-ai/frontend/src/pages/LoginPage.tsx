@@ -1,9 +1,10 @@
 import { ArrowLeft, ArrowRight, Eye, EyeOff, LogIn, UserRound } from 'lucide-react'
 import { useEffect, useId, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import corridor from '@/assets/photos/medical-corridor.jpg'
+import corridor from '@/assets/photos/signin-corridor.png'
 import { Logo } from '@/components/Logo'
 import { SiteFooter } from '@/components/layout/SiteFooter'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { LanguageToggle } from '@/components/layout/TopBar'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
@@ -65,13 +66,14 @@ export default function LoginPage() {
     <>
     <div className="grid min-h-dvh bg-canvas text-ink lg:grid-cols-[1.05fr_1fr]">
       <div className="relative hidden overflow-hidden lg:block">
-        <img src={corridor} alt={t('landing.photoCorridor')} className="absolute inset-0 size-full scale-105 object-cover blur-[1px]" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-canvas/70 via-canvas/40 to-canvas/90" />
+        <img src={corridor} alt={t('landing.photoCorridor')} className="absolute inset-0 size-full object-cover object-center" draggable={false} />
+        {/* Same dark navy overlay in both themes: the photo is dark, so its text is always white. */}
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,7,16,0.55)_0%,rgba(4,7,16,0.15)_28%,rgba(4,7,16,0.2)_55%,rgba(4,7,16,0.88)_100%)]" />
         <div className="relative flex h-full flex-col justify-between p-12">
-          <Link to="/" className="flex w-fit items-center gap-3 rounded-xl"><Logo /><span className="text-lg font-semibold">{t('app.name')}</span></Link>
+          <Link to="/" className="flex w-fit items-center gap-3 rounded-xl"><Logo /><span className="text-lg font-semibold text-white">{t('app.name')}</span></Link>
           <div>
-            <p className="max-w-[18ch] text-4xl leading-tight font-bold tracking-[-0.03em]">{t('landing.headline')}</p>
-            <p className="mt-4 max-w-[46ch] text-muted">{t('app.tagline')}</p>
+            <p className="max-w-[18ch] text-4xl leading-tight font-bold tracking-[-0.03em] text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.6)]">{t('landing.headline')}</p>
+            <p className="mt-4 max-w-[46ch] text-[#d7deea] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">{t('app.tagline')}</p>
           </div>
         </div>
       </div>
@@ -79,7 +81,7 @@ export default function LoginPage() {
       <main className="flex flex-col px-5 py-6 sm:px-10">
         <div className="flex items-center justify-between">
           <Button asChild variant="ghost" size="sm"><Link to="/"><ArrowLeft />{t('login.back')}</Link></Button>
-          <LanguageToggle />
+          <div className="flex items-center gap-2"><LanguageToggle /><ThemeToggle /></div>
         </div>
         <div className="mx-auto flex w-full max-w-[420px] flex-1 flex-col justify-center py-10">
           <h1 className="text-3xl font-bold tracking-[-0.03em]">{t('login.title')}</h1>

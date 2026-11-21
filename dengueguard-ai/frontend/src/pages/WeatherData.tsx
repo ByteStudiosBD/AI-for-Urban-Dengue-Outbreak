@@ -60,7 +60,7 @@ export default function WeatherData() {
                 <CartesianGrid stroke={C.grid} vertical={false} />
                 <XAxis dataKey="date" {...axisProps} tickFormatter={(d) => fmtDate(d)} minTickGap={24} />
                 <YAxis {...axisProps} width={48} />
-                <Tooltip cursor={{ fill: 'rgba(255,255,255,0.04)' }} content={({ active, payload }) => {
+                <Tooltip cursor={{ fill: 'var(--color-chart-cursor)' }} content={({ active, payload }) => {
                   if (!active || !payload?.length) return null
                   const r = payload[0].payload as (typeof series)[number]
                   return <TooltipBox title={`${t('weather.weekOf')} ${fmtDate(r.date, 'long')}`} rows={[
