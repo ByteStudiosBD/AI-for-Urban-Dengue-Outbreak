@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import heroPhoto from '@/assets/photos/operating-room-hero.png'
 import { Logo } from '@/components/Logo'
+import { SiteFooter } from '@/components/layout/SiteFooter'
 import { LanguageToggle } from '@/components/layout/TopBar'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
@@ -135,16 +136,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-line-soft">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-faint sm:px-8">
-          <span className="flex items-center gap-2"><Logo className="size-6" />{t('landing.footer')}</span>
-          <nav className="flex gap-4">
-            <Link to="/dashboard" className="hover:text-ink">{t('nav.overview')}</Link>
-            <Link to="/validation" className="hover:text-ink">{t('nav.validation')}</Link>
-            <Link to="/login" className="hover:text-ink">{t('nav.login')}</Link>
-          </nav>
+      <nav aria-label={t('nav.mainNav')} className="border-t border-line-soft">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-4 text-sm text-faint sm:px-8">
+          <Link to="/dashboard" className="hover:text-ink">{t('nav.overview')}</Link>
+          <Link to="/validation" className="hover:text-ink">{t('nav.validation')}</Link>
+          <Link to="/login" className="hover:text-ink">{t('nav.login')}</Link>
         </div>
-      </footer>
+      </nav>
+      <SiteFooter />
     </div>
   )
 }

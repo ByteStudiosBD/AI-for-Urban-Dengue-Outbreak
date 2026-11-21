@@ -3,6 +3,7 @@ import { useEffect, useId, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import corridor from '@/assets/photos/medical-corridor.jpg'
 import { Logo } from '@/components/Logo'
+import { SiteFooter } from '@/components/layout/SiteFooter'
 import { LanguageToggle } from '@/components/layout/TopBar'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
@@ -61,6 +62,7 @@ export default function LoginPage() {
   const field = 'h-12 w-full rounded-xl border bg-canvas px-4 text-sm text-ink outline-none transition-colors duration-150 placeholder:text-faint focus:border-accent'
 
   return (
+    <>
     <div className="grid min-h-dvh bg-canvas text-ink lg:grid-cols-[1.05fr_1fr]">
       <div className="relative hidden overflow-hidden lg:block">
         <img src={corridor} alt={t('landing.photoCorridor')} className="absolute inset-0 size-full scale-105 object-cover blur-[1px]" />
@@ -128,5 +130,7 @@ export default function LoginPage() {
         </div>
       </main>
     </div>
+    <SiteFooter />
+    </>
   )
 }

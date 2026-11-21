@@ -6,6 +6,7 @@ import { useI18n, type TKey } from '@/i18n'
 import { useMetadata } from '@/state/AppData'
 import { PageTransition } from './PageTransition'
 import { RouteErrorBoundary } from './RouteErrorBoundary'
+import { SiteFooter } from './SiteFooter'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 
@@ -29,9 +30,9 @@ export function AppShell() {
     <div className="min-h-dvh bg-canvas text-ink">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-ink">Skip to content</a>
       <Sidebar mobileOpen={menu} onClose={() => setMenu(false)} />
-      <div className="lg:pl-[76px]">
+      <div className="flex min-h-dvh flex-col lg:pl-[76px]">
         <TopBar title={title} onMenu={() => setMenu(true)} />
-        <main id="main" className="px-4 py-6 sm:px-6 lg:px-8">
+        <main id="main" className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
           {error ? (
             <ErrorState error={error} onRetry={retry} />
           ) : !meta ? (
@@ -49,6 +50,7 @@ export function AppShell() {
             <ShieldAlert className="mt-px size-3.5 shrink-0" /> {t('common.disclaimer')}
           </p>
         </main>
+        <SiteFooter />
       </div>
     </div>
   )
