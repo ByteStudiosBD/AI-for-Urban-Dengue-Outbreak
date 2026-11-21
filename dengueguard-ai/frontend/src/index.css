@@ -19,9 +19,84 @@
   --color-risk-medium: #f2c94c;
   --color-risk-high: #ff8a3d;
   --color-risk-critical: #ff4d5e;
+  /* surfaces that used to be hard-coded */
+  --color-popover: #15151e;
+  --color-line-strong: #4a4a58;
+  --color-pane: #08080c;
+  --color-pane-head: #0c0c11;
+  --color-pane-sub: #0f0f15;
+  --color-gis-canvas: #101016;
+  --color-grid-dot: rgb(255 255 255 / 0.055);
+  --color-rain-ink: #9fbaf5;
+  --color-tier-low-ink: #d6f5e6;
+  /* charts */
+  --color-chart-grid: #26262f;
+  --color-chart-cursor: rgb(255 255 255 / 0.04);
+  --color-chart-rain: #5b8def;
+  --color-chart-rain-soft: #3b5a99;
+  --color-chart-humidity: #6fc2d9;
+  --color-chart-temp: #f2c94c;
+  /* footer */
+  --color-footer: #111118;
+  --color-footer-title: #ff8a6b;
+  --color-footer-ink: #e9e9f0;
+  --color-footer-muted: #9b9baa;
+  --color-skeleton-a: #1f1f2a;
+  --color-skeleton-b: #2a2a36;
+  --color-scrollbar: #3a3a46;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --shadow-lift: 0 10px 30px -12px rgb(0 0 0 / 0.7), 0 2px 6px -2px rgb(0 0 0 / 0.5);
   --shadow-accent: 0 8px 24px -10px rgb(255 99 62 / 0.55);
+}
+
+/* Light theme: warm cream palette from the footer. Only token values change, so every
+   component that uses the tokens re-themes automatically. Dark stays the default. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-canvas: #fbf6ea;
+  --color-rail: #f4eedf;
+  --color-panel: #ffffff;
+  --color-panel-2: #f4eedf;
+  --color-line: #e8dfd1;
+  --color-line-soft: #efe7da;
+  --color-line-strong: #cfc2ad;
+  --color-ink: #172033;
+  --color-muted: #5f6674;
+  --color-faint: #7a808c;
+  --color-accent-soft: #e2522d;
+  /* same hues as dark mode, deepened so tier text stays readable on cream */
+  --color-risk-low: #15965f;
+  --color-risk-medium: #b07d06;
+  --color-risk-high: #d9631b;
+  --color-risk-critical: #d92f45;
+  --color-popover: #ffffff;
+  --color-pane: #ffffff;
+  --color-pane-head: #f4eedf;
+  --color-pane-sub: #f8f2e5;
+  --color-gis-canvas: #f4eedf;
+  --color-grid-dot: rgb(23 32 51 / 0.09);
+  --color-rain-ink: #2f5fc4;
+  --color-tier-low-ink: #0f5132;
+  --color-chart-grid: #e8dfd1;
+  --color-chart-cursor: rgb(23 32 51 / 0.05);
+  --color-chart-rain: #3f6fd1;
+  --color-chart-rain-soft: #9fb7ea;
+  --color-chart-humidity: #1f8fae;
+  --color-chart-temp: #c28a0c;
+  --color-footer: #fbf6ea;
+  --color-footer-title: #c2410c;
+  --color-footer-ink: #2a2620;
+  --color-footer-muted: #5f574b;
+  --color-skeleton-a: #efe7da;
+  --color-skeleton-b: #f7f1e5;
+  --color-scrollbar: #d4c8b4;
+  --shadow-lift: 0 10px 30px -14px rgb(60 45 20 / 0.28), 0 2px 6px -2px rgb(60 45 20 / 0.12);
+}
+
+/* Smooth, short colour cross-fade while switching themes only (added for ~300 ms by the
+   toggle). The reduced-motion rule below cancels it. */
+:root.theme-switching, :root.theme-switching *, :root.theme-switching *::before, :root.theme-switching *::after {
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, fill 220ms ease, stroke 220ms ease !important;
 }
 
 :root {
@@ -36,16 +111,17 @@
 html[lang="bn"] { --font-sans: "Noto Sans Bengali Variable", "Manrope Variable", ui-sans-serif, system-ui, sans-serif; }
 body { margin: 0; min-height: 100dvh; background: var(--color-canvas); }
 
-::selection { background: rgb(255 99 62 / 0.35); color: #fff; }
-* { scrollbar-width: thin; scrollbar-color: #3a3a46 transparent; }
+::selection { background: rgb(255 99 62 / 0.35); color: var(--color-ink); }
+* { scrollbar-width: thin; scrollbar-color: var(--color-scrollbar) transparent; }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
-*::-webkit-scrollbar-thumb { background: #3a3a46; border-radius: 999px; border: 3px solid var(--color-canvas); }
+*::-webkit-scrollbar-thumb { background: var(--color-scrollbar); border-radius: 999px; border: 3px solid var(--color-canvas); }
 input, button, select, textarea { font: inherit; caret-color: var(--color-accent); }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 8px; }
 a { text-underline-offset: 3px; }
 
 .num { font-variant-numeric: tabular-nums; }
 .date-input::-webkit-calendar-picker-indicator { filter: invert(0.75); cursor: pointer; }
+:root[data-theme="light"] .date-input::-webkit-calendar-picker-indicator { filter: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -60,4 +136,4 @@ a { text-underline-offset: 3px; }
 @keyframes tip-in { from { opacity: 0; transform: translateY(2px) scale(0.98); } to { opacity: 1; transform: none; } }
 @keyframes pop-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } to { opacity: 1; transform: none; } }
 @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-.skeleton { background: linear-gradient(90deg, #1f1f2a 25%, #2a2a36 50%, #1f1f2a 75%); background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite; }
+.skeleton { background: linear-gradient(90deg, var(--color-skeleton-a) 25%, var(--color-skeleton-b) 50%, var(--color-skeleton-a) 75%); background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite; }

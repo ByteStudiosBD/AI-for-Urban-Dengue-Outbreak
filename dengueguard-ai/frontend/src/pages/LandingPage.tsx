@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import heroPhoto from '@/assets/photos/operating-room-hero.png'
 import { Logo } from '@/components/Logo'
 import { SiteFooter } from '@/components/layout/SiteFooter'
+import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { LanguageToggle } from '@/components/layout/TopBar'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
@@ -25,7 +26,7 @@ function LagStrip() {
           const fc = w >= 2
           return (
             <li key={w} className="flex flex-col items-center gap-2">
-              <span className={`grid h-16 w-full place-items-center rounded-xl border text-sm font-semibold ${now ? 'border-ink bg-ink text-canvas' : fc ? 'border-accent/60 bg-accent/15 text-accent' : rain ? 'border-[#5B8DEF]/40 bg-[#5B8DEF]/10 text-[#9fbaf5]' : 'border-line text-faint'}`}>
+              <span className={`grid h-16 w-full place-items-center rounded-xl border text-sm font-semibold ${now ? 'border-ink bg-ink text-canvas' : fc ? 'border-accent/60 bg-accent/15 text-accent' : rain ? 'border-chart-rain/40 bg-chart-rain/10 text-rain-ink' : 'border-line text-faint'}`}>
                 {rain ? <CloudRain className="size-5" /> : fc ? <Activity className="size-5" /> : now ? 't' : '·'}
               </span>
               <span className="num text-xs text-muted">{w === 0 ? 't' : w > 0 ? `t+${w}` : `t${w}`.replace('-', '−')}</span>
@@ -60,15 +61,16 @@ export default function LandingPage() {
           src={heroPhoto} alt="" aria-hidden draggable={false} fetchPriority="high"
           className="absolute inset-0 -z-20 size-full object-cover object-[64%_center] sm:object-[58%_center] lg:object-[center_38%]"
         />
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,7,16,0.62)_0%,rgba(4,7,16,0.72)_45%,rgba(4,7,16,0.9)_78%,#0b0b10_100%)] lg:bg-[linear-gradient(90deg,rgba(4,7,16,0.94)_0%,rgba(4,7,16,0.84)_32%,rgba(4,7,16,0.5)_56%,rgba(4,7,16,0.18)_80%,rgba(4,7,16,0.1)_100%)]" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,7,16,0.62)_0%,rgba(4,7,16,0.72)_45%,rgba(4,7,16,0.9)_78%,var(--color-canvas)_100%)] lg:bg-[linear-gradient(90deg,rgba(4,7,16,0.94)_0%,rgba(4,7,16,0.84)_32%,rgba(4,7,16,0.5)_56%,rgba(4,7,16,0.18)_80%,rgba(4,7,16,0.1)_100%)]" />
         <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 hidden h-28 bg-gradient-to-b from-transparent to-canvas lg:block" />
 
         <header className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-8">
           <Link to="/" className="flex items-center gap-3 rounded-xl"><Logo className="size-9" /><span className="font-semibold tracking-[-0.01em] text-white">{t('app.name')}</span></Link>
           <nav className="flex items-center gap-2">
-            <LanguageToggle className="hidden border-white/15 bg-black/40 backdrop-blur sm:inline-flex" />
+            <LanguageToggle className="hidden border-white/15 bg-black/40 backdrop-blur sm:inline-flex [&_button[aria-pressed=false]]:text-white/75 [&_svg]:text-white/70" />
             <Button asChild variant="ghost" className="hidden text-white/85 hover:bg-white/10 hover:text-white sm:inline-flex"><Link to="/login">{t('nav.login')}</Link></Button>
-            <Button asChild variant="primary"><Link to="/risk">{t('landing.ctaPrimary')}</Link></Button>
+            <Button asChild variant="primary" className="hidden sm:inline-flex"><Link to="/risk">{t('landing.ctaPrimary')}</Link></Button>
+            <ThemeToggle variant="glass" />
           </nav>
         </header>
 
@@ -80,7 +82,7 @@ export default function LandingPage() {
               <Button asChild variant="primary" size="lg" className="shadow-[0_10px_30px_-8px_rgba(255,99,62,0.6)]"><Link to="/risk">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
               <Button asChild variant="secondary" size="lg" className="border-white/30 bg-black/45 text-white backdrop-blur hover:border-white/50 hover:bg-black/60"><Link to="/heatmap"><Grid3x3 />{t('landing.ctaSecondary')}</Link></Button>
             </div>
-            <LanguageToggle className="mt-6 border-white/15 bg-black/40 backdrop-blur sm:hidden" />
+            <LanguageToggle className="mt-6 border-white/15 bg-black/40 backdrop-blur sm:hidden [&_button[aria-pressed=false]]:text-white/75 [&_svg]:text-white/70" />
           </motion.div>
         </section>
       </div>

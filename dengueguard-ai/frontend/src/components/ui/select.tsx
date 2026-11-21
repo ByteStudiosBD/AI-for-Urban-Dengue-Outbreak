@@ -16,7 +16,7 @@ export function Select({ value, onValueChange, options, label, icon, className }
       <S.Trigger
         aria-label={label}
         className={cn(
-          'inline-flex h-10 min-w-0 items-center gap-2 rounded-xl border border-line bg-panel px-3 text-sm text-ink transition-colors duration-150 hover:border-[#4a4a58] hover:bg-panel-2 data-[state=open]:border-accent [&_svg]:size-4',
+          'inline-flex h-10 min-w-0 items-center gap-2 rounded-xl border border-line bg-panel px-3 text-sm text-ink transition-colors duration-150 hover:border-line-strong hover:bg-panel-2 data-[state=open]:border-accent [&_svg]:size-4',
           className,
         )}
       >
@@ -28,7 +28,7 @@ export function Select({ value, onValueChange, options, label, icon, className }
         <S.Content
           position="popper"
           sideOffset={6}
-          className="z-50 max-h-[min(360px,var(--radix-select-content-available-height))] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-xl border border-line bg-[#15151e] p-1 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]"
+          className="z-50 max-h-[min(360px,var(--radix-select-content-available-height))] min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-xl border border-line bg-popover p-1 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]"
         >
           <S.Viewport>
             {options.map((o) => (

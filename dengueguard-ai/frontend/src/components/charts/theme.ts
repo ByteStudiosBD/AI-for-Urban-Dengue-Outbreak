@@ -1,16 +1,18 @@
+/** Chart colours as CSS variables, so every chart follows the active dark/light theme
+ * (values live in index.css). Recharts passes these through to SVG, where var() resolves. */
 export const C = {
-  accent: '#FF633E',
-  accentSoft: '#FF8A6B',
-  ink: '#F7F7FB',
-  muted: '#9B9BAA',
-  faint: '#6E6E7C',
-  grid: '#26262F',
-  line: '#30303B',
-  rain: '#5B8DEF',
-  rainSoft: '#3B5A99',
-  humidity: '#6FC2D9',
-  canvasDot: '#0B0B10',
-  temp: '#F2C94C',
+  accent: 'var(--color-accent)',
+  accentSoft: 'var(--color-accent-soft)',
+  ink: 'var(--color-ink)',
+  muted: 'var(--color-muted)',
+  faint: 'var(--color-faint)',
+  grid: 'var(--color-chart-grid)',
+  line: 'var(--color-line)',
+  rain: 'var(--color-chart-rain)',
+  rainSoft: 'var(--color-chart-rain-soft)',
+  humidity: 'var(--color-chart-humidity)',
+  canvasDot: 'var(--color-canvas)',
+  temp: 'var(--color-chart-temp)',
 }
 export const axisProps = {
   stroke: C.faint,

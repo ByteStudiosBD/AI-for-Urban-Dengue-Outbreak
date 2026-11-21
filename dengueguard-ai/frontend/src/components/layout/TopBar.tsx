@@ -11,6 +11,7 @@ import { useAsync } from '@/lib/useAsync'
 import { addWeeks, cn, downloadCsv, snapToMonday } from '@/lib/utils'
 import { useFilters, useMetadata, useSession } from '@/state/AppData'
 import type { Horizon } from '@/types/api'
+import { ThemeToggle } from './ThemeToggle'
 import { WardSearch } from './WardSearch'
 
 export function LanguageToggle({ className }: { className?: string }) {
@@ -101,7 +102,7 @@ function Alerts() {
         </P.Trigger>
       </Tooltip>
       <P.Portal>
-        <P.Content align="end" sideOffset={8} className="z-50 w-80 rounded-xl border border-line bg-[#15151e] p-3 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]">
+        <P.Content align="end" sideOffset={8} className="z-50 w-80 rounded-xl border border-line bg-popover p-3 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]">
           <p className="text-sm font-semibold">{t('top.alertsTitle')}</p>
           <p className="mt-1 text-xs text-muted">{t('top.alertsBasis', { city, h, date: fmtDate(asOf, 'long') })}</p>
           <ul className="mt-3 flex max-h-72 flex-col gap-1 overflow-y-auto">
@@ -170,7 +171,7 @@ function Profile() {
         {(session.email?.[0] ?? 'D').toUpperCase()}
       </P.Trigger>
       <P.Portal>
-        <P.Content align="end" sideOffset={8} className="z-50 w-64 rounded-xl border border-line bg-[#15151e] p-3 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]">
+        <P.Content align="end" sideOffset={8} className="z-50 w-64 rounded-xl border border-line bg-popover p-3 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]">
           <p className="text-sm font-semibold">{session.mode === 'demo' ? t('top.demoUser') : session.email}</p>
           <p className="mt-0.5 text-xs text-muted">{session.role}</p>
           <Button
@@ -206,6 +207,7 @@ export function TopBar({ title, onMenu }: { title: string; onMenu: () => void })
           <Alerts />
           <ExportButton />
           <Profile />
+          <ThemeToggle />
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-2 px-4 pb-3 sm:px-6 lg:px-8">

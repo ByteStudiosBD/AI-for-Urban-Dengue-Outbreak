@@ -10,7 +10,7 @@ export const en = {
     city: 'City', allCities: 'All cities', ward: 'Ward', searchWard: 'Search ward ID', noWardMatch: 'No ward matches',
     asOf: 'Reference week', horizon: 'Horizon', weeksAhead: '{n} weeks ahead', wk: '{n} wk',
     prevWeek: 'Previous week', nextWeek: 'Next week', export: 'Export CSV', exportHint: 'Download the current city forecast table',
-    language: 'Language', alerts: 'Alerts', alertsTitle: 'High and Critical wards',
+    language: 'Language', lightTheme: 'Light theme', themeHint: 'Switch between dark and light theme', alerts: 'Alerts', alertsTitle: 'High and Critical wards',
     alertsNone: 'No ward is forecast High or Critical for these filters.',
     alertsBasis: 'Counted from model forecasts for {city}, {h}-week horizon, reference week {date}.',
     historical: 'Historical data', historicalHint: 'Dataset covers {from} – {to}. Not a live feed.',

@@ -29,14 +29,14 @@ export function WardSearch() {
     <P.Root open={open} onOpenChange={setOpen}>
       <P.Trigger
         aria-label={t('top.ward')}
-        className="inline-flex h-10 min-w-0 items-center gap-2 rounded-xl border border-line bg-panel px-3 text-sm text-ink transition-colors duration-150 hover:border-[#4a4a58] hover:bg-panel-2 data-[state=open]:border-accent"
+        className="inline-flex h-10 min-w-0 items-center gap-2 rounded-xl border border-line bg-panel px-3 text-sm text-ink transition-colors duration-150 hover:border-line-strong hover:bg-panel-2 data-[state=open]:border-accent"
       >
         <MapPinned className="size-4 text-muted" />
         <span className="truncate font-medium">{ward}</span>
         <Search className="ml-1 size-3.5 text-faint" />
       </P.Trigger>
       <P.Portal>
-        <P.Content sideOffset={6} align="start" className="z-50 w-72 rounded-xl border border-line bg-[#15151e] p-2 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]">
+        <P.Content sideOffset={6} align="start" className="z-50 w-72 rounded-xl border border-line bg-popover p-2 shadow-[var(--shadow-lift)] data-[state=open]:animate-[pop-in_180ms_var(--ease-out-expo)]">
           <label className="flex items-center gap-2 rounded-lg border border-line bg-canvas px-2.5">
             <Search className="size-4 text-faint" />
             <span className="sr-only">{t('top.searchWard')}</span>

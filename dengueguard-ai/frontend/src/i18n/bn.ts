@@ -12,7 +12,7 @@ export const bn: Dict = {
     city: 'শহর', allCities: 'সব শহর', ward: 'ওয়ার্ড', searchWard: 'ওয়ার্ড আইডি খুঁজুন', noWardMatch: 'কোনো ওয়ার্ড মেলেনি',
     asOf: 'রেফারেন্স সপ্তাহ', horizon: 'সময়সীমা', weeksAhead: '{n} সপ্তাহ পরে', wk: '{n} সপ্তাহ',
     prevWeek: 'আগের সপ্তাহ', nextWeek: 'পরের সপ্তাহ', export: 'CSV ডাউনলোড', exportHint: 'বর্তমান শহরের পূর্বাভাস টেবিল ডাউনলোড করুন',
-    language: 'ভাষা', alerts: 'সতর্কতা', alertsTitle: 'উচ্চ ও সংকটপূর্ণ ওয়ার্ড',
+    language: 'ভাষা', lightTheme: 'হালকা থিম', themeHint: 'গাঢ় ও হালকা থিমের মধ্যে বদলান', alerts: 'সতর্কতা', alertsTitle: 'উচ্চ ও সংকটপূর্ণ ওয়ার্ড',
     alertsNone: 'এই ফিল্টারে কোনো ওয়ার্ডের পূর্বাভাস উচ্চ বা সংকটপূর্ণ নয়।',
     alertsBasis: '{city}, {h} সপ্তাহের সময়সীমা, রেফারেন্স সপ্তাহ {date}-এর মডেল পূর্বাভাস থেকে গণনা।',
     historical: 'ঐতিহাসিক তথ্য', historicalHint: 'ডেটাসেটের সময়কাল {from} – {to}। এটি লাইভ ফিড নয়।',
