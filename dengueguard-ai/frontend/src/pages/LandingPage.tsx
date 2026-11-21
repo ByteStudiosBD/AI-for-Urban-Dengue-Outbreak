@@ -1,10 +1,8 @@
 import { Activity, ArrowRight, ChartNoAxesCombined, CloudRain, Grid3x3, Languages, ShieldAlert, SlidersHorizontal } from 'lucide-react'
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react'
+import { motion } from 'motion/react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import corridor from '@/assets/photos/medical-corridor.jpg'
-import emergency from '@/assets/photos/medical-emergency.jpg'
-import surgery from '@/assets/photos/medical-surgery.png'
+import heroPhoto from '@/assets/photos/operating-room-hero.png'
 import { Logo } from '@/components/Logo'
 import { LanguageToggle } from '@/components/layout/TopBar'
 import { Button } from '@/components/ui/button'
@@ -12,54 +10,6 @@ import { useI18n } from '@/i18n'
 import { useMetadata } from '@/state/AppData'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-
-function Photo({ src, alt, className, depth, mx, my, delay, objectPosition }: {
-  src: string; alt: string; className: string; depth: number; mx: ReturnType<typeof useSpring>; my: ReturnType<typeof useSpring>; delay: number; objectPosition?: string
-}) {
-  const x = useTransform(mx, (v) => v * depth)
-  const y = useTransform(my, (v) => v * depth)
-  return (
-    <motion.figure
-      initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
-      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: 0.9, delay, ease: EASE }}
-      className={`absolute overflow-hidden rounded-[22px] border border-white/10 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.8)] ${className}`}
-    >
-      <motion.img src={src} alt={alt} style={{ x, y, scale: 1.06, objectPosition }} className="size-full object-cover" draggable={false} />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas/55 via-transparent to-transparent" />
-    </motion.figure>
-  )
-}
-
-function Collage() {
-  const { t } = useI18n()
-  const reduce = useReducedMotion()
-  const rawX = useMotionValue(0)
-  const rawY = useMotionValue(0)
-  const mx = useSpring(rawX, { stiffness: 60, damping: 20 })
-  const my = useSpring(rawY, { stiffness: 60, damping: 20 })
-  useEffect(() => {
-    if (reduce) return
-    const onMove = (e: PointerEvent) => {
-      rawX.set((e.clientX / window.innerWidth - 0.5) * 2)
-      rawY.set((e.clientY / window.innerHeight - 0.5) * 2)
-    }
-    window.addEventListener('pointermove', onMove)
-    return () => window.removeEventListener('pointermove', onMove)
-  }, [reduce, rawX, rawY])
-
-  return (
-    <div className="relative mx-auto aspect-[1/0.92] w-full max-w-[620px]">
-      <Photo src={surgery} alt={t('landing.photoSurgery')} depth={-5} mx={mx} my={my} delay={0.15} objectPosition="35% 40%"
-        className="top-0 left-0 h-[62%] w-[78%]" />
-      <Photo src={corridor} alt={t('landing.photoCorridor')} depth={8} mx={mx} my={my} delay={0.3} objectPosition="50% 55%"
-        className="top-[8%] right-0 h-[46%] w-[30%]" />
-      <Photo src={emergency} alt={t('landing.photoEmergency')} depth={4} mx={mx} my={my} delay={0.45} objectPosition="40% 50%"
-        className="right-[6%] bottom-0 h-[50%] w-[70%]" />
-      <div aria-hidden className="absolute -bottom-6 -left-6 -z-10 size-48 rounded-full bg-accent/20 blur-3xl" />
-    </div>
-  )
-}
 
 /** The breeding-clock idea as a week strip: rain at t−4…t, forecasts at t+2…t+4. */
 function LagStrip() {
@@ -102,30 +52,40 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-dvh overflow-x-clip bg-canvas text-ink">
-      <header className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-8">
-        <Link to="/" className="flex items-center gap-3 rounded-xl"><Logo className="size-9" /><span className="font-semibold tracking-[-0.01em]">{t('app.name')}</span></Link>
-        <nav className="flex items-center gap-2">
-          <LanguageToggle className="hidden sm:inline-flex" />
-          <Button asChild variant="ghost" className="hidden sm:inline-flex"><Link to="/login">{t('nav.login')}</Link></Button>
-          <Button asChild variant="primary"><Link to="/risk">{t('landing.ctaPrimary')}</Link></Button>
-        </nav>
-      </header>
+      {/* Hero: the supplied operating-room photograph as a full-bleed, non-distorted cover image,
+          with a navy/black gradient that is darkest behind the text and lightest over the team. */}
+      <div className="relative isolate overflow-hidden">
+        <img
+          src={heroPhoto} alt="" aria-hidden draggable={false} fetchPriority="high"
+          className="absolute inset-0 -z-20 size-full object-cover object-[64%_center] sm:object-[58%_center] lg:object-[center_38%]"
+        />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(4,7,16,0.62)_0%,rgba(4,7,16,0.72)_45%,rgba(4,7,16,0.9)_78%,#0b0b10_100%)] lg:bg-[linear-gradient(90deg,rgba(4,7,16,0.94)_0%,rgba(4,7,16,0.84)_32%,rgba(4,7,16,0.5)_56%,rgba(4,7,16,0.18)_80%,rgba(4,7,16,0.1)_100%)]" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 hidden h-28 bg-gradient-to-b from-transparent to-canvas lg:block" />
 
-      <section className="mx-auto grid max-w-7xl items-center gap-14 px-4 pt-8 pb-20 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:pt-16">
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
-          <h1 className="text-[clamp(2.6rem,6vw,4.75rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance">{t('landing.headline')}</h1>
-          <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-muted">{t('landing.sub')}</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild variant="primary" size="lg"><Link to="/risk">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
-            <Button asChild variant="secondary" size="lg"><Link to="/heatmap"><Grid3x3 />{t('landing.ctaSecondary')}</Link></Button>
-          </div>
-          <LanguageToggle className="mt-6 sm:hidden" />
-        </motion.div>
-        <Collage />
-      </section>
+        <header className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-8">
+          <Link to="/" className="flex items-center gap-3 rounded-xl"><Logo className="size-9" /><span className="font-semibold tracking-[-0.01em] text-white">{t('app.name')}</span></Link>
+          <nav className="flex items-center gap-2">
+            <LanguageToggle className="hidden border-white/15 bg-black/40 backdrop-blur sm:inline-flex" />
+            <Button asChild variant="ghost" className="hidden text-white/85 hover:bg-white/10 hover:text-white sm:inline-flex"><Link to="/login">{t('nav.login')}</Link></Button>
+            <Button asChild variant="primary"><Link to="/risk">{t('landing.ctaPrimary')}</Link></Button>
+          </nav>
+        </header>
 
-      <section id="how" className="border-t border-line-soft">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-8">
+        <section className="mx-auto flex max-w-7xl items-center px-4 pt-12 pb-14 sm:px-8 sm:pt-16 sm:pb-24 lg:min-h-[min(calc(88dvh-84px),760px)] lg:pt-6 lg:pb-32">
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }} className="max-w-[620px]">
+            <h1 className="text-[clamp(2.6rem,6vw,4.75rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.55)]">{t('landing.headline')}</h1>
+            <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-[#e4e8f2] [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">{t('landing.sub')}</p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Button asChild variant="primary" size="lg" className="shadow-[0_10px_30px_-8px_rgba(255,99,62,0.6)]"><Link to="/risk">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
+              <Button asChild variant="secondary" size="lg" className="border-white/30 bg-black/45 text-white backdrop-blur hover:border-white/50 hover:bg-black/60"><Link to="/heatmap"><Grid3x3 />{t('landing.ctaSecondary')}</Link></Button>
+            </div>
+            <LanguageToggle className="mt-6 border-white/15 bg-black/40 backdrop-blur sm:hidden" />
+          </motion.div>
+        </section>
+      </div>
+
+      <section id="how">
+        <div className="mx-auto max-w-7xl px-4 pt-8 pb-20 sm:px-8 sm:pt-14 lg:pt-10">
           <h2 className="text-3xl font-semibold tracking-[-0.02em]">{t('landing.howTitle')}</h2>
           <div className="mt-10"><LagStrip /></div>
           <ol className="mt-12 grid gap-10 md:grid-cols-3">
