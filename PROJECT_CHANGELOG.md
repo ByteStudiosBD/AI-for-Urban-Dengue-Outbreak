@@ -284,7 +284,7 @@ The browser test needs the app running and Playwright installed.
 | Responsive check (iPhone 13 width) | No horizontal scroll |
 | Bangla rendering | Checked visually |
 
-`start.ps1` has not yet been tested on a real Windows machine.
+**Windows check (2026-11-21, Windows 11, Python 3.12.10, Node 26):** `start.ps1` installs, builds and starts the engine in about 16–24 s. It was changed to check exit codes instead of using `$ErrorActionPreference = "Stop"`, because Windows PowerShell 5.1 aborted the script when uvicorn's normal stderr output was redirected. On Windows: 30/30 backend tests pass and the TypeScript check is clean. A manual browser pass found all pages loading real data with 0 console errors, heatmap click-through, alerts (11), the Export CSV control and the Bangla toggle all working, and the 404 page rendering. The Playwright smoke script itself was not run on Windows (Playwright isn't installed in the project).
 
 ---
 
@@ -297,7 +297,7 @@ The browser test needs the app running and Playwright installed.
 - [ ] **Record the video:** at most 3:00, uncut, with voiceover, no slides, following `docs/DEMO_SCRIPT.md`. Add the link to the README.
 - [ ] **Distributed commits:** each team member should commit during the window (the rulebook requires distributed history). Filling in the README TODOs is a natural first commit.
 - [ ] **Merge to `main`:** merge any later commits on `claude/happy-brown-9j46tj`, including this file. PR #1 already merged everything up to `e1dc531`.
-- [ ] **Test on Windows:** run `start.ps1` on a Windows machine with real Python and Node.
+- [x] **Test on Windows:** done on 2026-11-21 (see 3.4). The teammate who commits the `start.ps1` fix should run it once more from a fresh clone.
 - [ ] **Public visibility:** make sure the repository is public, and check every link in an incognito window.
 
 ### Known issues and limitations
