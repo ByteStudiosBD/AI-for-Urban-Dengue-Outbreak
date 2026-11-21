@@ -3,8 +3,8 @@ import type { Dict } from './en'
 export const bn: Dict = {
   app: { name: 'DengueGuard AI', tagline: 'ওয়ার্ডভিত্তিক ডেঙ্গু আগাম সতর্কতা' },
   nav: {
-    riskOverview: 'ঝুঁকি চিত্র', viewData: 'তথ্য দেখুন', primaryViews: 'প্রধান দৃশ্য',
-    home: 'হোম', overview: 'সারসংক্ষেপ', predictions: 'ঝুঁকি পূর্বাভাস', heatmap: 'ওয়ার্ড ঝুঁকি হিটম্যাপ',
+    riskOverview: 'ঝুঁকি চিত্র (হিটম্যাপ)', viewData: 'তথ্য দেখুন', primaryViews: 'প্রধান দৃশ্য',
+    home: 'হোম', overview: 'সারসংক্ষেপ', predictions: 'ঝুঁকি পূর্বাভাস', heatmap: 'ঝুঁকি ম্যাট্রিক্স (সপ্তাহভিত্তিক)',
     weather: 'আবহাওয়া তথ্য', validation: 'মডেল যাচাই', login: 'সাইন ইন', profile: 'প্রোফাইল',
     openMenu: 'নেভিগেশন খুলুন', closeMenu: 'নেভিগেশন বন্ধ করুন', mainNav: 'প্রধান নেভিগেশন',
   },
@@ -153,6 +153,14 @@ export const bn: Dict = {
     weatherTrend: 'পর্যবেক্ষিত আবহাওয়া', weatherTrendSub: 'সাপ্তাহিক বৃষ্টিপাত, গড় তাপমাত্রা ও আপেক্ষিক আর্দ্রতা',
     observedCases: 'পর্যবেক্ষিত রোগী', forecast: 'পূর্বাভাস', openInData: 'তথ্য দেখুন-এ খুলুন',
     recordsSub: 'এই ওয়ার্ডের প্রতিটি মূল রেকর্ড',
+    dataLayers: 'ডেটা স্তর', info: 'তথ্য', zoomIn: 'বড় টাইল', zoomOut: 'ছোট টাইল', resetView: 'দৃশ্য ও ফিল্টার রিসেট',
+    cycleLabel: 'টাইলের লেবেল বদলান', canvasControls: 'হিটম্যাপ নিয়ন্ত্রণ',
+    distribution: 'ওয়ার্ডপ্রতি পূর্বাভাসিত রোগী', distributionSub: 'দৃশ্যে {n}টি ওয়ার্ড · স্তরের সীমা চিহ্নিত', distributionAxis: 'পূর্বাভাসিত রোগী / সপ্তাহ',
+    schematicBadge: 'নকশাভিত্তিক · মাপে নয় · মানচিত্র নয়', dataCredit: 'তথ্য: হ্যাকাথনের অফিসিয়াল ডেটাসেট · মডেল: DengueGuard AI',
+    summary: 'নির্বাচিত সময়কাল', tierCounts: 'মডেলের স্তর অনুযায়ী ওয়ার্ড', topWards: 'সর্বোচ্চ পূর্বাভাসের ওয়ার্ড',
+    modelInfo: 'মডেল', dataInfo: 'তথ্য', dataInfoText: 'হ্যাকাথনের অফিসিয়াল ডেটাসেট, {from} – {to}। ঐতিহাসিক পর্যবেক্ষণ, সরাসরি তথ্যপ্রবাহ নয়।',
+    selectHint: 'পূর্বাভাস, প্রভাবক, প্রবণতা ও সব মূল রেকর্ড দেখতে একটি ওয়ার্ড টাইল নির্বাচন করুন।',
+    totalPredicted: 'মোট পূর্বাভাসিত রোগী', alertsCount: 'উচ্চ বা সংকটজনক ওয়ার্ড',
   },
   data: {
     title: 'তথ্য দেখুন', subtitle: 'মূল ডেটাসেটের সারি, অপরিবর্তিত: {rows}টি সারি · {wards}টি ওয়ার্ড · {from} – {to}',

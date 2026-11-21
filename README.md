@@ -214,7 +214,8 @@ Interactive docs: http://localhost:8000/docs
 ## Attributions
 
 - **Dataset:** official hackathon dataset supplied by the organizers (EDU Computer Club / XPONENT).
-- **Photos** (`design/medical-*.{png,jpg}`): supplied by the team for the landing-page collage. **TODO (team): add each photo's source and licence.** Clear the rights before using them outside the hackathon demo.
+- **Homepage hero photo** (`frontend/src/assets/photos/operating-room-hero.png`, operating-room team): supplied by the team. **TODO (team): add its source and licence.**
+- **Photos** (`design/medical-*.{png,jpg}`): supplied by the team; `medical-corridor.jpg` is used on the sign-in page. **TODO (team): add each photo's source and licence.** Clear the rights before using them outside the hackathon demo.
 - **Design reference:** `design/dashboard-reference.png`, a third-party dribbble-style concept used only as layout inspiration. No content was copied.
 - **Fonts:** Manrope and Noto Sans Bengali, SIL Open Font License 1.1.
 - **Libraries:** see `requirements.txt` and `frontend/package.json`; all are open source under their own licences. No significant third-party code snippets were copied.

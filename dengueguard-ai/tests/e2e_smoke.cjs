@@ -16,7 +16,7 @@ const Q = '?city=Dhaka%20North&ward=DNCC_Ward_05&asOf=2024-08-05&h=2'
   }
   const expectText = async (text) => page.getByText(text, { exact: false }).first().waitFor({ timeout: 8000 })
 
-  await check('landing', async () => { await page.goto(BASE + '/'); await expectText('Know the risk before the outbreak'); if ((await page.locator('figure img').count()) !== 3) throw new Error('collage must show 3 photos') })
+  await check('landing', async () => { await page.goto(BASE + '/'); await expectText('Know the risk before the outbreak'); const ok = await page.locator('img[src*="operating-room-hero"]').evaluate((i) => i.complete && i.naturalWidth === 1672); if (!ok) throw new Error('hero photo not loaded'); if (await page.locator('figure img').count()) throw new Error('old collage still present') })
   await check('demo login', async () => { await page.goto(BASE + '/login'); await page.getByRole('button', { name: 'Continue in Demo Mode' }).click(); await page.waitForURL('**/risk**') })
   await check('risk overview: 60 tiles', async () => { await page.goto(BASE + '/risk' + Q); await expectText('Ward Risk Heatmap — Schematic View'); await page.getByRole('button', { name: /^DNCC_Ward_19, Dhaka North: Critical/ }).waitFor({ timeout: 8000 }); const n = await page.getByRole('button', { name: /^[A-Z]+_Ward_\d+, / }).count(); if (n !== 60) throw new Error(`expected 60 ward tiles, got ${n}`) })
   await check('risk overview: ward panel', async () => { await page.getByRole('button', { name: /^DSCC_Ward_05, / }).click(); await page.getByRole('heading', { level: 2, name: 'DSCC_Ward_05' }).waitFor({ timeout: 8000 }); await page.getByRole('tab', { name: 'All ward data' }).click(); await expectText('relative_humidity_pct'); if (!page.url().includes('ward=DSCC_Ward_05')) throw new Error('selection not in URL') })
@@ -25,7 +25,7 @@ const Q = '?city=Dhaka%20North&ward=DNCC_Ward_05&asOf=2024-08-05&h=2'
   await check('overview', async () => { await page.goto(BASE + '/dashboard' + Q); await expectText('Ward watchlist'); await expectText('DNCC_Ward_19') })
   await check('horizon control', async () => { await page.getByRole('radio', { name: '4 weeks ahead' }).click(); await page.waitForURL(/h=4/) })
   await check('nav: predictions', async () => { await page.getByRole('link', { name: 'Risk Predictions' }).first().click(); await expectText('Horizon comparison'); if (!page.url().includes('ward=DNCC_Ward_05')) throw new Error('filters lost') })
-  await check('nav: heatmap', async () => { await page.getByRole('link', { name: 'Ward Risk Heatmap' }).click(); await expectText('Ward × horizon') })
+  await check('nav: heatmap', async () => { await page.getByRole('link', { name: 'Risk Matrix (by week)' }).click(); await expectText('Ward × horizon') })
   await check('heatmap click-through', async () => { await page.getByRole('button', { name: /DNCC_Ward_19, \+3/ }).click(); await page.waitForURL(/predictions.*ward=DNCC_Ward_19.*h=3/) })
   await check('nav: weather', async () => { await page.getByRole('link', { name: 'Weather Data' }).click(); await expectText('Why delayed weather matters') })
   await check('nav: validation', async () => { await page.getByRole('link', { name: 'Model Validation' }).click(); await expectText('Chronological split') })
