@@ -192,14 +192,14 @@ Interactive docs: http://localhost:8000/docs
 
 ## Team
 
-> **TODO (team):** fill in before submission.
+**Team name:** Byte Studios · **Project:** DengueGuard AI
 
-| Name | Role |
-|---|---|
-| _Team name_ | |
-| _Member 1_ | |
-| _Member 2_ | |
-| _Member 3_ | |
+| Name | GitHub | Role |
+|---|---|---|
+| Sheikh Sifat Hakim | [@sifat252212](https://github.com/sifat252212) | **TODO (team): confirm role** |
+| Taki Tazwar Moon | [@codertazwar](https://github.com/codertazwar) | **TODO (team): confirm role** |
+
+> **TODO (team):** confirm each member's role and who the Team Leader is.
 
 ## AI tools and external API disclosure
 
