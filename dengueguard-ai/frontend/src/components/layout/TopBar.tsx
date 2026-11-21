@@ -190,7 +190,7 @@ export function TopBar({ title, onMenu }: { title: string; onMenu: () => void })
   const { meta } = useMetadata()
   const { city, set } = useFilters()
   return (
-    <header className="sticky top-0 z-20 border-b border-line-soft bg-canvas/90 backdrop-blur-md">
+    <header className="z-20 border-b border-line-soft bg-canvas/90 backdrop-blur-md lg:sticky lg:top-0">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-3 px-4 py-3 sm:px-6 lg:px-8">
         <button onClick={onMenu} aria-label={t('nav.openMenu')} className="grid size-10 place-items-center rounded-xl border border-line bg-panel text-muted hover:text-ink lg:hidden"><Menu className="size-5" /></button>
         <h1 className="mr-auto text-xl font-semibold tracking-[-0.02em] sm:text-2xl">{title}</h1>
