@@ -1,0 +1,361 @@
+{
+  "trained_at_utc": "2026-11-21T11:21:48+00:00",
+  "python": "3.13.18",
+  "sklearn": "1.9.1",
+  "features": [
+    "rainfall_mm",
+    "rain_lag1",
+    "rain_lag2",
+    "rain_lag3",
+    "rain_lag4",
+    "rain_sum_2w",
+    "rain_sum_3w",
+    "rain_sum_4w",
+    "rain_sum_lag1_4",
+    "avg_temp_c",
+    "max_temp_c",
+    "min_temp_c",
+    "temp_mean_4w",
+    "temp_lag2",
+    "relative_humidity_pct",
+    "humidity_mean_4w",
+    "humidity_lag2",
+    "cases_now",
+    "cases_lag1",
+    "cases_lag2",
+    "cases_mean_4w",
+    "population_density_sqkm",
+    "water_logging_risk_index",
+    "sanitation_score",
+    "city_code",
+    "target_woy_sin",
+    "target_woy_cos"
+  ],
+  "feature_groups": {
+    "rainfall": [
+      "rainfall_mm",
+      "rain_lag1",
+      "rain_lag2",
+      "rain_lag3",
+      "rain_lag4",
+      "rain_sum_2w",
+      "rain_sum_3w",
+      "rain_sum_4w",
+      "rain_sum_lag1_4"
+    ],
+    "temperature": [
+      "avg_temp_c",
+      "max_temp_c",
+      "min_temp_c",
+      "temp_mean_4w",
+      "temp_lag2"
+    ],
+    "humidity": [
+      "relative_humidity_pct",
+      "humidity_mean_4w",
+      "humidity_lag2"
+    ],
+    "recent_cases": [
+      "cases_now",
+      "cases_lag1",
+      "cases_lag2",
+      "cases_mean_4w"
+    ],
+    "ward_vulnerability": [
+      "population_density_sqkm",
+      "water_logging_risk_index",
+      "sanitation_score",
+      "city_code"
+    ],
+    "seasonality": [
+      "target_woy_sin",
+      "target_woy_cos"
+    ]
+  },
+  "interval": {
+    "method": "Mondrian split-conformal on validation residuals (binned by predicted value)",
+    "nominal_coverage": 0.9,
+    "bins": 4
+  },
+  "horizons": {
+    "2": {
+      "model": "hgb_squared_error",
+      "split": {
+        "train": {
+          "target_from": "2016-02-15",
+          "target_to": "2022-12-26",
+          "rows": 21540
+        },
+        "validation": {
+          "target_from": "2023-01-02",
+          "target_to": "2023-12-25",
+          "rows": 3120
+        },
+        "test": {
+          "target_from": "2024-01-01",
+          "target_to": "2025-12-29",
+          "rows": 6300
+        }
+      },
+      "validation_candidates": {
+        "hgb_poisson": {
+          "mae": 1.182,
+          "rmse": 2.3954,
+          "bias": -0.385,
+          "n": 3120
+        },
+        "hgb_squared_error": {
+          "mae": 1.1596,
+          "rmse": 2.3507,
+          "bias": -0.3945,
+          "n": 3120
+        },
+        "poisson_glm": {
+          "mae": 1.2573,
+          "rmse": 2.5129,
+          "bias": -0.0653,
+          "n": 3120
+        }
+      },
+      "validation_baseline_4w_mean": {
+        "mae": 2.3586,
+        "rmse": 4.3999,
+        "bias": -0.0001,
+        "n": 3120
+      },
+      "test": {
+        "mae": 1.0477,
+        "rmse": 2.0379,
+        "bias": 0.237,
+        "n": 6300,
+        "interval_coverage": 0.9235,
+        "mean_interval_width": 4.453
+      },
+      "test_baseline_4w_mean": {
+        "mae": 1.7303,
+        "rmse": 3.1747,
+        "bias": -0.0,
+        "n": 6300
+      },
+      "test_abs_error_quantiles": {
+        "0.5": 0.212,
+        "0.75": 1.281,
+        "0.9": 3.334,
+        "0.95": 4.717
+      },
+      "intervals": {
+        "edges": [
+          0.04041018475647081,
+          0.40023526717876523,
+          4.714786914175959
+        ],
+        "qhat": [
+          0.0393393974260289,
+          0.32328722189556436,
+          2.3333001803584557,
+          7.266358282047346
+        ]
+      },
+      "group_importance_val_mae_increase": {
+        "rainfall": 1.7259,
+        "temperature": 0.067,
+        "humidity": 0.6378,
+        "recent_cases": 0.0818,
+        "ward_vulnerability": 0.2893,
+        "seasonality": 0.0924
+      }
+    },
+    "3": {
+      "model": "hgb_squared_error",
+      "split": {
+        "train": {
+          "target_from": "2016-02-22",
+          "target_to": "2022-12-26",
+          "rows": 21480
+        },
+        "validation": {
+          "target_from": "2023-01-02",
+          "target_to": "2023-12-25",
+          "rows": 3120
+        },
+        "test": {
+          "target_from": "2024-01-01",
+          "target_to": "2025-12-29",
+          "rows": 6300
+        }
+      },
+      "validation_candidates": {
+        "hgb_poisson": {
+          "mae": 1.2599,
+          "rmse": 2.5379,
+          "bias": -0.4117,
+          "n": 3120
+        },
+        "hgb_squared_error": {
+          "mae": 1.2156,
+          "rmse": 2.4335,
+          "bias": -0.2328,
+          "n": 3120
+        },
+        "poisson_glm": {
+          "mae": 1.3352,
+          "rmse": 2.7185,
+          "bias": 0.0253,
+          "n": 3120
+        }
+      },
+      "validation_baseline_4w_mean": {
+        "mae": 2.5683,
+        "rmse": 4.7301,
+        "bias": -0.0002,
+        "n": 3120
+      },
+      "test": {
+        "mae": 1.0601,
+        "rmse": 2.0629,
+        "bias": 0.26,
+        "n": 6300,
+        "interval_coverage": 0.9387,
+        "mean_interval_width": 4.603
+      },
+      "test_baseline_4w_mean": {
+        "mae": 1.9369,
+        "rmse": 3.4713,
+        "bias": 0.0001,
+        "n": 6300
+      },
+      "test_abs_error_quantiles": {
+        "0.5": 0.233,
+        "0.75": 1.357,
+        "0.9": 3.419,
+        "0.95": 4.887
+      },
+      "intervals": {
+        "edges": [
+          0.02747887256635783,
+          0.24952421440360317,
+          5.266533885187664
+        ],
+        "qhat": [
+          0.024077485660693843,
+          0.22502499479058932,
+          2.931280929926749,
+          7.315173301092641
+        ]
+      },
+      "group_importance_val_mae_increase": {
+        "rainfall": 1.5246,
+        "temperature": 0.1879,
+        "humidity": 0.2599,
+        "recent_cases": 0.0895,
+        "ward_vulnerability": 0.3098,
+        "seasonality": 0.4646
+      }
+    },
+    "4": {
+      "model": "hgb_poisson",
+      "split": {
+        "train": {
+          "target_from": "2016-02-29",
+          "target_to": "2022-12-26",
+          "rows": 21420
+        },
+        "validation": {
+          "target_from": "2023-01-02",
+          "target_to": "2023-12-25",
+          "rows": 3120
+        },
+        "test": {
+          "target_from": "2024-01-01",
+          "target_to": "2025-12-29",
+          "rows": 6300
+        }
+      },
+      "validation_candidates": {
+        "hgb_poisson": {
+          "mae": 1.4884,
+          "rmse": 3.0139,
+          "bias": -0.4386,
+          "n": 3120
+        },
+        "hgb_squared_error": {
+          "mae": 1.5198,
+          "rmse": 3.0003,
+          "bias": -0.2405,
+          "n": 3120
+        },
+        "poisson_glm": {
+          "mae": 1.5708,
+          "rmse": 3.0782,
+          "bias": -0.2048,
+          "n": 3120
+        }
+      },
+      "validation_baseline_4w_mean": {
+        "mae": 2.864,
+        "rmse": 5.1355,
+        "bias": -0.0001,
+        "n": 3120
+      },
+      "test": {
+        "mae": 1.1587,
+        "rmse": 2.2756,
+        "bias": 0.265,
+        "n": 6300,
+        "interval_coverage": 0.94,
+        "mean_interval_width": 5.495
+      },
+      "test_baseline_4w_mean": {
+        "mae": 2.1451,
+        "rmse": 3.7831,
+        "bias": 0.0001,
+        "n": 6300
+      },
+      "test_abs_error_quantiles": {
+        "0.5": 0.218,
+        "0.75": 1.386,
+        "0.9": 3.859,
+        "0.95": 5.554
+      },
+      "intervals": {
+        "edges": [
+          0.017476034168065847,
+          0.36774914422605465,
+          5.1390977409183005
+        ],
+        "qhat": [
+          0.015250010241464803,
+          0.3398647043498838,
+          3.449917300422203,
+          9.355177161464342
+        ]
+      },
+      "group_importance_val_mae_increase": {
+        "rainfall": 0.7161,
+        "temperature": 0.5053,
+        "humidity": 0.0736,
+        "recent_cases": -0.0045,
+        "ward_vulnerability": 0.2331,
+        "seasonality": 1.1807
+      }
+    }
+  },
+  "risk_tiers": {
+    "basis": "Quantiles of weekly ward dengue cases in the training period (target weeks 2016-2022)",
+    "quantiles": {
+      "medium": 0.7,
+      "high": 0.85,
+      "critical": 0.95
+    },
+    "thresholds_cases": {
+      "medium": 2.0,
+      "high": 7.0,
+      "critical": 13.0
+    },
+    "rule": "Low < medium; Medium [medium, high); High [high, critical); Critical >= critical (predicted cases)",
+    "score_formula": "risk_score = min(100, 100 * predicted_cases / 20.0) (P99 of training weekly cases)",
+    "score_cap_cases": 20.0,
+    "disclaimer": "Prototype operational tiers for prioritisation, not official clinical or epidemiological thresholds."
+  },
+  "training_seconds": 16.6
+}
