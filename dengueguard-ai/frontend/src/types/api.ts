@@ -185,6 +185,32 @@ export interface ValidationSeriesResponse {
   series: Array<{ target_date: string; split: 'validation' | 'held_out_test'; actual: number; predicted: number; lower: number; upper: number; wards: number }>
 }
 
+/** One original dataset row, values exactly as stored (null stays null). */
+export type DatasetRecord = Record<string, string | number | null>
+
+export interface RecordsQuery {
+  city?: string
+  ward_id?: string
+  from?: string
+  to?: string
+  q?: string
+  sort?: string
+  order?: 'asc' | 'desc'
+  page?: number
+  page_size?: number
+}
+
+export interface RecordsResponse {
+  total: number
+  page: number
+  page_size: number
+  pages: number
+  sort: string
+  order: 'asc' | 'desc'
+  columns: string[]
+  rows: DatasetRecord[]
+}
+
 export interface Session {
   token: string
   email: string | null

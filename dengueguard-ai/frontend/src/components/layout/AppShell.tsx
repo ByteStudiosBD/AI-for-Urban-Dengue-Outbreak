@@ -1,14 +1,16 @@
 import { ShieldAlert } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ErrorState, LoadingBlock } from '@/components/ui/states'
 import { useI18n, type TKey } from '@/i18n'
 import { useMetadata } from '@/state/AppData'
 import { PageTransition } from './PageTransition'
+import { RouteErrorBoundary } from './RouteErrorBoundary'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 
 const TITLES: Record<string, TKey> = {
+  '/risk': 'ro.title', '/data': 'data.title',
   '/dashboard': 'nav.overview', '/predictions': 'nav.predictions', '/heatmap': 'heat.title',
   '/weather': 'nav.weather', '/validation': 'nav.validation',
 }
@@ -35,9 +37,13 @@ export function AppShell() {
           ) : !meta ? (
             <LoadingBlock className="h-80" />
           ) : (
-            <PageTransition key={pathname}>
-              <Outlet />
-            </PageTransition>
+            <RouteErrorBoundary key={pathname}>
+              <Suspense fallback={<LoadingBlock className="h-80" />}>
+                <PageTransition key={pathname}>
+                  <Outlet />
+                </PageTransition>
+              </Suspense>
+            </RouteErrorBoundary>
           )}
           <p className="mt-10 flex items-start gap-2 border-t border-line-soft pt-4 text-xs text-faint">
             <ShieldAlert className="mt-px size-3.5 shrink-0" /> {t('common.disclaimer')}

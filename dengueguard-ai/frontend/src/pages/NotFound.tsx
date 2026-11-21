@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="grid place-items-center gap-4 py-24 text-center">
       <p className="text-lg font-semibold">{t('notFound.title')}</p>
-      <Button asChild variant="primary"><Link to="/dashboard">{t('notFound.back')}</Link></Button>
+      <Button asChild variant="primary"><Link to="/risk">{t('notFound.back')}</Link></Button>
     </div>
   )
 }

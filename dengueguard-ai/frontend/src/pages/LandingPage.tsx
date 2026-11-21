@@ -107,7 +107,7 @@ export default function LandingPage() {
         <nav className="flex items-center gap-2">
           <LanguageToggle className="hidden sm:inline-flex" />
           <Button asChild variant="ghost" className="hidden sm:inline-flex"><Link to="/login">{t('nav.login')}</Link></Button>
-          <Button asChild variant="primary"><Link to="/dashboard">{t('landing.ctaPrimary')}</Link></Button>
+          <Button asChild variant="primary"><Link to="/risk">{t('landing.ctaPrimary')}</Link></Button>
         </nav>
       </header>
 
@@ -116,7 +116,7 @@ export default function LandingPage() {
           <h1 className="text-[clamp(2.6rem,6vw,4.75rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance">{t('landing.headline')}</h1>
           <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-muted">{t('landing.sub')}</p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild variant="primary" size="lg"><Link to="/dashboard">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
+            <Button asChild variant="primary" size="lg"><Link to="/risk">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
             <Button asChild variant="secondary" size="lg"><Link to="/heatmap"><Grid3x3 />{t('landing.ctaSecondary')}</Link></Button>
           </div>
           <LanguageToggle className="mt-6 sm:hidden" />
