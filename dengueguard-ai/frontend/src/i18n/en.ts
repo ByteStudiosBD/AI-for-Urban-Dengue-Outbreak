@@ -1,8 +1,8 @@
 export const en = {
   app: { name: 'DengueGuard AI', tagline: 'Ward-level dengue early warning' },
   nav: {
-    riskOverview: 'Risk Overview', viewData: 'View Data', primaryViews: 'Primary views',
-    home: 'Home', overview: 'Overview', predictions: 'Risk Predictions', heatmap: 'Ward Risk Heatmap',
+    riskOverview: 'Risk Overview (heatmap)', viewData: 'View Data', primaryViews: 'Primary views',
+    home: 'Home', overview: 'Overview', predictions: 'Risk Predictions', heatmap: 'Risk Matrix (by week)',
     weather: 'Weather Data', validation: 'Model Validation', login: 'Sign in', profile: 'Profile',
     openMenu: 'Open navigation', closeMenu: 'Close navigation', mainNav: 'Main navigation',
   },
@@ -151,6 +151,14 @@ export const en = {
     weatherTrend: 'Observed weather', weatherTrendSub: 'Weekly rainfall, average temperature and relative humidity',
     observedCases: 'Observed cases', forecast: 'Forecast', openInData: 'Open in View Data',
     recordsSub: 'Every original record for this ward',
+    dataLayers: 'Data layers', info: 'Info', zoomIn: 'Larger tiles', zoomOut: 'Smaller tiles', resetView: 'Reset view and filters',
+    cycleLabel: 'Change tile label', canvasControls: 'Heatmap view controls',
+    distribution: 'Predicted cases per ward', distributionSub: '{n} wards in view · tier thresholds marked', distributionAxis: 'Predicted cases / week',
+    schematicBadge: 'Schematic · not to scale · not a map', dataCredit: 'Data: official hackathon dataset · model: DengueGuard AI',
+    summary: 'Selected window', tierCounts: 'Wards by model tier', topWards: 'Highest predicted wards',
+    modelInfo: 'Model', dataInfo: 'Data', dataInfoText: 'Official hackathon dataset, {from} – {to}. Historical observations, not a live feed.',
+    selectHint: 'Select a ward tile to see its forecast, drivers, trends and every original record.',
+    totalPredicted: 'Total predicted cases', alertsCount: 'High or Critical wards',
   },
   data: {
     title: 'View Data', subtitle: 'Original dataset rows, unchanged: {rows} rows · {wards} wards · {from} – {to}',

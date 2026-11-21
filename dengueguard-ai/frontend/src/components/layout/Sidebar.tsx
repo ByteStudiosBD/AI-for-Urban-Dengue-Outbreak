@@ -1,4 +1,4 @@
-import { Activity, ChartNoAxesCombined, CloudRain, Database, Grid3x3, House, LayoutDashboard, LayoutGrid, UserRound, X } from 'lucide-react'
+import { Activity, ChartNoAxesCombined, CloudRain, Database, Grid3x3, House, LayoutDashboard, Radar, UserRound, X } from 'lucide-react'
 import { motion } from 'motion/react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Tooltip } from '@/components/ui/tooltip'
@@ -9,7 +9,7 @@ import { Logo } from '@/components/Logo'
 
 export const NAV: Array<{ to: string; key: TKey; icon: typeof House }> = [
   { to: '/', key: 'nav.home', icon: House },
-  { to: '/risk', key: 'nav.riskOverview', icon: LayoutGrid },
+  { to: '/risk', key: 'nav.riskOverview', icon: Radar },
   { to: '/data', key: 'nav.viewData', icon: Database },
   { to: '/dashboard', key: 'nav.overview', icon: LayoutDashboard },
   { to: '/predictions', key: 'nav.predictions', icon: Activity },
