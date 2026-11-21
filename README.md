@@ -196,8 +196,8 @@ Interactive docs: http://localhost:8000/docs
 
 | Name | GitHub | Role |
 |---|---|---|
-| Sheikh Sifat Hakim | [@sifat252212](https://github.com/sifat252212) | **TODO (team):Team Leader & Developer ** |
-| Taki Tazwar Moon | [@codertazwar](https://github.com/codertazwar) | **TODO (team): Desginer & Developer** |
+| Sheikh Sifat Hakim | [@sifat252212](https://github.com/sifat252212) | Team Leader & Developer |
+| Taki Tazwar Moon | [@codertazwar](https://github.com/codertazwar) |  Desginer & Developer |
 
 > **TODO (team):** confirm each member's role and who the Team Leader is.
 
