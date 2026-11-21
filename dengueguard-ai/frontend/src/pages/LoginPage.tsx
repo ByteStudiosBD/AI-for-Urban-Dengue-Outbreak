@@ -1,6 +1,7 @@
-import { ArrowLeft, ArrowRight, Eye, EyeOff, LogIn, UserRound } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff, LogIn, UserRound } from 'lucide-react'
 import { useEffect, useId, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { safeNext } from '@/components/layout/RequireSession'
 import corridor from '@/assets/photos/signin-corridor.png'
 import { Logo } from '@/components/Logo'
 import { SiteFooter } from '@/components/layout/SiteFooter'
@@ -14,6 +15,8 @@ import { useSession } from '@/state/AppData'
 export default function LoginPage() {
   const { t } = useI18n()
   const nav = useNavigate()
+  const [params] = useSearchParams()
+  const next = safeNext(params.get('next'))
   const { setSession } = useSession()
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
@@ -35,7 +38,7 @@ export default function LoginPage() {
     setFormError(null)
     try {
       setSession(await api.demo(), remember)
-      nav('/risk')
+      nav(next, { replace: true })
     } catch (e) {
       setFormError((e as Error).message)
     } finally {
@@ -51,7 +54,7 @@ export default function LoginPage() {
     setBusy('login')
     try {
       setSession(await api.login(email, pw), remember)
-      nav('/risk')
+      nav(next, { replace: true })
     } catch (err) {
       const code = err instanceof ApiError ? err.code : ''
       setFormError(code === 'no_accounts' ? t('login.noAccounts') : code === 'invalid_credentials' ? t('login.badCreds') : (err as Error).message)
@@ -70,7 +73,7 @@ export default function LoginPage() {
         {/* Same dark navy overlay in both themes: the photo is dark, so its text is always white. */}
         <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,7,16,0.55)_0%,rgba(4,7,16,0.15)_28%,rgba(4,7,16,0.2)_55%,rgba(4,7,16,0.88)_100%)]" />
         <div className="relative flex h-full flex-col justify-between p-12">
-          <Link to="/" className="flex w-fit items-center gap-3 rounded-xl"><Logo /><span className="text-lg font-semibold text-white">{t('app.name')}</span></Link>
+          <div className="flex w-fit items-center gap-3"><Logo /><span className="text-lg font-semibold text-white">{t('app.name')}</span></div>
           <div>
             <p className="max-w-[18ch] text-4xl leading-tight font-bold tracking-[-0.03em] text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.6)]">{t('landing.headline')}</p>
             <p className="mt-4 max-w-[46ch] text-[#d7deea] [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">{t('app.tagline')}</p>
@@ -80,7 +83,8 @@ export default function LoginPage() {
 
       <main className="flex flex-col px-5 py-6 sm:px-10">
         <div className="flex items-center justify-between">
-          <Button asChild variant="ghost" size="sm"><Link to="/"><ArrowLeft />{t('login.back')}</Link></Button>
+          {/* Sign-in comes first now, so there is no "back to home" link here: home requires a session. */}
+          <div className="flex items-center gap-2.5 lg:invisible"><Logo className="size-8" /><span className="font-semibold">{t('app.name')}</span></div>
           <div className="flex items-center gap-2"><LanguageToggle /><ThemeToggle /></div>
         </div>
         <div className="mx-auto flex w-full max-w-[420px] flex-1 flex-col justify-center py-10">
