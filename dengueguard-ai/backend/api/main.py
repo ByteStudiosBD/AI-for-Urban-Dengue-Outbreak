@@ -446,4 +446,17 @@ if DIST.exists():
     @app.get("/{path:path}", include_in_schema=False)
     def spa(path: str):
         f = DIST / path
-        return FileResponse(f if path and f.is_file() else DIST / "index.html")
+        if path and f.is_file():
+            return FileResponse(f)
+        # The HTML shell must always be revalidated: after a redeploy it points at new hashed
+        # asset files, and a stale cached copy would load old, deleted files (blank page).
+        return FileResponse(DIST / "index.html", headers={"Cache-Control": "no-cache"})
+
+
+@app.middleware("http")
+async def _asset_cache(request: Request, call_next):
+    resp = await call_next(request)
+    # Built JS/CSS/images have content hashes in their names, so they can be cached for a year.
+    if request.url.path.startswith("/assets/") and resp.status_code == 200:
+        resp.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+    return resp
