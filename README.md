@@ -17,7 +17,7 @@ Public health officers can see which wards to target before cases climb.
 | Page | What it shows |
 |---|---|
 | **Landing** | Full-width hero on an operating-room photo with a navy overlay and white text, how it works, data coverage, prototype disclaimer |
-| **Login / Demo** | Demo mode with one click; optional local officer accounts (PBKDF2-hashed). Never blocks exploration. Hospital-corridor photo panel whose text stays white and readable in both themes |
+| **Login / Demo** | The first page every visitor sees. Demo mode signs in with one click and lands on the homepage, or returns you to the page you originally opened. Optional local officer accounts (PBKDF2-hashed). Hospital-corridor photo panel whose text stays white and readable in both themes |
 | **Risk Overview** (default) ★ | *Ward Risk Heatmap — Schematic View* in a three-pane GIS-style workspace: a **Data layers** pane (reference week, horizon, city, ward-ID search, risk-tier filters with counts, a histogram of predicted cases with the tier thresholds marked, tile label), a central canvas with map-style controls (larger/smaller tiles, tile label, reset), and an **Info** pane. All 60 dataset wards appear as tiles grouped by city, coloured from live model inference for the chosen reference week and 2/3/4-week horizon (green Low, blue Medium, red High or Critical; Critical also striped with a "C" marker). With no ward selected, the Info pane summarises the window, tier counts and highest-forecast wards; clicking a ward shows its exact 4-tier forecast, interval, risk score, all horizons, model drivers, weather and per-ward rainfall lags, vulnerability indicators, 52-week trends and every original record |
 | **View Data** | The complete original dataset (31,320 rows, all 12 source columns, values unchanged) with city / ward / ID search / date filters, sorting on every column, server-side pagination and CSV download of the filtered rows. The ward panel links here pre-filtered to that ward |
 | **Overview** | City cases this week, wards at High/Critical, selected-ward forecast with interval, ward weather, 26-week history + 2–4 week forecast chart, driver panel, lagged-rainfall chart, ward watchlist |
@@ -233,7 +233,7 @@ Interactive docs: http://localhost:8000/docs
 
 - **Local:** `./start.sh` (macOS / Linux) or `.\start.ps1` (Windows), then http://localhost:8000
 - **Deployed URL:** https://ai-for-urban-dengue-outbreak.vercel.app/ (Vercel; the first load after an idle period can take a few seconds)
-- **Video (2 min, uncut, live on localhost, with voiceover):** _Pending — not yet uploaded._ The suggested walkthrough is in [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
+- **Video (uncut, live on localhost, with voiceover):** https://drive.google.com/file/d/1vshry-op_KK2Mam1Cor8LemHZMGhm7AS/view?usp=sharing. It follows [`dengueguard-ai/docs/DEMO_SCRIPT.md`](dengueguard-ai/docs/DEMO_SCRIPT.md).
 
 ## Recent changes
 
@@ -246,5 +246,8 @@ Changes merged into `main` since the previous README update (each pull request r
 | #10 | sifat252212 | **Dark / light theme system:** a pill-shaped sun/moon toggle in the top bar, homepage header and sign-in page; a warm cream light palette (`#FBF6EA` background, white cards, `#172033` text) defined once as CSS colour tokens; theme-aware charts, tooltips, dropdowns, inputs and buttons; the choice is saved in the browser and applied before first paint. Dark remains the default and is unchanged. |
 | #11 | codertazwar | **Theme-aware pages:** the Risk Overview workspace, Risk Matrix, Weather Data, data tables, ward panel and footer now follow the active theme (the footer is cream in light mode and a dark band in dark mode). The Risk Overview's green / blue / red tile colours and all thresholds are identical in both themes; only the 4-tier badge text uses slightly deeper shades of the same hues in light mode for readability. |
 | #11 | codertazwar | **Sign-in page photo** replaced with a hospital-corridor image under a fixed dark overlay, so its heading and tagline stay white and readable in both themes and in Bangla. |
+| #14 | sifat252212 | **Sign-in first:** every page, including the homepage, now requires a session (demo or account). Visitors are sent to the sign-in page and returned to the page they asked for afterwards. Only same-site paths are accepted as the return address. |
+| #15 | sifat252212 | **Homepage after sign-in and fresh deployments:** demo or account sign-in now lands on the homepage instead of the dashboard. The server sends `index.html` with `no-cache` and the content-hashed `/assets` files as long-lived `immutable`, so a new deployment can no longer show a blank page from a stale cached copy. |
+| #16 | sifat252212 | **ARCHITECTURE.md** rewritten to cover the full current system: API reference, frontend architecture, sign-in flow, caching, Vercel deployment and tests. |
 
-No changes were made to the prediction engine, weather-lag pipeline, dataset, model outputs or API in these updates, apart from the read-only-safe dataset cache in #8.
+No changes were made to the prediction engine, weather-lag pipeline, dataset, model outputs or API responses in these updates. The only server changes were the read-only-safe dataset cache in #8 and the cache headers in #15.
