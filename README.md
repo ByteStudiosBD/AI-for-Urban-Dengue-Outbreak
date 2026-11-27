@@ -29,6 +29,19 @@ Public health officers can see which wards to target before cases climb.
 
 ★ = bonus features (ward-level heatmaps, multi-week prediction intervals, chronological MAE/RMSE dashboard).
 
+### Phase 2: operations
+
+Phase 2 turns the forecasts into an operational plan for ward commissioners and health-centre managers. It adds no new model: everything starts from the Phase 1 2/3/4-week forecasts and runs locally (no internet, no LLM).
+
+| Page | What it does |
+|---|---|
+| **Resource Allocation** | Converts forecast cases into `saline_bags_needed`, `diagnostic_kits_needed` and `hospital_beds_required` with the per-case rule found in the onsite workbook. A stock slider (30–100% of demand) and a crew slider make supplies scarce; wards are prioritised by model risk and `population_density_sqkm`, and every ward below 100% is flagged live, with critical deficits highlighted. |
+| **Hospital Overflow** | Compares bed demand with ward capacity and routes overflow patients to the least-loaded wards **within the same city**, showing per-ward routed out/in, net deficits, city-wide utilisation and remaining headroom. Every ward's capacity is editable. |
+| **What-If Simulator** | Deploys a limited number of spraying crews (optimised or manual) and shows the 2-, 3- and 4-week reduction in cases, beds and saline, with wards ranked by cases prevented per crew. |
+| **Dispatch Center** | Ward notices for SMS and WhatsApp (English or Bangla) and a printable HTML commissioner brief per city or for all wards, listing predicted cases, allocated vs required supplies, deficits, bed transfers and assigned crews. Sample exports are in [`dengueguard-ai/exports/`](dengueguard-ai/exports/). |
+
+**Phase 2 assumptions.** The onsite workbook contains supply needs per case but no bed capacity, stock levels or spraying data. The supply rates are fitted from the workbook and reproduce all 31,320 rows exactly (saline ≈ 2.385, kits ≈ 1.164, beds ≈ 0.298 per case, rounded half-up). Ward bed capacity defaults to a *planning baseline capacity (editable assumption), derived from historical ward demand* (90th percentile of weekly beds required). Stock is a percentage of projected demand, and the per-crew effect is a user-set scenario parameter, not a proven causal estimate. Details: [ARCHITECTURE.md §14](ARCHITECTURE.md#14-phase-2-operations-allocation-overflow-simulator-dispatch).
+
 **Data limitations.** The dataset has no coordinates or official ward codes, and its ward IDs (for example `DNCC_Ward_05`) are dataset identifiers that may not match official ward numbers. No ward boundary data was used, so the heatmaps are schematic and do not show geographic position. All data is historical (4 Jan 2016 – 29 Dec 2025), not a live feed.
 
 **Held-out test results** (target weeks 2024–2025, 6,300 ward-weeks per horizon):
@@ -131,7 +144,7 @@ python -m pytest -q tests
 cd frontend && npx tsc -b && npm run build
 ```
 
-The 41 backend tests cover:
+The 54 backend tests cover:
 - schema and coverage of the dataset;
 - Excel serial date parsing;
 - lag correctness per ward and no cross-ward contamination;
@@ -140,6 +153,7 @@ The 41 backend tests cover:
 - conformal interval properties;
 - every API endpoint, including structured errors;
 - dataset records returned unchanged, per-ward isolation (`DNCC_Ward_05` never mixes with `DSCC_Ward_05`), and all 60 wards forecast exactly once per week and horizon.
+- Phase 2: supply rules reproduce every onsite workbook row, scarcity allocation by priority, overflow routing that stays within each city, the multi-week simulator and ROI ranking, and SMS / WhatsApp / brief content.
 
 `tests/e2e_smoke.cjs` loads every route in a headless browser and fails on console errors.
 
@@ -169,9 +183,11 @@ dengueguard-ai/
 │   ├── rainfall_lag_pipeline/features.py  # per-ward lag / rolling features
 │   ├── ml_training/train.py               # split, select, calibrate, evaluate, save
 │   ├── prediction_engine/engine.py        # load once, batch-score, explanations
+│   ├── operations/                        # Phase 2: supplies, planner, dispatch, export
 │   └── api/main.py, auth.py               # FastAPI endpoints, demo auth
 ├── frontend/src/{pages,components,i18n,services,types,state}
-├── data/        hackathon_preli_dataset.xlsx, dataset.csv (generated)
+├── data/        hackathon_preli_dataset.xlsx, bangladesh_dengue_large_dataset_onsite.xlsx, *.csv (generated)
+├── exports/     sample SMS / WhatsApp / commissioner briefs (python -m backend.operations.export)
 ├── models/      trained_model.joblib (0.7 MB), model_metadata.json
 ├── design/      dashboard reference + supplied reference photos
 ├── docs/        official brief, rulebook and demo script
@@ -197,6 +213,9 @@ Architecture, split logic, model choice, calibration and cost controls are cover
 | `GET /api/heatmap?city=&as_of=&weeks=` | Ward × horizon and ward × week matrices |
 | `GET /api/validation?horizon_weeks=` | Split ranges, candidates, test MAE/RMSE, coverage, importance, by-city error |
 | `GET /api/validation-series?horizon_weeks=&ward_id=\|city=&from=&to=` | Actual vs predicted series |
+| `GET /api/ops/assumptions` | Fitted supply rates, per-ward planning capacity, scenario defaults |
+| `POST /api/ops/plan` | Allocation, overflow routing, crews and 2–4-week simulation for one scenario |
+| `POST /api/ops/dispatch` · `POST /api/ops/brief` | SMS / WhatsApp notices (`en` / `bn`) and the printable HTML brief |
 | `POST /api/auth/demo` · `POST /api/auth/login` · `GET /api/auth/me` · `POST /api/auth/logout` | Demo / local auth |
 
 Interactive docs: http://localhost:8000/docs

@@ -1,0 +1,1029 @@
+*DengueGuard dispatch — DSCC_Ward_04 (Dhaka South)*
+Status: *WARNING* · Risk tier: Critical
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *14* (expected forecast; 90% interval 6.74–21.28)
+
+*Supplies (allocated / required)*
+• Saline: 29 / 33
+• Kits: 14 / 16
+• Beds: 4 / 4 (local capacity 3)
+  → route 1 patient(s) to DSCC_Ward_07
+
+*Spraying crews assigned:* 2
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_03 (Chattogram)*
+Status: *WARNING* · Risk tier: Critical
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *15* (expected forecast; 90% interval 7.43–21.96)
+
+*Supplies (allocated / required)*
+• Saline: 31 / 36
+• Kits: 15 / 17
+• Beds: 4 / 4 (local capacity 3)
+  → route 1 patient(s) to CCC_Ward_05
+
+*Spraying crews assigned:* 2
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_12 (Dhaka North)*
+Status: *WARNING* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *12* (expected forecast; 90% interval 4.85–19.38)
+
+*Supplies (allocated / required)*
+• Saline: 24 / 29
+• Kits: 11 / 14
+• Beds: 4 / 4 (local capacity 3)
+  → route 1 patient(s) to DNCC_Ward_13
+
+*Spraying crews assigned:* 2
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_06 (Dhaka South)*
+Status: *WARNING* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *12* (expected forecast; 90% interval 5.01–19.54)
+
+*Supplies (allocated / required)*
+• Saline: 22 / 29
+• Kits: 11 / 14
+• Beds: 4 / 4 (local capacity 3)
+  → route 1 patient(s) to DSCC_Ward_16
+
+*Spraying crews assigned:* 2
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_01 (Chattogram)*
+Status: *WARNING* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *12* (expected forecast; 90% interval 4.29–18.82)
+
+*Supplies (allocated / required)*
+• Saline: 22 / 29
+• Kits: 11 / 14
+• Beds: 4 / 4 (local capacity 3)
+  → route 1 patient(s) to CCC_Ward_09
+
+*Spraying crews assigned:* 1
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_19 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *12* (expected forecast; 90% interval 4.37–18.9)
+
+*Supplies (allocated / required)*
+• Saline: 21 / 29
+• Kits: 10 / 14
+• Beds: 3 / 4 (local capacity 3)
+
+*Spraying crews assigned:* 1
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_10 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *11* (expected forecast; 90% interval 4.01–18.54)
+
+*Supplies (allocated / required)*
+• Saline: 18 / 26
+• Kits: 9 / 13
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — GCC_Ward_01 (Gazipur)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 1.44–15.97)
+
+*Supplies (allocated / required)*
+• Saline: 15 / 21
+• Kits: 7 / 10
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_18 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *10* (expected forecast; 90% interval 2.5–17.03)
+
+*Supplies (allocated / required)*
+• Saline: 17 / 24
+• Kits: 8 / 12
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_19 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *11* (expected forecast; 90% interval 3.41–17.94)
+
+*Supplies (allocated / required)*
+• Saline: 18 / 26
+• Kits: 9 / 13
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — GCC_Ward_03 (Gazipur)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *10* (expected forecast; 90% interval 2.99–17.52)
+
+*Supplies (allocated / required)*
+• Saline: 16 / 24
+• Kits: 8 / 12
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 1
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — GCC_Ward_04 (Gazipur)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *10* (expected forecast; 90% interval 2.29–16.82)
+
+*Supplies (allocated / required)*
+• Saline: 16 / 24
+• Kits: 8 / 12
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_05 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 1.2–15.73)
+
+*Supplies (allocated / required)*
+• Saline: 13 / 19
+• Kits: 6 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — NCC_Ward_01 (Narayanganj)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 1.07–15.6)
+
+*Supplies (allocated / required)*
+• Saline: 13 / 19
+• Kits: 6 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — GCC_Ward_02 (Gazipur)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *11* (expected forecast; 90% interval 3.97–18.51)
+
+*Supplies (allocated / required)*
+• Saline: 17 / 26
+• Kits: 9 / 13
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — GCC_Ward_05 (Gazipur)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *10* (expected forecast; 90% interval 2.5–17.03)
+
+*Supplies (allocated / required)*
+• Saline: 16 / 24
+• Kits: 8 / 12
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_12 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *10* (expected forecast; 90% interval 3.05–17.58)
+
+*Supplies (allocated / required)*
+• Saline: 16 / 24
+• Kits: 8 / 12
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_09 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *11* (expected forecast; 90% interval 3.85–18.39)
+
+*Supplies (allocated / required)*
+• Saline: 17 / 26
+• Kits: 9 / 13
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 1
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_10 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *10* (expected forecast; 90% interval 2.25–16.79)
+
+*Supplies (allocated / required)*
+• Saline: 15 / 24
+• Kits: 7 / 12
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — NCC_Ward_05 (Narayanganj)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *11* (expected forecast; 90% interval 3.35–17.88)
+
+*Supplies (allocated / required)*
+• Saline: 16 / 26
+• Kits: 8 / 13
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_01 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *11* (expected forecast; 90% interval 3.34–17.87)
+
+*Supplies (allocated / required)*
+• Saline: 16 / 26
+• Kits: 8 / 13
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_13 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 1.84–16.37)
+
+*Supplies (allocated / required)*
+• Saline: 13 / 21
+• Kits: 6 / 10
+• Beds: 3 / 3 (local capacity 2)
+  → route 1 patient(s) to DSCC_Ward_17
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_08 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.86–15.39)
+
+*Supplies (allocated / required)*
+• Saline: 12 / 19
+• Kits: 6 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_11 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.95–15.48)
+
+*Supplies (allocated / required)*
+• Saline: 12 / 19
+• Kits: 5 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_04 (Chattogram)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 1.22–15.75)
+
+*Supplies (allocated / required)*
+• Saline: 11 / 19
+• Kits: 5 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_02 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.35–14.89)
+
+*Supplies (allocated / required)*
+• Saline: 11 / 19
+• Kits: 5 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_16 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.0–14.27)
+
+*Supplies (allocated / required)*
+• Saline: 10 / 17
+• Kits: 5 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_07 (Chattogram)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 2.05–16.58)
+
+*Supplies (allocated / required)*
+• Saline: 12 / 21
+• Kits: 6 / 10
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — NCC_Ward_04 (Narayanganj)*
+Status: *WARNING* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.7)
+
+*Supplies (allocated / required)*
+• Saline: 8 / 14
+• Kits: 4 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_04 (Dhaka North)*
+Status: *WARNING* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.06)
+
+*Supplies (allocated / required)*
+• Saline: 8 / 14
+• Kits: 4 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_17 (Dhaka North)*
+Status: *WARNING* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.0–14.24)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_10 (Chattogram)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.0–14.29)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_06 (Chattogram)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.62–15.15)
+
+*Supplies (allocated / required)*
+• Saline: 10 / 19
+• Kits: 5 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_03 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 2.14–16.67)
+
+*Supplies (allocated / required)*
+• Saline: 11 / 21
+• Kits: 5 / 10
+• Beds: 3 / 3 (local capacity 3)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_07 (Dhaka North)*
+Status: *WARNING* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.0–14.06)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_18 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 1.87–16.41)
+
+*Supplies (allocated / required)*
+• Saline: 11 / 21
+• Kits: 5 / 10
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_20 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 1.65–16.19)
+
+*Supplies (allocated / required)*
+• Saline: 11 / 21
+• Kits: 5 / 10
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_02 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.0–14.3)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_15 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.0–14.34)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_14 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.15)
+
+*Supplies (allocated / required)*
+• Saline: 7 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_01 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.5)
+
+*Supplies (allocated / required)*
+• Saline: 7 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_08 (Chattogram)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.13–14.66)
+
+*Supplies (allocated / required)*
+• Saline: 8 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_15 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *9* (expected forecast; 90% interval 1.72–16.26)
+
+*Supplies (allocated / required)*
+• Saline: 10 / 21
+• Kits: 5 / 10
+• Beds: 2 / 3 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits, Beds
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_03 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 1.21–15.74)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 19
+• Kits: 4 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_11 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.56–15.1)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 19
+• Kits: 4 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_08 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *7* (expected forecast; 90% interval 0.07–14.6)
+
+*Supplies (allocated / required)*
+• Saline: 8 / 17
+• Kits: 4 / 8
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_09 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–12.98)
+
+*Supplies (allocated / required)*
+• Saline: 6 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_05 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.91–15.44)
+
+*Supplies (allocated / required)*
+• Saline: 9 / 19
+• Kits: 4 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_07 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *5* (expected forecast; 90% interval 0.0–12.03)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 12
+• Kits: 3 / 6
+• Beds: 1 / 1 (local capacity 2)
+  ← receive 1 patient(s) from DSCC_Ward_04
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_20 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.44)
+
+*Supplies (allocated / required)*
+• Saline: 6 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_06 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.48)
+
+*Supplies (allocated / required)*
+• Saline: 6 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — NCC_Ward_03 (Narayanganj)*
+Status: *CRITICAL* · Risk tier: High
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *8* (expected forecast; 90% interval 0.36–14.89)
+
+*Supplies (allocated / required)*
+• Saline: 8 / 19
+• Kits: 4 / 9
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DNCC_Ward_13 (Dhaka North)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *5* (expected forecast; 90% interval 0.0–12.01)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 12
+• Kits: 3 / 6
+• Beds: 1 / 1 (local capacity 2)
+  ← receive 1 patient(s) from DNCC_Ward_12
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_16 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *5* (expected forecast; 90% interval 0.0–12.42)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 12
+• Kits: 3 / 6
+• Beds: 1 / 1 (local capacity 2)
+  ← receive 1 patient(s) from DSCC_Ward_06
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_17 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *5* (expected forecast; 90% interval 0.0–12.56)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 12
+• Kits: 3 / 6
+• Beds: 1 / 1 (local capacity 2)
+  ← receive 1 patient(s) from DSCC_Ward_13
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_09 (Chattogram)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *5* (expected forecast; 90% interval 2.35–7.02)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 12
+• Kits: 3 / 6
+• Beds: 1 / 1 (local capacity 2)
+  ← receive 1 patient(s) from CCC_Ward_01
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_02 (Chattogram)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–12.94)
+
+*Supplies (allocated / required)*
+• Saline: 6 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — CCC_Ward_05 (Chattogram)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *5* (expected forecast; 90% interval 0.0–12.63)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 12
+• Kits: 2 / 6
+• Beds: 1 / 1 (local capacity 2)
+  ← receive 1 patient(s) from CCC_Ward_03
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — NCC_Ward_02 (Narayanganj)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *6* (expected forecast; 90% interval 0.0–13.1)
+
+*Supplies (allocated / required)*
+• Saline: 5 / 14
+• Kits: 3 / 7
+• Beds: 2 / 2 (local capacity 2)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._
+
+----------
+
+*DengueGuard dispatch — DSCC_Ward_14 (Dhaka South)*
+Status: *CRITICAL* · Risk tier: Medium
+Target week: 2025-09-08 (2 weeks ahead)
+Predicted cases: *4* (expected forecast; 90% interval 1.59–6.26)
+
+*Supplies (allocated / required)*
+• Saline: 4 / 10
+• Kits: 2 / 5
+• Beds: 1 / 1 (local capacity 1)
+
+*Spraying crews assigned:* 0
+⚠️ *Deficit:* Saline, Kits
+
+_Planning scenario. Capacity and stock are editable assumptions, not official data._

@@ -8,7 +8,9 @@ DengueGuard AI is a ward-level dengue early-warning system. It forecasts weekly 
 4. Each forecast gets a risk tier and a calibrated prediction interval.
 5. A React dashboard shows the result to sign-in-gated users.
 
-Everything runs from the supplied workbook. There is no database, no external API and no LLM at inference time.
+Phase 2 adds an operations layer on top of the forecasts: constrained supply allocation, intra-city hospital overflow routing, a what-if spraying simulator and SMS / WhatsApp / printable dispatch notices (§14).
+
+Everything runs from the supplied workbooks. There is no database, no external API and no LLM at inference time.
 
 **Live deployment:** https://ai-for-urban-dengue-outbreak.vercel.app/
 **Repository:** https://github.com/ByteStudiosBD/AI-for-Urban-Dengue-Outbreak
@@ -39,13 +41,15 @@ The same FastAPI app serves the API and the built frontend from one port: 8000 l
 
 | Path | Role |
 |---|---|
-| `dengueguard-ai/data/` | Official workbook `hackathon_preli_dataset.xlsx` and the derived `dataset.csv` |
+| `dengueguard-ai/data/` | Official workbooks `hackathon_preli_dataset.xlsx` (Phase 1) and `bangladesh_dengue_large_dataset_onsite.xlsx` (Phase 2), with the derived `dataset.csv` and `onsite_supplies.csv` caches |
 | `dengueguard-ai/backend/data_processing/loader.py` | Ingest, validation and CSV cache |
 | `dengueguard-ai/backend/rainfall_lag_pipeline/features.py` | Per-ward lag and rolling features |
 | `dengueguard-ai/backend/ml_training/train.py` | Model selection, conformal calibration, test evaluation |
 | `dengueguard-ai/backend/prediction_engine/engine.py` | Loads models, batch-scores everything, explanations |
 | `dengueguard-ai/backend/api/main.py` | FastAPI routes, error handling, caching, SPA hosting |
 | `dengueguard-ai/backend/api/auth.py` | Demo sessions and optional local officer accounts |
+| `dengueguard-ai/backend/operations/` | Phase 2: supply rules, allocation, overflow routing, simulator, dispatch templates, export script (§14) |
+| `dengueguard-ai/exports/` | Sample SMS, WhatsApp and printable commissioner briefs (generated) |
 | `dengueguard-ai/models/` | Serialized models and metadata (under 1 MB) |
 | `dengueguard-ai/frontend/` | Vite + React 19 + TypeScript single-page app |
 | `dengueguard-ai/tests/` | pytest suite (pipeline + API) and the Playwright browser smoke test |
@@ -153,6 +157,10 @@ All routes are `GET` unless marked. Every error has the shape `{error: {code, me
 | `/api/predict-all` | Every ward for a week and horizon (all 60, or one city): the Risk Overview tiles |
 | `/api/heatmap` | Ward × horizon and ward × recent-week matrices |
 | `/api/validation`, `/api/validation-series` | Test metrics and observed-vs-predicted series |
+| `/api/ops/assumptions` | Phase 2 supply rates fitted from the onsite workbook (with exact ranges and agreement), per-ward planning capacity, scenario defaults |
+| `POST /api/ops/plan` | One scenario: ward allocations and flags, crews, city bed pools, transfers, 2–4-week simulation and ROI ranking (§14) |
+| `POST /api/ops/dispatch` | SMS and WhatsApp notices per ward (`lang` = `en` or `bn`) |
+| `POST /api/ops/brief` | Printable HTML commissioner brief for one city or all wards |
 | `/api/auth/config`, `POST /api/auth/demo`, `POST /api/auth/login`, `/api/auth/me`, `POST /api/auth/logout` | Authentication (§9) |
 | `/api/*` (anything else) | Structured 404 |
 | `/*` | The built SPA (`frontend/dist`), with `index.html` as the fallback for client routes |
@@ -269,9 +277,10 @@ sequenceDiagram
 |---|---|
 | `tests/test_pipeline.py` | Schema and coverage, Excel-serial dates, duplicate rejection, rain lags checked by hand per ward, no cross-ward contamination, features unchanged when the future is altered, target exactly h weeks ahead, disjoint chronological split, conformal interval properties |
 | `tests/test_api.py` | Health and metadata, prediction shape and intervals, predictions are model output rather than constants, forecasts beyond the data, predict-all, weather lags, validation, heatmap, structured errors, honest auth, records (full coverage, original values, filters, sorting, CSV, errors), cache headers (`index.html` no-cache, assets immutable) |
+| `tests/test_operations.py` | Phase 2: supply rules reproduce every workbook row, half-up rounding, whole-bed capacity, water-filling caps and priority order, greedy crews with diminishing returns, routing conserves patients and stays within each city, scarcity creates deficits, capacity overrides, manual deployment, multi-horizon simulation and ROI order, SMS / WhatsApp / Bangla / brief content, validation errors |
 | `tests/e2e_smoke.cjs` (Playwright) | Each route in a real browser: sign-in-first redirect, demo login → homepage, return to the requested page, all 60 tiles, ward panel, View Data counts, navigation keeping filters, matrix click-through, alerts, CSV export, Bangla toggle, 404, no console errors |
 
-Current result: **42 pytest tests pass** (`python -m pytest -q`). The browser smoke test runs with `node tests/e2e_smoke.cjs` against a running app.
+Current result: **54 pytest tests pass** (`python -m pytest -q`). The browser smoke test runs with `node tests/e2e_smoke.cjs` against a running app.
 
 ## 13. Resilience
 
@@ -280,10 +289,79 @@ Current result: **42 pytest tests pass** (`python -m pytest -q`). The browser sm
 - **Frontend:** route error boundaries and per-panel retry. A network failure says the API is unreachable rather than showing stale or invented numbers.
 - **Offline-capable:** no rate-limited dependencies. Fonts and photos are bundled locally.
 
-## 14. Limitations
+## 14. Phase 2: operations (allocation, overflow, simulator, dispatch)
+
+Phase 2 turns the Phase 1 forecasts into an operational plan for all 60 wards. It adds **no new model**: every number starts from the existing 2/3/4-week forecasts. The whole plan for one scenario is computed in about 0.1 s, locally, with no network or LLM call.
+
+```mermaid
+flowchart LR
+  F[Phase 1 forecasts<br/>2/3/4 weeks, 60 wards] --> D[Demand<br/>supplies.py rule]
+  W[onsite workbook] -->|fit rates, P90 beds| D
+  D --> A[Constrained allocation<br/>water-filling by priority]
+  D --> R[Overflow routing<br/>intra-city only]
+  F --> S[Simulator<br/>greedy crews, 2-4 wk]
+  A & R & S --> N[Dispatch templates<br/>SMS · WhatsApp · HTML brief]
+```
+
+| Module | Code | UI page | API |
+|---|---|---|---|
+| Supply rules + capacity baseline | `backend/operations/supplies.py` | (used everywhere) | `GET /api/ops/assumptions` |
+| Allocation, routing, simulator | `backend/operations/planner.py` | Resource Allocation, Hospital Overflow, What-If Simulator | `POST /api/ops/plan` |
+| Dispatch notices | `backend/operations/dispatch.py` | Dispatch Center | `POST /api/ops/dispatch`, `POST /api/ops/brief` |
+| Sample exports | `backend/operations/export.py` | — | `python -m backend.operations.export` → `exports/` |
+
+### 14.1 Data: what the onsite workbook gives, and what it does not
+
+`data/bangladesh_dengue_large_dataset_onsite.xlsx` is the Phase 1 dataset (same 60 wards, 522 weeks and identical `dengue_cases`, checked row by row) plus `saline_bags_needed`, `diagnostic_kits_needed` and `hospital_beds_required`. The Phase 1 model therefore stays valid and is not retrained.
+
+**Supply rule (derived from data).** In every row each supply is a fixed multiple of that week's cases, rounded half-up: `supply = floor(rate × cases + 0.5)`. The nominal rates are ≈ 2.39 (saline), ≈ 1.17 (kits) and ≈ 0.30 (beds), but those exact values do not reproduce every row (5 cases × 0.30 = 1.5 would round to 2 beds; the workbook says 1). At startup `supplies.py` scans candidate rates and keeps the midpoint of the interval that reproduces **100% of the 31,320 rows**:
+
+| Supply | Nominal | Rates that match every row | Rate used |
+|---|---|---|---|
+| `saline_bags_needed` | 2.39 | 2.3834 – 2.3863 | 2.3848 |
+| `diagnostic_kits_needed` | 1.17 | 1.1618 – 1.1666 | 1.1642 |
+| `hospital_beds_required` | 0.30 | 0.2969 – 0.2999 | 0.2984 |
+
+Forecasts are continuous, so expected cases are first rounded half-up to whole cases and then passed through the same rule. `GET /api/ops/assumptions` returns the rates, the exact ranges and the agreement share (1.0), and a test re-checks every row.
+
+**Not in the data, so labelled as assumptions (all editable, none presented as official data):**
+
+| Input | Default | Label shown in the UI |
+|---|---|---|
+| Ward bed capacity | 90th percentile of the ward's weekly `hospital_beds_required` (2016–2025), rounded up to a whole bed; per-ward overrides and a 50–150% scale | "Planning baseline capacity (editable assumption), derived from historical ward demand." |
+| Available stock | Slider, 30–100% of the projected total demand in the pool (all 60 wards or one city) | Scenario control, not official inventory data |
+| Spraying crews | Total crews (user input), max crews per ward | Scenario-based planning output |
+| Effect per crew | User-set % reduction of a ward's remaining projected cases (default 10%) | Scenario-based planning output; not a proven causal estimate. No external value is cited. |
+
+### 14.2 Constrained resource allocation
+
+1. **Demand.** Per ward, cases at the chosen horizon → saline, kits and beds via the supply rule. *Demand basis* is the point forecast ("Expected") or the upper bound of the calibrated 90% prediction interval ("Surge (P90)") for surge planning.
+2. **Priority** (0–100) = 100 × (w × risk_score/100 + (1 − w) × density_norm), where `risk_score` is the Phase 1 model score, `density_norm` is min–max normalised `population_density_sqkm` over the 60 wards, and w = 0.7 by default (slider).
+3. **Scarce consumables** (saline, kits): available = ⌊stock% × total demand⌋. If short, each ward's fill rate is f = min(1, λ × (0.25 + priority/100)), and λ is found by bisection so the pool is used exactly (water-filling). Consequences: higher priority means a larger share of its demand; no ward gets more than it needs; every ward with demand gets something (the 0.25 floor); all stock is used. Integer units are assigned by largest remainder.
+4. **Flags.** Any unmet supply is flagged. Severity is **critical** when patients have no bed after routing, when a ward gets under 50% of a supply, or when a High/Critical-tier ward gets under 75%. Otherwise it is a **warning**. "High-risk ward with no crew" is shown as an advisory note and does not change severity.
+5. **Beds** are not shipped like stock, so they are handled by capacity and routing (§14.3) rather than by the stock slider; the bed-capacity slider is their scarcity control.
+
+### 14.3 Hospital overflow routing
+
+Within each city separately (Dhaka North, Dhaka South, Chattogram, Gazipur, Narayanganj): excess = max(0, beds needed − capacity) and headroom = max(0, capacity − beds needed). Repeat: the ward with the largest excess sends patients to the ward **in the same city** with the lowest current utilisation that still has headroom, moving min(excess, headroom) patients, until no excess or no headroom remains. Remaining excess is the ward's **net deficit**. Each city reports beds required, capacity, patients routed, net deficit, headroom left and utilisation after routing. Patients are never routed across cities (tested).
+
+### 14.4 What-if vector-control simulator
+
+For each ward the baseline is the model forecast at h = 2, 3 and 4 weeks. With n crews and per-crew effect e, the scenario forecast is `cases_h × (1 − e)^n` for every horizon, and beds and saline are re-derived from the scenario cases with the supply rule. The marginal value of the k-th crew in a ward is `window × e × (1 − e)^(k−1)` (window = cases summed over the three horizons). Returns diminish, so assigning crews one at a time to the highest marginal value (the **Optimised** mode) maximises total cases prevented for this objective. **Manual** mode lets officers place crews themselves. ROI = cases prevented per crew, and wards are ranked by it. The output always carries the label that e is an assumption, not a measured effect. By default supplies are planned on the unmodified forecast (conservative); a toggle plans on the scenario forecast instead.
+
+### 14.5 Dispatch notices and exports
+
+`dispatch.py` fills fixed templates from the plan: **SMS** (compact; GSM-7 in English, UCS-2 in Bangla, with a part counter in the UI), **WhatsApp** (multi-line, bold markers) and a printable **HTML commissioner brief** per city or for all wards (use the browser's Print → Save as PDF). Each lists predicted cases, allocated vs required supplies, bed routing, deficits and assigned crews, plus the assumptions. SMS and WhatsApp are available in English and Bangla. `python -m backend.operations.export` writes samples for a documented peak-week stress test (`exports/scenario.json`: reference week 2025-08-25, 2-week horizon, 60% stock, 12 crews, 10% effect, 75% bed capacity) to `exports/sms/`, `exports/whatsapp/`, `exports/briefs/` and `exports/plan_sample.json`.
+
+### 14.6 Offline behaviour
+
+Forecasting, allocation, routing, simulation and every notice run in the local FastAPI process from files in the repository. There are no network calls in the backend (no HTTP client is imported) and no external URLs in the built frontend; fonts are bundled. If the onsite workbook were missing, the supply rule falls back to the nominal rates and says so in `/api/ops/assumptions`.
+
+## 15. Limitations
 
 - **Data coverage:** one historical dataset (2016–2025, 60 wards). It is not a live feed and has not been validated epidemiologically by an outside party.
 - **No geographic map:** no ward boundary data was supplied, and the dataset's ward IDs (e.g. `DNCC_Ward_05`) cannot be matched to official ward numbers. The Risk Overview is therefore a schematic tile grid grouped by city, and the matrix is ward × horizon / week. Neither implies geographic position or adjacency.
 - **Interval scope:** intervals are marginal per ward-week. City totals in the validation chart sum per-ward bounds, which gives a conservative envelope; the chart labels it as such.
 - **Weather inputs:** forecasts beyond the data use the last observed weather. No weather forecast is ingested.
+- **Phase 2 assumptions:** bed capacity, stock levels and the per-crew spraying effect are not in the data. They are editable planning assumptions (§14.1), never official inventory or hospital-capacity figures, and simulated reductions are scenarios rather than causal estimates.
 - **Authentication:** prototype only. Sessions live in memory, so a server restart or a new serverless instance signs users out.

@@ -1,0 +1,60 @@
+DENGUEGUARD DSCC_Ward_04 wk 2025-09-08: WARNING. Pred 14 cases. Saline 29/33, Kits 14/16, Beds 4/4 (1 routed). Crews 2. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_03 wk 2025-09-08: WARNING. Pred 15 cases. Saline 31/36, Kits 15/17, Beds 4/4 (1 routed). Crews 2. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_12 wk 2025-09-08: WARNING. Pred 12 cases. Saline 24/29, Kits 11/14, Beds 4/4 (1 routed). Crews 2. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_06 wk 2025-09-08: WARNING. Pred 12 cases. Saline 22/29, Kits 11/14, Beds 4/4 (1 routed). Crews 2. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_01 wk 2025-09-08: WARNING. Pred 12 cases. Saline 22/29, Kits 11/14, Beds 4/4 (1 routed). Crews 1. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_19 wk 2025-09-08: CRITICAL. Pred 12 cases. Saline 21/29, Kits 10/14, Beds 3/4. Crews 1. Deficit: saline,kits,beds.
+DENGUEGUARD DSCC_Ward_10 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 18/26, Kits 9/13, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD GCC_Ward_01 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 15/21, Kits 7/10, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DNCC_Ward_18 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 17/24, Kits 8/12, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_19 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 18/26, Kits 9/13, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD GCC_Ward_03 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 16/24, Kits 8/12, Beds 3/3. Crews 1. Deficit: saline,kits.
+DENGUEGUARD GCC_Ward_04 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 16/24, Kits 8/12, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DNCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 13/19, Kits 6/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD NCC_Ward_01 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 13/19, Kits 6/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD GCC_Ward_02 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 17/26, Kits 9/13, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD GCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 16/24, Kits 8/12, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DSCC_Ward_12 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 16/24, Kits 8/12, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_09 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 17/26, Kits 9/13, Beds 3/3. Crews 1. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_10 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 15/24, Kits 7/12, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD NCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 16/26, Kits 8/13, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_01 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 16/26, Kits 8/13, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DSCC_Ward_13 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 13/21, Kits 6/10, Beds 3/3 (1 routed). Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_08 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 12/19, Kits 6/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_11 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 12/19, Kits 5/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_04 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 11/19, Kits 5/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_02 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 11/19, Kits 5/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_16 wk 2025-09-08: CRITICAL. Pred 7 cases. Saline 10/17, Kits 5/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_07 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 12/21, Kits 6/10, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD NCC_Ward_04 wk 2025-09-08: WARNING. Pred 6 cases. Saline 8/14, Kits 4/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_04 wk 2025-09-08: WARNING. Pred 6 cases. Saline 8/14, Kits 4/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_17 wk 2025-09-08: WARNING. Pred 7 cases. Saline 9/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_10 wk 2025-09-08: CRITICAL. Pred 7 cases. Saline 9/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_06 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 10/19, Kits 5/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_03 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 11/21, Kits 5/10, Beds 3/3. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_07 wk 2025-09-08: WARNING. Pred 7 cases. Saline 9/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_18 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 11/21, Kits 5/10, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DSCC_Ward_20 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 11/21, Kits 5/10, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DSCC_Ward_02 wk 2025-09-08: CRITICAL. Pred 7 cases. Saline 9/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_15 wk 2025-09-08: CRITICAL. Pred 7 cases. Saline 9/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_14 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 7/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_01 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 7/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_08 wk 2025-09-08: CRITICAL. Pred 7 cases. Saline 8/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_15 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 10/21, Kits 5/10, Beds 2/3. Crews 0. Deficit: saline,kits,beds.
+DENGUEGUARD DNCC_Ward_03 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 9/19, Kits 4/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_11 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 9/19, Kits 4/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_08 wk 2025-09-08: CRITICAL. Pred 7 cases. Saline 8/17, Kits 4/8, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_09 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 6/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 9/19, Kits 4/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_07 wk 2025-09-08: CRITICAL. Pred 5 cases. Saline 5/12, Kits 3/6, Beds 1/1. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_20 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 6/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_06 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 6/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD NCC_Ward_03 wk 2025-09-08: CRITICAL. Pred 8 cases. Saline 8/19, Kits 4/9, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DNCC_Ward_13 wk 2025-09-08: CRITICAL. Pred 5 cases. Saline 5/12, Kits 3/6, Beds 1/1. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_16 wk 2025-09-08: CRITICAL. Pred 5 cases. Saline 5/12, Kits 3/6, Beds 1/1. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_17 wk 2025-09-08: CRITICAL. Pred 5 cases. Saline 5/12, Kits 3/6, Beds 1/1. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_09 wk 2025-09-08: CRITICAL. Pred 5 cases. Saline 5/12, Kits 3/6, Beds 1/1. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_02 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 6/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD CCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 5 cases. Saline 5/12, Kits 2/6, Beds 1/1. Crews 0. Deficit: saline,kits.
+DENGUEGUARD NCC_Ward_02 wk 2025-09-08: CRITICAL. Pred 6 cases. Saline 5/14, Kits 3/7, Beds 2/2. Crews 0. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_14 wk 2025-09-08: CRITICAL. Pred 4 cases. Saline 4/10, Kits 2/5, Beds 1/1. Crews 0. Deficit: saline,kits.

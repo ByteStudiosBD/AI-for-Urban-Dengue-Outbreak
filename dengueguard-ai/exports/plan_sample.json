@@ -1,0 +1,4531 @@
+{
+ "scenario": {
+  "as_of": "2025-08-25",
+  "horizon_weeks": 2,
+  "target_date": "2025-09-08",
+  "city": null,
+  "stock_pct": 60.0,
+  "total_crews": 12,
+  "effect_per_crew_pct": 10.0,
+  "max_crews_per_ward": 3,
+  "risk_weight": 0.7,
+  "demand_basis": "expected",
+  "capacity_scale_pct": 75.0,
+  "capacity_overrides": {},
+  "crew_mode": "optimised",
+  "plan_with_intervention": false
+ },
+ "assumptions": [
+  {
+   "id": "supply_rates",
+   "kind": "derived",
+   "text": "Supplies per whole expected case, fitted from the onsite workbook: saline ~2.385, diagnostic kits ~1.164, hospital beds ~0.298, rounded half-up. These reproduce every workbook row."
+  },
+  {
+   "id": "capacity",
+   "kind": "assumption",
+   "text": "Planning baseline capacity (editable assumption), derived from historical ward demand: 90th percentile of weekly hospital_beds_required per ward, rounded up. Not official hospital capacity data."
+  },
+  {
+   "id": "stock",
+   "kind": "scenario",
+   "text": "Available stock is a scenario control: a percentage of the projected total demand. It is not official inventory data."
+  },
+  {
+   "id": "crews",
+   "kind": "scenario",
+   "text": "Total crews and the effect per crew are user-set scenario parameters. The dataset has no intervention records, so simulated reductions are planning scenarios, not proven causal estimates."
+  }
+ ],
+ "supplies": {
+  "saline_bags_needed": {
+   "required": 1185,
+   "available": 711,
+   "allocated": 711,
+   "shortfall": 474,
+   "wards_short": 60
+  },
+  "diagnostic_kits_needed": {
+   "required": 576,
+   "available": 345,
+   "allocated": 345,
+   "shortfall": 231,
+   "wards_short": 60
+  }
+ },
+ "crews": {
+  "total": 12,
+  "assigned": 12,
+  "unused": 0,
+  "high_risk_wards_without_crew": 34
+ },
+ "alerts": {
+  "critical": 51,
+  "warning": 9
+ },
+ "wards": [
+  {
+   "ward_id": "DSCC_Ward_04",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 74252,
+   "risk_tier": "Critical",
+   "risk_score": 70.1,
+   "priority": 79.0,
+   "predicted_cases": 14.01,
+   "interval": [
+    6.74,
+    21.28
+   ],
+   "planning_cases": 14.01,
+   "planning_cases_whole": 14,
+   "required": {
+    "saline_bags_needed": 33,
+    "diagnostic_kits_needed": 16,
+    "hospital_beds_required": 4
+   },
+   "allocated": {
+    "saline_bags_needed": 29,
+    "diagnostic_kits_needed": 14
+   },
+   "crews": 2,
+   "beds": {
+    "required": 4,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 1,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "CCC_Ward_03",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 64626,
+   "risk_tier": "Critical",
+   "risk_score": 73.5,
+   "priority": 76.3,
+   "predicted_cases": 14.7,
+   "interval": [
+    7.43,
+    21.96
+   ],
+   "planning_cases": 14.7,
+   "planning_cases_whole": 15,
+   "required": {
+    "saline_bags_needed": 36,
+    "diagnostic_kits_needed": 17,
+    "hospital_beds_required": 4
+   },
+   "allocated": {
+    "saline_bags_needed": 31,
+    "diagnostic_kits_needed": 15
+   },
+   "crews": 2,
+   "beds": {
+    "required": 4,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 1,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "DNCC_Ward_12",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 72086,
+   "risk_tier": "High",
+   "risk_score": 60.6,
+   "priority": 71.2,
+   "predicted_cases": 12.12,
+   "interval": [
+    4.85,
+    19.38
+   ],
+   "planning_cases": 12.12,
+   "planning_cases_whole": 12,
+   "required": {
+    "saline_bags_needed": 29,
+    "diagnostic_kits_needed": 14,
+    "hospital_beds_required": 4
+   },
+   "allocated": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 11
+   },
+   "crews": 2,
+   "beds": {
+    "required": 4,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 1,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "DSCC_Ward_06",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 59553,
+   "risk_tier": "High",
+   "risk_score": 61.4,
+   "priority": 65.1,
+   "predicted_cases": 12.27,
+   "interval": [
+    5.01,
+    19.54
+   ],
+   "planning_cases": 12.27,
+   "planning_cases_whole": 12,
+   "required": {
+    "saline_bags_needed": 29,
+    "diagnostic_kits_needed": 14,
+    "hospital_beds_required": 4
+   },
+   "allocated": {
+    "saline_bags_needed": 22,
+    "diagnostic_kits_needed": 11
+   },
+   "crews": 2,
+   "beds": {
+    "required": 4,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 1,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "CCC_Ward_01",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 64024,
+   "risk_tier": "High",
+   "risk_score": 57.8,
+   "priority": 65.0,
+   "predicted_cases": 11.56,
+   "interval": [
+    4.29,
+    18.82
+   ],
+   "planning_cases": 11.56,
+   "planning_cases_whole": 12,
+   "required": {
+    "saline_bags_needed": 29,
+    "diagnostic_kits_needed": 14,
+    "hospital_beds_required": 4
+   },
+   "allocated": {
+    "saline_bags_needed": 22,
+    "diagnostic_kits_needed": 11
+   },
+   "crews": 1,
+   "beds": {
+    "required": 4,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 1,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "DNCC_Ward_19",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 52080,
+   "risk_tier": "High",
+   "risk_score": 58.2,
+   "priority": 58.8,
+   "predicted_cases": 11.64,
+   "interval": [
+    4.37,
+    18.9
+   ],
+   "planning_cases": 11.64,
+   "planning_cases_whole": 12,
+   "required": {
+    "saline_bags_needed": 29,
+    "diagnostic_kits_needed": 14,
+    "hospital_beds_required": 4
+   },
+   "allocated": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10
+   },
+   "crews": 1,
+   "beds": {
+    "required": 4,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_10",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 54340,
+   "risk_tier": "High",
+   "risk_score": 56.4,
+   "priority": 58.8,
+   "predicted_cases": 11.28,
+   "interval": [
+    4.01,
+    18.54
+   ],
+   "planning_cases": 11.28,
+   "planning_cases_whole": 11,
+   "required": {
+    "saline_bags_needed": 26,
+    "diagnostic_kits_needed": 13,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 18,
+    "diagnostic_kits_needed": 9
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "GCC_Ward_01",
+   "city": "Gazipur",
+   "in_pool": true,
+   "population_density_sqkm": 69771,
+   "risk_tier": "High",
+   "risk_score": 43.5,
+   "priority": 58.1,
+   "predicted_cases": 8.7,
+   "interval": [
+    1.44,
+    15.97
+   ],
+   "planning_cases": 8.7,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 15,
+    "diagnostic_kits_needed": 7
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_18",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 62182,
+   "risk_tier": "High",
+   "risk_score": 48.8,
+   "priority": 57.7,
+   "predicted_cases": 9.77,
+   "interval": [
+    2.5,
+    17.03
+   ],
+   "planning_cases": 9.77,
+   "planning_cases_whole": 10,
+   "required": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 12,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_19",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 54104,
+   "risk_tier": "High",
+   "risk_score": 53.4,
+   "priority": 56.6,
+   "predicted_cases": 10.68,
+   "interval": [
+    3.41,
+    17.94
+   ],
+   "planning_cases": 10.68,
+   "planning_cases_whole": 11,
+   "required": {
+    "saline_bags_needed": 26,
+    "diagnostic_kits_needed": 13,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 18,
+    "diagnostic_kits_needed": 9
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "GCC_Ward_03",
+   "city": "Gazipur",
+   "in_pool": true,
+   "population_density_sqkm": 56311,
+   "risk_tier": "High",
+   "risk_score": 51.3,
+   "priority": 56.3,
+   "predicted_cases": 10.25,
+   "interval": [
+    2.99,
+    17.52
+   ],
+   "planning_cases": 10.25,
+   "planning_cases_whole": 10,
+   "required": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 12,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 16,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 1,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "GCC_Ward_04",
+   "city": "Gazipur",
+   "in_pool": true,
+   "population_density_sqkm": 59508,
+   "risk_tier": "High",
+   "risk_score": 47.8,
+   "priority": 55.5,
+   "predicted_cases": 9.55,
+   "interval": [
+    2.29,
+    16.82
+   ],
+   "planning_cases": 9.55,
+   "planning_cases_whole": 10,
+   "required": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 12,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 16,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_05",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 65449,
+   "risk_tier": "High",
+   "risk_score": 42.3,
+   "priority": 54.9,
+   "predicted_cases": 8.46,
+   "interval": [
+    1.2,
+    15.73
+   ],
+   "planning_cases": 8.46,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 13,
+    "diagnostic_kits_needed": 6
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "NCC_Ward_01",
+   "city": "Narayanganj",
+   "in_pool": true,
+   "population_density_sqkm": 65612,
+   "risk_tier": "High",
+   "risk_score": 41.7,
+   "priority": 54.5,
+   "predicted_cases": 8.33,
+   "interval": [
+    1.07,
+    15.6
+   ],
+   "planning_cases": 8.33,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 13,
+    "diagnostic_kits_needed": 6
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "GCC_Ward_02",
+   "city": "Gazipur",
+   "in_pool": true,
+   "population_density_sqkm": 45898,
+   "risk_tier": "High",
+   "risk_score": 56.2,
+   "priority": 54.1,
+   "predicted_cases": 11.24,
+   "interval": [
+    3.97,
+    18.51
+   ],
+   "planning_cases": 11.24,
+   "planning_cases_whole": 11,
+   "required": {
+    "saline_bags_needed": 26,
+    "diagnostic_kits_needed": 13,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 9
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "GCC_Ward_05",
+   "city": "Gazipur",
+   "in_pool": true,
+   "population_density_sqkm": 54111,
+   "risk_tier": "High",
+   "risk_score": 48.8,
+   "priority": 53.4,
+   "predicted_cases": 9.76,
+   "interval": [
+    2.5,
+    17.03
+   ],
+   "planning_cases": 9.76,
+   "planning_cases_whole": 10,
+   "required": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 12,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 16,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_12",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 49992,
+   "risk_tier": "High",
+   "risk_score": 51.6,
+   "priority": 53.1,
+   "predicted_cases": 10.31,
+   "interval": [
+    3.05,
+    17.58
+   ],
+   "planning_cases": 10.31,
+   "planning_cases_whole": 10,
+   "required": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 12,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 16,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_09",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 43995,
+   "risk_tier": "High",
+   "risk_score": 55.6,
+   "priority": 52.7,
+   "predicted_cases": 11.12,
+   "interval": [
+    3.85,
+    18.39
+   ],
+   "planning_cases": 11.12,
+   "planning_cases_whole": 11,
+   "required": {
+    "saline_bags_needed": 26,
+    "diagnostic_kits_needed": 13,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 9
+   },
+   "crews": 1,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_10",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 47311,
+   "risk_tier": "High",
+   "risk_score": 47.6,
+   "priority": 48.9,
+   "predicted_cases": 9.52,
+   "interval": [
+    2.25,
+    16.79
+   ],
+   "planning_cases": 9.52,
+   "planning_cases_whole": 10,
+   "required": {
+    "saline_bags_needed": 24,
+    "diagnostic_kits_needed": 12,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 15,
+    "diagnostic_kits_needed": 7
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "NCC_Ward_05",
+   "city": "Narayanganj",
+   "in_pool": true,
+   "population_density_sqkm": 40043,
+   "risk_tier": "High",
+   "risk_score": 53.1,
+   "priority": 48.8,
+   "predicted_cases": 10.62,
+   "interval": [
+    3.35,
+    17.88
+   ],
+   "planning_cases": 10.62,
+   "planning_cases_whole": 11,
+   "required": {
+    "saline_bags_needed": 26,
+    "diagnostic_kits_needed": 13,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 16,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_01",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 39348,
+   "risk_tier": "High",
+   "risk_score": 53.0,
+   "priority": 48.4,
+   "predicted_cases": 10.61,
+   "interval": [
+    3.34,
+    17.87
+   ],
+   "planning_cases": 10.61,
+   "planning_cases_whole": 11,
+   "required": {
+    "saline_bags_needed": 26,
+    "diagnostic_kits_needed": 13,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 16,
+    "diagnostic_kits_needed": 8
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_13",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 47795,
+   "risk_tier": "High",
+   "risk_score": 45.5,
+   "priority": 47.7,
+   "predicted_cases": 9.11,
+   "interval": [
+    1.84,
+    16.37
+   ],
+   "planning_cases": 9.11,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 13,
+    "diagnostic_kits_needed": 6
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 1,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_08",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 53527,
+   "risk_tier": "High",
+   "risk_score": 40.6,
+   "priority": 47.3,
+   "predicted_cases": 8.13,
+   "interval": [
+    0.86,
+    15.39
+   ],
+   "planning_cases": 8.13,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_11",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 52630,
+   "risk_tier": "High",
+   "risk_score": 41.1,
+   "priority": 47.1,
+   "predicted_cases": 8.21,
+   "interval": [
+    0.95,
+    15.48
+   ],
+   "planning_cases": 8.21,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_04",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 47112,
+   "risk_tier": "High",
+   "risk_score": 42.4,
+   "priority": 45.1,
+   "predicted_cases": 8.48,
+   "interval": [
+    1.22,
+    15.75
+   ],
+   "planning_cases": 8.48,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 11,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_02",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 52123,
+   "risk_tier": "High",
+   "risk_score": 38.1,
+   "priority": 44.8,
+   "predicted_cases": 7.62,
+   "interval": [
+    0.35,
+    14.89
+   ],
+   "planning_cases": 7.62,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 11,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_16",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 55763,
+   "risk_tier": "High",
+   "risk_score": 35.0,
+   "priority": 44.6,
+   "predicted_cases": 7.0,
+   "interval": [
+    0.0,
+    14.27
+   ],
+   "planning_cases": 7.0,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 10,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_07",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 38726,
+   "risk_tier": "High",
+   "risk_score": 46.6,
+   "priority": 43.6,
+   "predicted_cases": 9.32,
+   "interval": [
+    2.05,
+    16.58
+   ],
+   "planning_cases": 9.32,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "NCC_Ward_04",
+   "city": "Narayanganj",
+   "in_pool": true,
+   "population_density_sqkm": 54774,
+   "risk_tier": "Medium",
+   "risk_score": 32.2,
+   "priority": 42.1,
+   "predicted_cases": 6.44,
+   "interval": [
+    0.0,
+    13.7
+   ],
+   "planning_cases": 6.44,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 8,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "DNCC_Ward_04",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 58360,
+   "risk_tier": "Medium",
+   "risk_score": 28.9,
+   "priority": 41.7,
+   "predicted_cases": 5.79,
+   "interval": [
+    0.0,
+    13.06
+   ],
+   "planning_cases": 5.79,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 8,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "DNCC_Ward_17",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 49162,
+   "risk_tier": "Medium",
+   "risk_score": 34.9,
+   "priority": 41.0,
+   "predicted_cases": 6.98,
+   "interval": [
+    0.0,
+    14.24
+   ],
+   "planning_cases": 6.98,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "CCC_Ward_10",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 46652,
+   "risk_tier": "High",
+   "risk_score": 35.1,
+   "priority": 39.8,
+   "predicted_cases": 7.02,
+   "interval": [
+    0.0,
+    14.29
+   ],
+   "planning_cases": 7.02,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_06",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 36422,
+   "risk_tier": "High",
+   "risk_score": 39.4,
+   "priority": 37.3,
+   "predicted_cases": 7.88,
+   "interval": [
+    0.62,
+    15.15
+   ],
+   "planning_cases": 7.88,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 10,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_03",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 26032,
+   "risk_tier": "High",
+   "risk_score": 47.0,
+   "priority": 37.1,
+   "predicted_cases": 9.4,
+   "interval": [
+    2.14,
+    16.67
+   ],
+   "planning_cases": 9.4,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 11,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 3,
+    "capacity_baseline": 4,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 3,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_07",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 42620,
+   "risk_tier": "Medium",
+   "risk_score": 34.0,
+   "priority": 36.8,
+   "predicted_cases": 6.79,
+   "interval": [
+    0.0,
+    14.06
+   ],
+   "planning_cases": 6.79,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "warning"
+  },
+  {
+   "ward_id": "DSCC_Ward_18",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 27189,
+   "risk_tier": "High",
+   "risk_score": 45.7,
+   "priority": 36.8,
+   "predicted_cases": 9.14,
+   "interval": [
+    1.87,
+    16.41
+   ],
+   "planning_cases": 9.14,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 11,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_20",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 28634,
+   "risk_tier": "High",
+   "risk_score": 44.6,
+   "priority": 36.8,
+   "predicted_cases": 8.92,
+   "interval": [
+    1.65,
+    16.19
+   ],
+   "planning_cases": 8.92,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 11,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_02",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 38334,
+   "risk_tier": "High",
+   "risk_score": 35.2,
+   "priority": 35.4,
+   "predicted_cases": 7.03,
+   "interval": [
+    0.0,
+    14.3
+   ],
+   "planning_cases": 7.03,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_15",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 35918,
+   "risk_tier": "High",
+   "risk_score": 35.4,
+   "priority": 34.2,
+   "predicted_cases": 7.07,
+   "interval": [
+    0.0,
+    14.34
+   ],
+   "planning_cases": 7.07,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_14",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 43088,
+   "risk_tier": "Medium",
+   "risk_score": 29.4,
+   "priority": 33.9,
+   "predicted_cases": 5.88,
+   "interval": [
+    0.0,
+    13.15
+   ],
+   "planning_cases": 5.88,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 7,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_01",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 40154,
+   "risk_tier": "Medium",
+   "risk_score": 31.2,
+   "priority": 33.5,
+   "predicted_cases": 6.24,
+   "interval": [
+    0.0,
+    13.5
+   ],
+   "planning_cases": 6.24,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 7,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_08",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 32351,
+   "risk_tier": "High",
+   "risk_score": 37.0,
+   "priority": 33.4,
+   "predicted_cases": 7.39,
+   "interval": [
+    0.13,
+    14.66
+   ],
+   "planning_cases": 7.39,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 8,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_15",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 19960,
+   "risk_tier": "High",
+   "risk_score": 44.9,
+   "priority": 32.3,
+   "predicted_cases": 8.99,
+   "interval": [
+    1.72,
+    16.26
+   ],
+   "planning_cases": 8.99,
+   "planning_cases_whole": 9,
+   "required": {
+    "saline_bags_needed": 21,
+    "diagnostic_kits_needed": 10,
+    "hospital_beds_required": 3
+   },
+   "allocated": {
+    "saline_bags_needed": 10,
+    "diagnostic_kits_needed": 5
+   },
+   "crews": 0,
+   "beds": {
+    "required": 3,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 1,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "bed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_03",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 21310,
+   "risk_tier": "High",
+   "risk_score": 42.4,
+   "priority": 31.3,
+   "predicted_cases": 8.47,
+   "interval": [
+    1.21,
+    15.74
+   ],
+   "planning_cases": 8.47,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_11",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 24816,
+   "risk_tier": "High",
+   "risk_score": 39.2,
+   "priority": 30.9,
+   "predicted_cases": 7.83,
+   "interval": [
+    0.56,
+    15.1
+   ],
+   "planning_cases": 7.83,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_08",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 25951,
+   "risk_tier": "High",
+   "risk_score": 36.7,
+   "priority": 29.8,
+   "predicted_cases": 7.33,
+   "interval": [
+    0.07,
+    14.6
+   ],
+   "planning_cases": 7.33,
+   "planning_cases_whole": 7,
+   "required": {
+    "saline_bags_needed": 17,
+    "diagnostic_kits_needed": 8,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 8,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_09",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 35725,
+   "risk_tier": "Medium",
+   "risk_score": 28.6,
+   "priority": 29.3,
+   "predicted_cases": 5.71,
+   "interval": [
+    0.0,
+    12.98
+   ],
+   "planning_cases": 5.71,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 6,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_05",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 18314,
+   "risk_tier": "High",
+   "risk_score": 40.9,
+   "priority": 28.6,
+   "predicted_cases": 8.18,
+   "interval": [
+    0.91,
+    15.44
+   ],
+   "planning_cases": 8.18,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 9,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 3,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_07",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 38432,
+   "risk_tier": "Medium",
+   "risk_score": 23.8,
+   "priority": 27.5,
+   "predicted_cases": 4.77,
+   "interval": [
+    0.0,
+    12.03
+   ],
+   "planning_cases": 4.77,
+   "planning_cases_whole": 5,
+   "required": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 1,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_20",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 29171,
+   "risk_tier": "Medium",
+   "risk_score": 30.8,
+   "priority": 27.4,
+   "predicted_cases": 6.17,
+   "interval": [
+    0.0,
+    13.44
+   ],
+   "planning_cases": 6.17,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 6,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_06",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 28454,
+   "risk_tier": "Medium",
+   "risk_score": 31.1,
+   "priority": 27.2,
+   "predicted_cases": 6.22,
+   "interval": [
+    0.0,
+    13.48
+   ],
+   "planning_cases": 6.22,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 6,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "NCC_Ward_03",
+   "city": "Narayanganj",
+   "in_pool": true,
+   "population_density_sqkm": 18945,
+   "risk_tier": "High",
+   "risk_score": 38.1,
+   "priority": 27.0,
+   "predicted_cases": 7.62,
+   "interval": [
+    0.36,
+    14.89
+   ],
+   "planning_cases": 7.62,
+   "planning_cases_whole": 8,
+   "required": {
+    "saline_bags_needed": 19,
+    "diagnostic_kits_needed": 9,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 8,
+    "diagnostic_kits_needed": 4
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit",
+    "high_risk_no_crew"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DNCC_Ward_13",
+   "city": "Dhaka North",
+   "in_pool": true,
+   "population_density_sqkm": 35362,
+   "risk_tier": "Medium",
+   "risk_score": 23.7,
+   "priority": 25.8,
+   "predicted_cases": 4.75,
+   "interval": [
+    0.0,
+    12.01
+   ],
+   "planning_cases": 4.75,
+   "planning_cases_whole": 5,
+   "required": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 1,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_16",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 32209,
+   "risk_tier": "Medium",
+   "risk_score": 25.8,
+   "priority": 25.5,
+   "predicted_cases": 5.16,
+   "interval": [
+    0.0,
+    12.42
+   ],
+   "planning_cases": 5.16,
+   "planning_cases_whole": 5,
+   "required": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 1,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_17",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 31041,
+   "risk_tier": "Medium",
+   "risk_score": 26.4,
+   "priority": 25.3,
+   "predicted_cases": 5.29,
+   "interval": [
+    0.0,
+    12.56
+   ],
+   "planning_cases": 5.29,
+   "planning_cases_whole": 5,
+   "required": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 1,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_09",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 34235,
+   "risk_tier": "Medium",
+   "risk_score": 23.4,
+   "priority": 24.9,
+   "predicted_cases": 4.68,
+   "interval": [
+    2.35,
+    7.02
+   ],
+   "planning_cases": 4.68,
+   "planning_cases_whole": 5,
+   "required": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 1,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_02",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 24272,
+   "risk_tier": "Medium",
+   "risk_score": 28.4,
+   "priority": 23.1,
+   "predicted_cases": 5.68,
+   "interval": [
+    0.0,
+    12.94
+   ],
+   "planning_cases": 5.68,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 6,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "CCC_Ward_05",
+   "city": "Chattogram",
+   "in_pool": true,
+   "population_density_sqkm": 24832,
+   "risk_tier": "Medium",
+   "risk_score": 26.8,
+   "priority": 22.3,
+   "predicted_cases": 5.36,
+   "interval": [
+    0.0,
+    12.63
+   ],
+   "planning_cases": 5.36,
+   "planning_cases_whole": 5,
+   "required": {
+    "saline_bags_needed": 12,
+    "diagnostic_kits_needed": 6,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 2
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 1,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "NCC_Ward_02",
+   "city": "Narayanganj",
+   "in_pool": true,
+   "population_density_sqkm": 20324,
+   "risk_tier": "Medium",
+   "risk_score": 29.2,
+   "priority": 21.5,
+   "predicted_cases": 5.83,
+   "interval": [
+    0.0,
+    13.1
+   ],
+   "planning_cases": 5.83,
+   "planning_cases_whole": 6,
+   "required": {
+    "saline_bags_needed": 14,
+    "diagnostic_kits_needed": 7,
+    "hospital_beds_required": 2
+   },
+   "allocated": {
+    "saline_bags_needed": 5,
+    "diagnostic_kits_needed": 3
+   },
+   "crews": 0,
+   "beds": {
+    "required": 2,
+    "capacity": 2,
+    "capacity_baseline": 2,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 2,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  },
+  {
+   "ward_id": "DSCC_Ward_14",
+   "city": "Dhaka South",
+   "in_pool": true,
+   "population_density_sqkm": 24149,
+   "risk_tier": "Medium",
+   "risk_score": 19.6,
+   "priority": 16.9,
+   "predicted_cases": 3.93,
+   "interval": [
+    1.59,
+    6.26
+   ],
+   "planning_cases": 3.93,
+   "planning_cases_whole": 4,
+   "required": {
+    "saline_bags_needed": 10,
+    "diagnostic_kits_needed": 5,
+    "hospital_beds_required": 1
+   },
+   "allocated": {
+    "saline_bags_needed": 4,
+    "diagnostic_kits_needed": 2
+   },
+   "crews": 0,
+   "beds": {
+    "required": 1,
+    "capacity": 1,
+    "capacity_baseline": 1,
+    "capacity_overridden": false,
+    "routed_out": 0,
+    "routed_in": 0,
+    "net_deficit": 0,
+    "occupied": 1,
+    "utilisation_pct": 100.0
+   },
+   "flags": [
+    "saline_bags_needed_deficit",
+    "diagnostic_kits_needed_deficit"
+   ],
+   "severity": "critical"
+  }
+ ],
+ "cities": [
+  {
+   "city": "Chattogram",
+   "wards": 10,
+   "beds_required": 23,
+   "bed_capacity": 22,
+   "beds_occupied_after_routing": 22,
+   "utilisation_pct": 100.0,
+   "demand_vs_capacity_pct": 104.5,
+   "headroom_after_routing": 0,
+   "patients_routed": 2,
+   "net_deficit": 1,
+   "wards_over_capacity": 3
+  },
+  {
+   "city": "Dhaka North",
+   "wards": 20,
+   "beds_required": 48,
+   "bed_capacity": 44,
+   "beds_occupied_after_routing": 44,
+   "utilisation_pct": 100.0,
+   "demand_vs_capacity_pct": 109.1,
+   "headroom_after_routing": 0,
+   "patients_routed": 1,
+   "net_deficit": 4,
+   "wards_over_capacity": 5
+  },
+  {
+   "city": "Dhaka South",
+   "wards": 20,
+   "beds_required": 47,
+   "bed_capacity": 45,
+   "beds_occupied_after_routing": 45,
+   "utilisation_pct": 100.0,
+   "demand_vs_capacity_pct": 104.4,
+   "headroom_after_routing": 0,
+   "patients_routed": 3,
+   "net_deficit": 2,
+   "wards_over_capacity": 5
+  },
+  {
+   "city": "Gazipur",
+   "wards": 5,
+   "beds_required": 15,
+   "bed_capacity": 12,
+   "beds_occupied_after_routing": 12,
+   "utilisation_pct": 100.0,
+   "demand_vs_capacity_pct": 125.0,
+   "headroom_after_routing": 0,
+   "patients_routed": 0,
+   "net_deficit": 3,
+   "wards_over_capacity": 3
+  },
+  {
+   "city": "Narayanganj",
+   "wards": 5,
+   "beds_required": 11,
+   "bed_capacity": 11,
+   "beds_occupied_after_routing": 11,
+   "utilisation_pct": 100.0,
+   "demand_vs_capacity_pct": 100.0,
+   "headroom_after_routing": 0,
+   "patients_routed": 0,
+   "net_deficit": 0,
+   "wards_over_capacity": 0
+  }
+ ],
+ "transfers": [
+  {
+   "city": "Chattogram",
+   "from_ward": "CCC_Ward_03",
+   "to_ward": "CCC_Ward_05",
+   "patients": 1
+  },
+  {
+   "city": "Chattogram",
+   "from_ward": "CCC_Ward_01",
+   "to_ward": "CCC_Ward_09",
+   "patients": 1
+  },
+  {
+   "city": "Dhaka North",
+   "from_ward": "DNCC_Ward_12",
+   "to_ward": "DNCC_Ward_13",
+   "patients": 1
+  },
+  {
+   "city": "Dhaka South",
+   "from_ward": "DSCC_Ward_04",
+   "to_ward": "DSCC_Ward_07",
+   "patients": 1
+  },
+  {
+   "city": "Dhaka South",
+   "from_ward": "DSCC_Ward_06",
+   "to_ward": "DSCC_Ward_16",
+   "patients": 1
+  },
+  {
+   "city": "Dhaka South",
+   "from_ward": "DSCC_Ward_13",
+   "to_ward": "DSCC_Ward_17",
+   "patients": 1
+  }
+ ],
+ "simulation": {
+  "per_horizon": [
+   {
+    "horizon_weeks": 2,
+    "target_date": "2025-09-08",
+    "cases_baseline": 498.3,
+    "cases_scenario": 483.8,
+    "cases_prevented": 14.5,
+    "beds_baseline": 144,
+    "beds_scenario": 139,
+    "saline_baseline": 1185,
+    "saline_scenario": 1146,
+    "kits_baseline": 576,
+    "kits_scenario": 559,
+    "wards_over_capacity_baseline": 16,
+    "wards_over_capacity_scenario": 11
+   },
+   {
+    "horizon_weeks": 3,
+    "target_date": "2025-09-15",
+    "cases_baseline": 546.4,
+    "cases_scenario": 530.1,
+    "cases_prevented": 16.3,
+    "beds_baseline": 164,
+    "beds_scenario": 160,
+    "saline_baseline": 1300,
+    "saline_scenario": 1265,
+    "kits_baseline": 632,
+    "kits_scenario": 616,
+    "wards_over_capacity_baseline": 32,
+    "wards_over_capacity_scenario": 29
+   },
+   {
+    "horizon_weeks": 4,
+    "target_date": "2025-09-22",
+    "cases_baseline": 536.0,
+    "cases_scenario": 520.3,
+    "cases_prevented": 15.7,
+    "beds_baseline": 158,
+    "beds_scenario": 153,
+    "saline_baseline": 1280,
+    "saline_scenario": 1243,
+    "kits_baseline": 624,
+    "kits_scenario": 608,
+    "wards_over_capacity_baseline": 28,
+    "wards_over_capacity_scenario": 23
+   }
+  ],
+  "ranking": [
+   {
+    "ward_id": "CCC_Ward_03",
+    "city": "Chattogram",
+    "risk_tier": "Critical",
+    "crews": 2,
+    "cases_window_baseline": 44.14,
+    "cases_prevented": 8.39,
+    "roi_cases_per_crew": 4.193,
+    "first_crew_roi": 4.414,
+    "beds_prevented": 2,
+    "saline_prevented": 21,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 14.7,
+      "scenario": 11.91
+     },
+     {
+      "h": 3,
+      "baseline": 15.53,
+      "scenario": 12.58
+     },
+     {
+      "h": 4,
+      "baseline": 13.91,
+      "scenario": 11.27
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_04",
+    "city": "Dhaka South",
+    "risk_tier": "Critical",
+    "crews": 2,
+    "cases_window_baseline": 41.78,
+    "cases_prevented": 7.94,
+    "roi_cases_per_crew": 3.969,
+    "first_crew_roi": 4.178,
+    "beds_prevented": 2,
+    "saline_prevented": 16,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 14.01,
+      "scenario": 11.35
+     },
+     {
+      "h": 3,
+      "baseline": 14.36,
+      "scenario": 11.63
+     },
+     {
+      "h": 4,
+      "baseline": 13.41,
+      "scenario": 10.86
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_12",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 2,
+    "cases_window_baseline": 41.36,
+    "cases_prevented": 7.86,
+    "roi_cases_per_crew": 3.929,
+    "first_crew_roi": 4.136,
+    "beds_prevented": 2,
+    "saline_prevented": 19,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 12.12,
+      "scenario": 9.81
+     },
+     {
+      "h": 3,
+      "baseline": 15.31,
+      "scenario": 12.4
+     },
+     {
+      "h": 4,
+      "baseline": 13.94,
+      "scenario": 11.29
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_06",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 2,
+    "cases_window_baseline": 39.76,
+    "cases_prevented": 7.55,
+    "roi_cases_per_crew": 3.777,
+    "first_crew_roi": 3.976,
+    "beds_prevented": 3,
+    "saline_prevented": 17,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 12.27,
+      "scenario": 9.94
+     },
+     {
+      "h": 3,
+      "baseline": 13.43,
+      "scenario": 10.88
+     },
+     {
+      "h": 4,
+      "baseline": 14.05,
+      "scenario": 11.38
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_19",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 1,
+    "cases_window_baseline": 37.61,
+    "cases_prevented": 3.76,
+    "roi_cases_per_crew": 3.761,
+    "first_crew_roi": 3.761,
+    "beds_prevented": 1,
+    "saline_prevented": 9,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 11.64,
+      "scenario": 10.47
+     },
+     {
+      "h": 3,
+      "baseline": 13.08,
+      "scenario": 11.78
+     },
+     {
+      "h": 4,
+      "baseline": 12.89,
+      "scenario": 11.6
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_01",
+    "city": "Chattogram",
+    "risk_tier": "High",
+    "crews": 1,
+    "cases_window_baseline": 37.18,
+    "cases_prevented": 3.72,
+    "roi_cases_per_crew": 3.718,
+    "first_crew_roi": 3.718,
+    "beds_prevented": 2,
+    "saline_prevented": 12,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 11.56,
+      "scenario": 10.4
+     },
+     {
+      "h": 3,
+      "baseline": 12.65,
+      "scenario": 11.38
+     },
+     {
+      "h": 4,
+      "baseline": 12.98,
+      "scenario": 11.68
+     }
+    ]
+   },
+   {
+    "ward_id": "GCC_Ward_03",
+    "city": "Gazipur",
+    "risk_tier": "High",
+    "crews": 1,
+    "cases_window_baseline": 36.91,
+    "cases_prevented": 3.69,
+    "roi_cases_per_crew": 3.691,
+    "first_crew_roi": 3.691,
+    "beds_prevented": 0,
+    "saline_prevented": 7,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 10.25,
+      "scenario": 9.23
+     },
+     {
+      "h": 3,
+      "baseline": 13.26,
+      "scenario": 11.94
+     },
+     {
+      "h": 4,
+      "baseline": 13.4,
+      "scenario": 12.06
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_09",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 1,
+    "cases_window_baseline": 36.21,
+    "cases_prevented": 3.62,
+    "roi_cases_per_crew": 3.621,
+    "first_crew_roi": 3.621,
+    "beds_prevented": 2,
+    "saline_prevented": 10,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 11.12,
+      "scenario": 10.01
+     },
+     {
+      "h": 3,
+      "baseline": 12.32,
+      "scenario": 11.09
+     },
+     {
+      "h": 4,
+      "baseline": 12.77,
+      "scenario": 11.49
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_10",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 35.74,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.574,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 11.28,
+      "scenario": 11.28
+     },
+     {
+      "h": 3,
+      "baseline": 12.53,
+      "scenario": 12.53
+     },
+     {
+      "h": 4,
+      "baseline": 11.94,
+      "scenario": 11.94
+     }
+    ]
+   },
+   {
+    "ward_id": "GCC_Ward_02",
+    "city": "Gazipur",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 35.4,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.54,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 11.24,
+      "scenario": 11.24
+     },
+     {
+      "h": 3,
+      "baseline": 12.09,
+      "scenario": 12.09
+     },
+     {
+      "h": 4,
+      "baseline": 12.07,
+      "scenario": 12.07
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_19",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 34.34,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.434,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 10.68,
+      "scenario": 10.68
+     },
+     {
+      "h": 3,
+      "baseline": 12.26,
+      "scenario": 12.26
+     },
+     {
+      "h": 4,
+      "baseline": 11.4,
+      "scenario": 11.4
+     }
+    ]
+   },
+   {
+    "ward_id": "NCC_Ward_05",
+    "city": "Narayanganj",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 34.32,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.432,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 10.62,
+      "scenario": 10.62
+     },
+     {
+      "h": 3,
+      "baseline": 11.94,
+      "scenario": 11.94
+     },
+     {
+      "h": 4,
+      "baseline": 11.77,
+      "scenario": 11.77
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_12",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 33.83,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.383,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 10.31,
+      "scenario": 10.31
+     },
+     {
+      "h": 3,
+      "baseline": 12.46,
+      "scenario": 12.46
+     },
+     {
+      "h": 4,
+      "baseline": 11.05,
+      "scenario": 11.05
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_18",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 33.15,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.315,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.77,
+      "scenario": 9.77
+     },
+     {
+      "h": 3,
+      "baseline": 12.43,
+      "scenario": 12.43
+     },
+     {
+      "h": 4,
+      "baseline": 10.96,
+      "scenario": 10.96
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_01",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 30.94,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.094,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 10.61,
+      "scenario": 10.61
+     },
+     {
+      "h": 3,
+      "baseline": 10.15,
+      "scenario": 10.15
+     },
+     {
+      "h": 4,
+      "baseline": 10.18,
+      "scenario": 10.18
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_10",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 30.31,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.031,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.52,
+      "scenario": 9.52
+     },
+     {
+      "h": 3,
+      "baseline": 10.46,
+      "scenario": 10.46
+     },
+     {
+      "h": 4,
+      "baseline": 10.32,
+      "scenario": 10.32
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_03",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 30.08,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 3.008,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.4,
+      "scenario": 9.4
+     },
+     {
+      "h": 3,
+      "baseline": 10.86,
+      "scenario": 10.86
+     },
+     {
+      "h": 4,
+      "baseline": 9.82,
+      "scenario": 9.82
+     }
+    ]
+   },
+   {
+    "ward_id": "GCC_Ward_05",
+    "city": "Gazipur",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 29.73,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.973,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.76,
+      "scenario": 9.76
+     },
+     {
+      "h": 3,
+      "baseline": 10.11,
+      "scenario": 10.11
+     },
+     {
+      "h": 4,
+      "baseline": 9.86,
+      "scenario": 9.86
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_13",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 29.41,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.941,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.11,
+      "scenario": 9.11
+     },
+     {
+      "h": 3,
+      "baseline": 10.07,
+      "scenario": 10.07
+     },
+     {
+      "h": 4,
+      "baseline": 10.23,
+      "scenario": 10.23
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_07",
+    "city": "Chattogram",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 28.93,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.893,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.32,
+      "scenario": 9.32
+     },
+     {
+      "h": 3,
+      "baseline": 9.95,
+      "scenario": 9.95
+     },
+     {
+      "h": 4,
+      "baseline": 9.66,
+      "scenario": 9.66
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_20",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 28.93,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.893,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.92,
+      "scenario": 8.92
+     },
+     {
+      "h": 3,
+      "baseline": 10.3,
+      "scenario": 10.3
+     },
+     {
+      "h": 4,
+      "baseline": 9.71,
+      "scenario": 9.71
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_15",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 28.58,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.858,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.99,
+      "scenario": 8.99
+     },
+     {
+      "h": 3,
+      "baseline": 9.71,
+      "scenario": 9.71
+     },
+     {
+      "h": 4,
+      "baseline": 9.88,
+      "scenario": 9.88
+     }
+    ]
+   },
+   {
+    "ward_id": "NCC_Ward_01",
+    "city": "Narayanganj",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 28.01,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.801,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.33,
+      "scenario": 8.33
+     },
+     {
+      "h": 3,
+      "baseline": 9.82,
+      "scenario": 9.82
+     },
+     {
+      "h": 4,
+      "baseline": 9.86,
+      "scenario": 9.86
+     }
+    ]
+   },
+   {
+    "ward_id": "GCC_Ward_01",
+    "city": "Gazipur",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 27.98,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.798,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.7,
+      "scenario": 8.7
+     },
+     {
+      "h": 3,
+      "baseline": 9.68,
+      "scenario": 9.68
+     },
+     {
+      "h": 4,
+      "baseline": 9.6,
+      "scenario": 9.6
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_18",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 27.9,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.79,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.14,
+      "scenario": 9.14
+     },
+     {
+      "h": 3,
+      "baseline": 9.74,
+      "scenario": 9.74
+     },
+     {
+      "h": 4,
+      "baseline": 9.02,
+      "scenario": 9.02
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_08",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 27.19,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.719,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.13,
+      "scenario": 8.13
+     },
+     {
+      "h": 3,
+      "baseline": 9.54,
+      "scenario": 9.54
+     },
+     {
+      "h": 4,
+      "baseline": 9.53,
+      "scenario": 9.53
+     }
+    ]
+   },
+   {
+    "ward_id": "GCC_Ward_04",
+    "city": "Gazipur",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 27.05,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.705,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 9.55,
+      "scenario": 9.55
+     },
+     {
+      "h": 3,
+      "baseline": 9.12,
+      "scenario": 9.12
+     },
+     {
+      "h": 4,
+      "baseline": 8.38,
+      "scenario": 8.38
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_11",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 26.83,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.683,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.21,
+      "scenario": 8.21
+     },
+     {
+      "h": 3,
+      "baseline": 8.69,
+      "scenario": 8.69
+     },
+     {
+      "h": 4,
+      "baseline": 9.93,
+      "scenario": 9.93
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_05",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 26.81,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.681,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.46,
+      "scenario": 8.46
+     },
+     {
+      "h": 3,
+      "baseline": 8.8,
+      "scenario": 8.8
+     },
+     {
+      "h": 4,
+      "baseline": 9.54,
+      "scenario": 9.54
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_03",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 26.73,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.673,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.47,
+      "scenario": 8.47
+     },
+     {
+      "h": 3,
+      "baseline": 9.26,
+      "scenario": 9.26
+     },
+     {
+      "h": 4,
+      "baseline": 9.0,
+      "scenario": 9.0
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_04",
+    "city": "Chattogram",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 26.57,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.657,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.48,
+      "scenario": 8.48
+     },
+     {
+      "h": 3,
+      "baseline": 8.96,
+      "scenario": 8.96
+     },
+     {
+      "h": 4,
+      "baseline": 9.12,
+      "scenario": 9.12
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_05",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 26.12,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.612,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 8.18,
+      "scenario": 8.18
+     },
+     {
+      "h": 3,
+      "baseline": 8.97,
+      "scenario": 8.97
+     },
+     {
+      "h": 4,
+      "baseline": 8.98,
+      "scenario": 8.98
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_11",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 24.86,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.486,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.83,
+      "scenario": 7.83
+     },
+     {
+      "h": 3,
+      "baseline": 8.64,
+      "scenario": 8.64
+     },
+     {
+      "h": 4,
+      "baseline": 8.39,
+      "scenario": 8.39
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_08",
+    "city": "Chattogram",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 24.36,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.436,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.39,
+      "scenario": 7.39
+     },
+     {
+      "h": 3,
+      "baseline": 8.09,
+      "scenario": 8.09
+     },
+     {
+      "h": 4,
+      "baseline": 8.88,
+      "scenario": 8.88
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_02",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 24.32,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.432,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.62,
+      "scenario": 7.62
+     },
+     {
+      "h": 3,
+      "baseline": 8.41,
+      "scenario": 8.41
+     },
+     {
+      "h": 4,
+      "baseline": 8.29,
+      "scenario": 8.29
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_06",
+    "city": "Chattogram",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 23.63,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.363,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.88,
+      "scenario": 7.88
+     },
+     {
+      "h": 3,
+      "baseline": 8.15,
+      "scenario": 8.15
+     },
+     {
+      "h": 4,
+      "baseline": 7.6,
+      "scenario": 7.6
+     }
+    ]
+   },
+   {
+    "ward_id": "NCC_Ward_03",
+    "city": "Narayanganj",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 23.11,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.311,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.62,
+      "scenario": 7.62
+     },
+     {
+      "h": 3,
+      "baseline": 7.44,
+      "scenario": 7.44
+     },
+     {
+      "h": 4,
+      "baseline": 8.05,
+      "scenario": 8.05
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_16",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 23.09,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.309,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.0,
+      "scenario": 7.0
+     },
+     {
+      "h": 3,
+      "baseline": 8.18,
+      "scenario": 8.18
+     },
+     {
+      "h": 4,
+      "baseline": 7.91,
+      "scenario": 7.91
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_15",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 22.39,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.239,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.07,
+      "scenario": 7.07
+     },
+     {
+      "h": 3,
+      "baseline": 7.72,
+      "scenario": 7.72
+     },
+     {
+      "h": 4,
+      "baseline": 7.6,
+      "scenario": 7.6
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_08",
+    "city": "Dhaka North",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 21.85,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.185,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.33,
+      "scenario": 7.33
+     },
+     {
+      "h": 3,
+      "baseline": 7.03,
+      "scenario": 7.03
+     },
+     {
+      "h": 4,
+      "baseline": 7.49,
+      "scenario": 7.49
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_07",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 21.73,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.173,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 6.79,
+      "scenario": 6.79
+     },
+     {
+      "h": 3,
+      "baseline": 7.58,
+      "scenario": 7.58
+     },
+     {
+      "h": 4,
+      "baseline": 7.35,
+      "scenario": 7.35
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_02",
+    "city": "Dhaka South",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 21.36,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.136,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.03,
+      "scenario": 7.03
+     },
+     {
+      "h": 3,
+      "baseline": 7.02,
+      "scenario": 7.02
+     },
+     {
+      "h": 4,
+      "baseline": 7.3,
+      "scenario": 7.3
+     }
+    ]
+   },
+   {
+    "ward_id": "NCC_Ward_04",
+    "city": "Narayanganj",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 20.81,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.081,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 6.44,
+      "scenario": 6.44
+     },
+     {
+      "h": 3,
+      "baseline": 7.23,
+      "scenario": 7.23
+     },
+     {
+      "h": 4,
+      "baseline": 7.14,
+      "scenario": 7.14
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_17",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 20.43,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 2.043,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 6.98,
+      "scenario": 6.98
+     },
+     {
+      "h": 3,
+      "baseline": 6.93,
+      "scenario": 6.93
+     },
+     {
+      "h": 4,
+      "baseline": 6.53,
+      "scenario": 6.53
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_10",
+    "city": "Chattogram",
+    "risk_tier": "High",
+    "crews": 0,
+    "cases_window_baseline": 19.76,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.976,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 7.02,
+      "scenario": 7.02
+     },
+     {
+      "h": 3,
+      "baseline": 6.45,
+      "scenario": 6.45
+     },
+     {
+      "h": 4,
+      "baseline": 6.29,
+      "scenario": 6.29
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_06",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 19.54,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.954,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 6.22,
+      "scenario": 6.22
+     },
+     {
+      "h": 3,
+      "baseline": 6.45,
+      "scenario": 6.45
+     },
+     {
+      "h": 4,
+      "baseline": 6.87,
+      "scenario": 6.87
+     }
+    ]
+   },
+   {
+    "ward_id": "NCC_Ward_02",
+    "city": "Narayanganj",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 19.42,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.942,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.83,
+      "scenario": 5.83
+     },
+     {
+      "h": 3,
+      "baseline": 6.51,
+      "scenario": 6.51
+     },
+     {
+      "h": 4,
+      "baseline": 7.07,
+      "scenario": 7.07
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_09",
+    "city": "Dhaka South",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 19.3,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.93,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.71,
+      "scenario": 5.71
+     },
+     {
+      "h": 3,
+      "baseline": 6.68,
+      "scenario": 6.68
+     },
+     {
+      "h": 4,
+      "baseline": 6.91,
+      "scenario": 6.91
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_14",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 18.74,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.874,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.88,
+      "scenario": 5.88
+     },
+     {
+      "h": 3,
+      "baseline": 6.93,
+      "scenario": 6.93
+     },
+     {
+      "h": 4,
+      "baseline": 5.92,
+      "scenario": 5.92
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_01",
+    "city": "Dhaka South",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 18.55,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.855,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 6.24,
+      "scenario": 6.24
+     },
+     {
+      "h": 3,
+      "baseline": 6.47,
+      "scenario": 6.47
+     },
+     {
+      "h": 4,
+      "baseline": 5.85,
+      "scenario": 5.85
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_02",
+    "city": "Chattogram",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 18.38,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.838,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.68,
+      "scenario": 5.68
+     },
+     {
+      "h": 3,
+      "baseline": 6.02,
+      "scenario": 6.02
+     },
+     {
+      "h": 4,
+      "baseline": 6.69,
+      "scenario": 6.69
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_05",
+    "city": "Chattogram",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 17.83,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.783,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.36,
+      "scenario": 5.36
+     },
+     {
+      "h": 3,
+      "baseline": 6.17,
+      "scenario": 6.17
+     },
+     {
+      "h": 4,
+      "baseline": 6.29,
+      "scenario": 6.29
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_04",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 17.42,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.742,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.79,
+      "scenario": 5.79
+     },
+     {
+      "h": 3,
+      "baseline": 6.54,
+      "scenario": 6.54
+     },
+     {
+      "h": 4,
+      "baseline": 5.09,
+      "scenario": 5.09
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_16",
+    "city": "Dhaka South",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 17.38,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.738,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.16,
+      "scenario": 5.16
+     },
+     {
+      "h": 3,
+      "baseline": 5.94,
+      "scenario": 5.94
+     },
+     {
+      "h": 4,
+      "baseline": 6.29,
+      "scenario": 6.29
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_20",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 17.21,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.721,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 6.17,
+      "scenario": 6.17
+     },
+     {
+      "h": 3,
+      "baseline": 5.67,
+      "scenario": 5.67
+     },
+     {
+      "h": 4,
+      "baseline": 5.37,
+      "scenario": 5.37
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_17",
+    "city": "Dhaka South",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 16.8,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.68,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 5.29,
+      "scenario": 5.29
+     },
+     {
+      "h": 3,
+      "baseline": 5.89,
+      "scenario": 5.89
+     },
+     {
+      "h": 4,
+      "baseline": 5.62,
+      "scenario": 5.62
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_07",
+    "city": "Dhaka South",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 15.85,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.585,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 4.77,
+      "scenario": 4.77
+     },
+     {
+      "h": 3,
+      "baseline": 5.49,
+      "scenario": 5.49
+     },
+     {
+      "h": 4,
+      "baseline": 5.59,
+      "scenario": 5.59
+     }
+    ]
+   },
+   {
+    "ward_id": "DNCC_Ward_13",
+    "city": "Dhaka North",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 14.94,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.494,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 4.75,
+      "scenario": 4.75
+     },
+     {
+      "h": 3,
+      "baseline": 5.27,
+      "scenario": 5.27
+     },
+     {
+      "h": 4,
+      "baseline": 4.93,
+      "scenario": 4.93
+     }
+    ]
+   },
+   {
+    "ward_id": "CCC_Ward_09",
+    "city": "Chattogram",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 14.69,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.469,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 4.68,
+      "scenario": 4.68
+     },
+     {
+      "h": 3,
+      "baseline": 5.09,
+      "scenario": 5.09
+     },
+     {
+      "h": 4,
+      "baseline": 4.91,
+      "scenario": 4.91
+     }
+    ]
+   },
+   {
+    "ward_id": "DSCC_Ward_14",
+    "city": "Dhaka South",
+    "risk_tier": "Medium",
+    "crews": 0,
+    "cases_window_baseline": 13.09,
+    "cases_prevented": 0.0,
+    "roi_cases_per_crew": null,
+    "first_crew_roi": 1.309,
+    "beds_prevented": 0,
+    "saline_prevented": 0,
+    "per_horizon": [
+     {
+      "h": 2,
+      "baseline": 3.93,
+      "scenario": 3.93
+     },
+     {
+      "h": 3,
+      "baseline": 4.56,
+      "scenario": 4.56
+     },
+     {
+      "h": 4,
+      "baseline": 4.6,
+      "scenario": 4.6
+     }
+    ]
+   }
+  ],
+  "total_cases_prevented": 46.5,
+  "roi_cases_per_crew": 3.877,
+  "label": "Scenario-based planning output. The per-crew effect is a user-set assumption, not a measured causal effect."
+ }
+}

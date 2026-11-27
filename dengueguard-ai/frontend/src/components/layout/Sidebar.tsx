@@ -1,4 +1,4 @@
-import { Activity, ChartNoAxesCombined, CloudRain, Database, Grid3x3, House, LayoutDashboard, Radar, UserRound, X } from 'lucide-react'
+import { Activity, BedDouble, Boxes, ChartNoAxesCombined, CloudRain, Database, Grid3x3, House, LayoutDashboard, Radar, Send, SprayCan, UserRound, X } from 'lucide-react'
 import { motion } from 'motion/react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Tooltip } from '@/components/ui/tooltip'
@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { useFilters, useSession } from '@/state/AppData'
 import { Logo } from '@/components/Logo'
 
-export const NAV: Array<{ to: string; key: TKey; icon: typeof House }> = [
+export const NAV: Array<{ to: string; key: TKey; icon: typeof House; ops?: boolean }> = [
   { to: '/', key: 'nav.home', icon: House },
   { to: '/risk', key: 'nav.riskOverview', icon: Radar },
   { to: '/data', key: 'nav.viewData', icon: Database },
@@ -16,6 +16,11 @@ export const NAV: Array<{ to: string; key: TKey; icon: typeof House }> = [
   { to: '/heatmap', key: 'nav.heatmap', icon: Grid3x3 },
   { to: '/weather', key: 'nav.weather', icon: CloudRain },
   { to: '/validation', key: 'nav.validation', icon: ChartNoAxesCombined },
+  // Phase 2: operations
+  { to: '/allocation', key: 'nav.allocation', icon: Boxes, ops: true },
+  { to: '/overflow', key: 'nav.overflow', icon: BedDouble, ops: true },
+  { to: '/simulator', key: 'nav.simulator', icon: SprayCan, ops: true },
+  { to: '/dispatch', key: 'nav.dispatch', icon: Send, ops: true },
 ]
 
 function RailLink({ to, label, icon: Icon, search, expanded, onNavigate }: {
@@ -58,8 +63,15 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
   const items = (expanded: boolean) => (
     <>
       <nav aria-label={t('nav.mainNav')} className={cn('flex flex-col gap-1.5', expanded ? 'items-stretch' : 'items-center')}>
-        {NAV.map((n) => (
-          <RailLink key={n.to} to={n.to} label={t(n.key)} icon={n.icon} search={search} expanded={expanded} onNavigate={onClose} />
+        {NAV.map((n, i) => (
+          <div key={n.to} className={cn('flex flex-col', expanded ? 'items-stretch' : 'items-center')}>
+            {n.ops && !NAV[i - 1]?.ops && (
+              expanded
+                ? <p className="mt-3 mb-1 px-3 text-[10px] font-semibold tracking-[0.08em] text-faint uppercase">{t('nav.operations')}</p>
+                : <span aria-hidden className="my-2 h-px w-8 bg-line" />
+            )}
+            <RailLink to={n.to} label={t(n.key)} icon={n.icon} search={search} expanded={expanded} onNavigate={onClose} />
+          </div>
         ))}
       </nav>
       <div className={cn('mt-auto flex flex-col gap-1.5', expanded ? 'items-stretch' : 'items-center')}>
@@ -70,7 +82,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
 
   return (
     <>
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[76px] flex-col items-center gap-8 border-r border-line-soft bg-rail py-5 lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[76px] flex-col items-center gap-6 overflow-y-auto border-r border-line-soft bg-rail py-5 lg:flex">
         <NavLink to="/" aria-label={t('app.name')} className="rounded-xl"><Logo /></NavLink>
         {items(false)}
       </aside>
@@ -84,7 +96,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
         aria-hidden={!mobileOpen}
         inert={!mobileOpen}
         className={cn(
-          'fixed inset-y-0 left-0 z-50 flex w-72 flex-col gap-8 border-r border-line bg-rail p-5 transition-transform duration-300 ease-[var(--ease-out-expo)] lg:hidden',
+          'fixed inset-y-0 left-0 z-50 flex w-72 flex-col gap-8 overflow-y-auto border-r border-line bg-rail p-5 transition-transform duration-300 ease-[var(--ease-out-expo)] lg:hidden',
           mobileOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >

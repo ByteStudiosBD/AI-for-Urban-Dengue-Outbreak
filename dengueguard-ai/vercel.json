@@ -4,7 +4,7 @@
   "functions": {
     "app.py": {
       "maxDuration": 60,
-      "excludeFiles": "{tests/**,design/**,docs/**,frontend/node_modules/**,frontend/src/**,frontend/public/**,.venv/**,**/__pycache__/**}"
+      "excludeFiles": "{tests/**,design/**,docs/**,exports/**,frontend/node_modules/**,frontend/src/**,frontend/public/**,.venv/**,**/__pycache__/**}"
     }
   }
 }

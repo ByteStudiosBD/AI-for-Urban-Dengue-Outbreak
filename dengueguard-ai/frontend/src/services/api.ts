@@ -1,5 +1,5 @@
 import type {
-  HeatmapResponse, Horizon, HorizonsResponse, Metadata, ObservationsResponse, PredictAllResponse,
+  DispatchResponse, HeatmapResponse, Horizon, OpsAssumptions, PlanParams, PlanResponse, HorizonsResponse, Metadata, ObservationsResponse, PredictAllResponse,
   PredictionResult, RecordsQuery, RecordsResponse, Session, ValidationResponse, ValidationSeriesResponse,
   WeatherLagResponse,
 } from '@/types/api'
@@ -54,7 +54,39 @@ function qs(params: Record<string, string | number | null | undefined>) {
   return str ? `?${str}` : ''
 }
 
+/** POSTs with identical bodies share one cached promise (scenarios are deterministic). */
+function post<T>(path: string, body: unknown): Promise<T> {
+  const key = `POST ${path} ${JSON.stringify(body)}`
+  const hit = cache.get(key)
+  if (hit) return hit as Promise<T>
+  const p = request<T>(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    .catch((err) => {
+      cache.delete(key)
+      throw err
+    })
+  cache.set(key, p)
+  if (cache.size > 400) cache.delete(cache.keys().next().value!) // bound memory while sliders move
+  return p
+}
+
+async function postText(path: string, body: unknown): Promise<string> {
+  let res: Response
+  try {
+    res = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+  } catch {
+    throw new ApiError(0, 'network', 'Cannot reach the DengueGuard API. Is the backend running on port 8000?')
+  }
+  if (!res.ok) throw new ApiError(res.status, 'http_error', `Request failed (${res.status})`)
+  return res.text()
+}
+
 export const api = {
+  /* Phase 2 operations (all computed locally on the server, no external services) */
+  opsAssumptions: () => get<OpsAssumptions>('/api/ops/assumptions'),
+  opsPlan: (p: PlanParams) => post<PlanResponse>('/api/ops/plan', p),
+  opsDispatch: (p: PlanParams & { ward_id?: string; lang: 'en' | 'bn'; only_flagged?: boolean }) =>
+    post<DispatchResponse>('/api/ops/dispatch', p),
+  opsBriefHtml: (p: PlanParams & { brief_city: string | null }) => postText('/api/ops/brief', p),
   metadata: () => get<Metadata>('/api/metadata'),
   observations: (p: { city?: string; ward_id?: string; from?: string; to?: string }) =>
     get<ObservationsResponse>(`/api/observations${qs(p)}`),
