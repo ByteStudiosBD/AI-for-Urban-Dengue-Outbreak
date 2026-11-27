@@ -467,8 +467,8 @@ export const en = {
       whatTitle: 'What changes', whatSub: 'Total over the next 2, 3 and 4 weeks: without teams vs with teams.',
       wCases: 'Fewer cases', wSaline: 'Fewer saline bags', wBeds: 'Fewer beds',
       chartShow: 'Show', perWeek: '{a} → {b} cases',
-      listAuto: 'Send teams here', listAutoSub: 'Best wards first.', listManual: 'Choose wards for your teams', listManualSub: 'Best wards first. Up to {m} teams per ward.',
-      stops: 'Stops about {n} cases', couldStop: 'One team would stop about {n}', team1: '1 team', teamN: '{n} teams',
+      listAuto: 'Send teams here', listAutoSub: 'Ranked by cases stopped per team (ROI), best first.', listManual: 'Choose wards for your teams', listManualSub: 'Ranked by cases stopped per team (ROI), best first. Up to {m} teams per ward.',
+      stops: 'Stops about {n} cases', perTeam: '{r} per team', roiLabel: 'Cases stopped per team (ROI)', couldStop: 'One team would stop about {n}', team1: '1 team', teamN: '{n} teams',
       teamsFor: 'Teams for {ward}', noTeamsYet: 'No ward has a team yet. Type a number of teams above.',
     },
     disp: {
