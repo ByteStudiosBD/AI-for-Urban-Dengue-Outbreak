@@ -69,7 +69,7 @@ export default function LandingPage() {
           <nav className="flex items-center gap-2">
             <LanguageToggle className="hidden border-white/15 bg-black/40 backdrop-blur sm:inline-flex [&_button[aria-pressed=false]]:text-white/75 [&_svg]:text-white/70" />
             <Button asChild variant="ghost" className="hidden text-white/85 hover:bg-white/10 hover:text-white sm:inline-flex"><Link to="/login">{t('nav.login')}</Link></Button>
-            <Button asChild variant="primary" className="hidden sm:inline-flex"><Link to="/risk">{t('landing.ctaPrimary')}</Link></Button>
+            <Button asChild variant="primary" className="hidden sm:inline-flex"><Link to="/home">{t('landing.ctaPrimary')}</Link></Button>
             <ThemeToggle variant="glass" />
           </nav>
         </header>
@@ -79,7 +79,7 @@ export default function LandingPage() {
             <h1 className="text-[clamp(2.6rem,6vw,4.75rem)] leading-[1.02] font-bold tracking-[-0.035em] text-balance text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.55)]">{t('landing.headline')}</h1>
             <p className="mt-6 max-w-[56ch] text-lg leading-relaxed text-[#e4e8f2] [text-shadow:0_1px_12px_rgba(0,0,0,0.6)]">{t('landing.sub')}</p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button asChild variant="primary" size="lg" className="shadow-[0_10px_30px_-8px_rgba(255,99,62,0.6)]"><Link to="/risk">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
+              <Button asChild variant="primary" size="lg" className="shadow-[0_10px_30px_-8px_rgba(255,99,62,0.6)]"><Link to="/home">{t('landing.ctaPrimary')}<ArrowRight /></Link></Button>
               <Button asChild variant="secondary" size="lg" className="border-white/30 bg-black/45 text-white backdrop-blur hover:border-white/50 hover:bg-black/60"><Link to="/heatmap"><Grid3x3 />{t('landing.ctaSecondary')}</Link></Button>
             </div>
             <LanguageToggle className="mt-6 border-white/15 bg-black/40 backdrop-blur sm:hidden [&_button[aria-pressed=false]]:text-white/75 [&_svg]:text-white/70" />

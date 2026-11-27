@@ -24,6 +24,8 @@ const ResourceAllocation = lazyPage(() => import('@/pages/ResourceAllocation'))
 const HospitalOverflow = lazyPage(() => import('@/pages/HospitalOverflow'))
 const InterventionSimulator = lazyPage(() => import('@/pages/InterventionSimulator'))
 const DispatchCenter = lazyPage(() => import('@/pages/DispatchCenter'))
+const OpsHome = lazyPage(() => import('@/pages/OpsHome'))
+const AdvancedAnalysis = lazyPage(() => import('@/pages/AdvancedAnalysis'))
 const NotFound = lazyPage(() => import('@/pages/NotFound'))
 
 // Routes are not keyed by pathname: the app shell (sidebar, top bar) stays mounted
@@ -44,6 +46,8 @@ export default function App() {
                     <Route path="/" element={<RequireSession><PageTransition><LandingPage /></PageTransition></RequireSession>} />
                     <Route path="/login" element={<PageTransition><LoginPage /></PageTransition>} />
                     <Route element={<RequireSession><AppShell /></RequireSession>}>
+                      <Route path="/home" element={<OpsHome />} />
+                      <Route path="/analysis" element={<AdvancedAnalysis />} />
                       <Route path="/risk" element={<RiskOverview />} />
                       <Route path="/data" element={<ViewData />} />
                       <Route path="/dashboard" element={<Dashboard />} />
