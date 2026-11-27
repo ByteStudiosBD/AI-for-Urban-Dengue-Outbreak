@@ -242,7 +242,15 @@ export interface PlanParams {
   capacity_overrides: Record<string, number>
   deployment: Record<string, number> | null
   plan_with_intervention: boolean
+  /** 'pct' = scenario share of demand (30–100%); 'exact' = saline bags and test kits the officer typed. */
+  stock_mode: StockMode
+  saline_available: number | null
+  kits_available: number | null
+  /** Exact bed total for the planning pool (one city, or all 60 wards); null = capacity_scale_pct. */
+  beds_total: number | null
 }
+
+export type StockMode = 'pct' | 'exact'
 
 export interface OpsWard {
   ward_id: string
@@ -314,9 +322,12 @@ export interface SimRank {
 }
 
 export interface PlanResponse {
-  scenario: PlanParams & { target_date: string; crew_mode: 'optimised' | 'manual' }
+  scenario: PlanParams & { target_date: string; crew_mode: 'optimised' | 'manual'; bed_mode: 'exact' | 'scale'; bed_pool: string }
   assumptions: Array<{ id: string; kind: 'derived' | 'assumption' | 'scenario'; text: string }>
-  supplies: Record<ConsumableKey, { required: number; available: number; allocated: number; shortfall: number; wards_short: number }>
+  supplies: Record<ConsumableKey, {
+    required: number; available: number; allocated: number; shortfall: number; unused: number; wards_short: number
+    source: 'pct_of_demand' | 'user_entered'; verified: false
+  }>
   crews: { total: number; assigned: number; unused: number; high_risk_wards_without_crew: number }
   alerts: { critical: number; warning: number }
   wards: OpsWard[]

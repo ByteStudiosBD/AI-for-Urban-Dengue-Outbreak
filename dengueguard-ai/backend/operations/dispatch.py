@@ -255,12 +255,18 @@ def brief_html(plan: dict, city: str | None = None) -> str:
                    or "<li>No ward needs action beyond routine monitoring.</li>")
     basis = "upper bound of the 90% prediction interval (surge planning)" if s["demand_basis"] == "upper" else "expected forecast"
     pool_note = "" if s["city"] in (None, city) else f" Stock pool: {e(s['city'])}."
+    ps = plan["supplies"]
+    stock_txt = (f"stock entered by user for {e(s['city'] or 'all 60 wards')}: {ps['saline_bags_needed']['available']} saline bags, "
+                 f"{ps['diagnostic_kits_needed']['available']} test kits (not verified inventory)"
+                 if s.get("stock_mode") == "exact" else f"stock {s['stock_pct']:g}% of demand")
+    beds_txt = (f"{s['beds_total']} beds entered by user ({'all cities' if s.get('bed_pool') == 'all' else e(s.get('bed_pool'))})"
+                if s.get("beds_total") is not None else f"bed capacity {s['capacity_scale_pct']:g}% of baseline")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><style>{CSS}</style></head><body>
 <p class="noprint note">Use your browser's Print → Save as PDF to export this brief.</p>
 <h1>DengueGuard AI — {e(title)}</h1>
 <div class="meta">Reference week {s['as_of']} · target week {s['target_date']} ({s['horizon_weeks']} weeks ahead) · demand basis: {basis}
- · stock {s['stock_pct']:g}% of demand · {s['total_crews']} crews · effect {s['effect_per_crew_pct']:g}%/crew (scenario) · bed capacity {s['capacity_scale_pct']:g}% of baseline.{pool_note}<br>Generated {now}, offline, from deterministic templates.</div>
+ · {stock_txt} · {s['total_crews']} crews · effect {s['effect_per_crew_pct']:g}%/crew (scenario) · {beds_txt}.{pool_note}<br>Generated {now}, offline, from deterministic templates.</div>
 <h2>Summary</h2><div class="kpis">
 <div class="kpi">Wards<b>{len(wards)}</b></div><div class="kpi">Critical alerts<b class="crit">{crit}</b></div>
 <div class="kpi">Wards with a shortfall<b>{short}</b></div>

@@ -18,7 +18,7 @@
 | H1 | **Simulator-এর প্রভাব শেখা নয়, ধরে নেওয়া** (প্রতি দলে e%)। PDF বলে "model-driven counterfactual", "multi-week ML/data impact"। | Dataset-এ intervention-এর কোনো কলাম নেই (যাচাই করা); `planner.py` লাইন 173–174 | সৎ ব্যাখ্যা ([QA_PREPARATION.md](QA_PREPARATION.md) Q21–Q25)। ঐচ্ছিক: e = 5% / 10% / 15%-এ একটা পরিসর (sensitivity) দেখানো, যাতে "এটা অনুমানের উপর নির্ভরশীল" স্পষ্ট হয়। |
 | H2 | **Docs পুরনো UI বর্ণনা করে:** README ও ARCHITECTURE-এ "stock slider", "crew slider", "bed-capacity slider", "Surge (P90)"; UI এখন typed input ও "A normal week / A bad week"। | `ARCHITECTURE.md` লাইন 332, 338, 339, 342; `README.md` লাইন 38 | Judge docs আর app মিলিয়ে দেখলে অসঙ্গতি। শুধু docs আপডেট (কোড নয়)। |
 | H3 | **Repo-তে কোনো git tag নেই; Phase 2-এ commit মাত্র ৩টি।** Criterion-এর শিরোনাম "Tagged Phase 1 Repo", আর "continuous commit history"। | `git tag` খালি; Phase 2: sifat252212 ×2, codertazwar ×1 | Organiser-দের জিজ্ঞেস করুন "tagged" মানে কী; প্রয়োজনে tag দিন। বাকি সময়ে ছোট ছোট অর্থবহ commit (দুই account থেকে)। |
-| H4 | **Manual mode-এ মোট দলের সীমা backend মানে না।** মোট ৩ দলে ৭টি বসানো গেল; UI শুধু লাল সতর্কবার্তা দেখায়। | Run: deployment 9+2+2, total 3 → assigned 7 | Judge সংখ্যা ফুলিয়ে দেখালে simulator অবিশ্বাস্য দেখাবে। Backend-এ `sum(deployment) <= total_crews` যাচাই (422) বা clamp। |
+| H4 | ~~Manual mode-এ মোট দলের সীমা backend মানে না~~ **ঠিক করা হয়েছে:** backend এখন মোট দল বা প্রতি-ওয়ার্ড সীমা ছাড়ালে 422 `infeasible_deployment` দেয় (আগে চুপচাপ কেটে দিত); UI-তে সীমায় পৌঁছালে "+" বোতাম বন্ধ। একই সাথে exact মজুত (স্যালাইন ও কিট আলাদা), exact শয্যা (০ সহ), আর % মোডে round-up নিয়ম যোগ হয়েছে। | `planner.deployment_errors`, `pct_units`, `split_total`; tests `test_manual_crews_*`, `test_exact_*`, `test_pct_*` | — |
 
 ## Medium
 

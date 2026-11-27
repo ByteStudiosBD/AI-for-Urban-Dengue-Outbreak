@@ -20,7 +20,7 @@ from backend.api import auth
 from backend.config import ROOT
 from backend.data_processing.loader import EXPECTED_COLUMNS, coverage_report
 from backend.operations import dispatch
-from backend.operations.planner import Scenario, assumptions_text, plan
+from backend.operations.planner import Scenario, assumptions_text, deployment_errors, plan
 from backend.operations.supplies import get_supply_model
 from backend.prediction_engine.engine import TIERS, ModelUnavailable, get_engine
 
@@ -411,6 +411,11 @@ class PlanBody(BaseModel):
     capacity_overrides: dict[str, int] = Field(default_factory=dict)
     deployment: dict[str, int] | None = None
     plan_with_intervention: bool = False
+    # exact-quantity mode: whole units the officer typed (user-entered, not verified inventory)
+    stock_mode: Literal["pct", "exact"] = "pct"
+    saline_available: int | None = Field(None, ge=0, le=10_000_000)
+    kits_available: int | None = Field(None, ge=0, le=10_000_000)
+    beds_total: int | None = Field(None, ge=0, le=1_000_000)
 
 
 class DispatchBody(PlanBody):
@@ -428,12 +433,20 @@ def _scenario(eng, body: PlanBody) -> Scenario:
             raise ApiError(422, "unknown_ward", f"{name} has unknown ward_id(s): {', '.join(bad[:5])}")
         if any(v < 0 for v in d.values()):
             raise ApiError(422, "invalid_parameter", f"{name} values must be >= 0")
+    if body.stock_mode == "exact" and (body.saline_available is None or body.kits_available is None):
+        raise ApiError(422, "invalid_parameter", "stock_mode 'exact' needs saline_available and kits_available (whole numbers >= 0)")
+    if body.deployment is not None:
+        errs = deployment_errors(body.deployment, body.total_crews, body.max_crews_per_ward)
+        if errs:
+            raise ApiError(422, "infeasible_deployment", "; ".join(errs))
     return Scenario(as_of=_asof(eng, 2, body.as_of), horizon=body.horizon_weeks, city=body.city,
                     stock_pct=body.stock_pct, total_crews=body.total_crews,
                     effect_per_crew_pct=body.effect_per_crew_pct, max_crews_per_ward=body.max_crews_per_ward,
                     risk_weight=body.risk_weight, demand_basis=body.demand_basis,
                     capacity_scale_pct=body.capacity_scale_pct, capacity_overrides=body.capacity_overrides,
-                    deployment=body.deployment, plan_with_intervention=body.plan_with_intervention)
+                    deployment=body.deployment, plan_with_intervention=body.plan_with_intervention,
+                    stock_mode=body.stock_mode, saline_available=body.saline_available,
+                    kits_available=body.kits_available, beds_total=body.beds_total)
 
 
 @app.get("/api/ops/assumptions")

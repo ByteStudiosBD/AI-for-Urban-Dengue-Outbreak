@@ -44,6 +44,8 @@ export default function InterventionSimulator() {
     else setControls({ deployment: Object.fromEntries((p?.wards ?? []).filter((w) => w.crews > 0).map((w) => [w.ward_id, w.crews])) })
   }
   const bump = (ward: string, d: number) => {
+    // the server rejects a deployment above the team total or the per-ward limit, so never build one
+    if (d > 0 && used >= controls.total_crews) return
     const next = { ...dep, [ward]: Math.max(0, Math.min(controls.max_crews_per_ward, (dep[ward] ?? 0) + d)) }
     if (!next[ward]) delete next[ward]
     setControls({ deployment: next })
@@ -146,7 +148,7 @@ export default function InterventionSimulator() {
                     <div className="flex items-center gap-2" role="group" aria-label={t('s.mos.teamsFor', { ward: r.ward_id })}>
                       <button className={step} aria-label={t('ops.sim.remove', { ward: r.ward_id })} onClick={() => bump(r.ward_id, -1)} disabled={!dep[r.ward_id]}><Minus className="size-5" /></button>
                       <span className="num w-8 text-center text-lg font-semibold" aria-live="polite">{dep[r.ward_id] ?? 0}</span>
-                      <button className={step} aria-label={t('ops.sim.add', { ward: r.ward_id })} onClick={() => bump(r.ward_id, 1)} disabled={(dep[r.ward_id] ?? 0) >= controls.max_crews_per_ward}><Plus className="size-5" /></button>
+                      <button className={step} aria-label={t('ops.sim.add', { ward: r.ward_id })} onClick={() => bump(r.ward_id, 1)} disabled={(dep[r.ward_id] ?? 0) >= controls.max_crews_per_ward || used >= controls.total_crews}><Plus className="size-5" /></button>
                     </div>
                   ) : (
                     <p className="num text-[15px] font-semibold">{t(r.crews === 1 ? 's.mos.team1' : 's.mos.teamN', { n: r.crews })}</p>

@@ -10,7 +10,11 @@ Pipeline for one scenario
                upper bound of the calibrated 90% prediction interval (surge planning).
 2. Priority    priority = 100 x (w_risk x risk_score/100 + (1-w_risk) x density_norm),
                density_norm = min-max of population_density_sqkm over all 60 wards.
-3. Allocation  consumables (saline, kits): available = stock% x total demand in the pool.
+3. Allocation  consumables (saline, kits). Two stock modes:
+               "pct"   (scenario) available = ceil(stock% x total demand in the pool), the same
+                       share for saline and kits (30-100%, as in the problem set);
+               "exact" (user-entered) available = the saline bags / test kits the officer
+                       typed, each on its own (any whole number >= 0, never raised to 30%).
                If short, fill rate f_i = min(1, lambda x (0.25 + priority_i/100)) and lambda
                is solved so the pool is used exactly (water-filling): higher-priority wards
                get a higher share of their demand, nobody gets more than they need, and
@@ -30,6 +34,7 @@ effect: the dataset contains no intervention records.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -61,6 +66,45 @@ class Scenario:
     capacity_overrides: dict[str, int] = field(default_factory=dict)
     deployment: dict[str, int] | None = None  # manual crews per ward; None = optimise
     plan_with_intervention: bool = False
+    stock_mode: str = "pct"                   # "pct" (share of demand) | "exact" (typed units)
+    saline_available: int | None = None       # exact mode: saline bags on hand (user-entered)
+    kits_available: int | None = None         # exact mode: diagnostic kits on hand (user-entered)
+    beds_total: int | None = None             # exact beds for the planning pool (None = scale %)
+
+
+def pct_units(pct: float, demand_total: int) -> int:
+    """Whole units for a percentage of demand. Rule (the frontend uses the same): round UP,
+    so 30% is a true minimum (1,185 x 30% = 355.5 -> 356). Rounded to 9 decimals first so
+    float noise such as 0.3 x 1000 = 300.00000000000006 does not add a unit."""
+    return int(min(demand_total, math.ceil(round(pct / 100 * demand_total, 9))))
+
+
+def split_total(baseline: dict[str, int], total: int) -> dict[str, int]:
+    """Split a bed total over wards in proportion to their baseline capacity, summing exactly
+    to `total` (largest remainder; ties -> larger baseline, then ward id)."""
+    ids = sorted(baseline)
+    if not ids:
+        return {}
+    base = sum(baseline[w] for w in ids)
+    exact = [baseline[w] * total / base for w in ids] if base else [total / len(ids)] * len(ids)
+    out = [math.floor(x) for x in exact]
+    left = total - sum(out)
+    order = sorted(range(len(ids)), key=lambda i: (-(exact[i] - out[i]), -baseline[ids[i]], i))
+    for i in order[:left]:
+        out[i] += 1
+    return dict(zip(ids, out))
+
+
+def deployment_errors(deployment: dict[str, int], total_crews: int, max_per_ward: int) -> list[str]:
+    """Why a manual deployment is infeasible (empty list = feasible)."""
+    errs = []
+    over = sorted(w for w, n in deployment.items() if n > max_per_ward)
+    if over:
+        errs.append(f"{len(over)} ward(s) exceed the limit of {max_per_ward} crews per ward: {', '.join(over[:5])}")
+    used = sum(deployment.values())
+    if used > total_crews:
+        errs.append(f"manual deployment uses {used} crews but only {total_crews} are available")
+    return errs
 
 
 # ---------------------------------------------------------------- building blocks
@@ -163,7 +207,10 @@ def plan(eng, sm: SupplyModel, sc: Scenario) -> dict:
 
     # ---- crews: optimiser or manual deployment
     if sc.deployment is not None:
-        crews = np.array([max(0, min(int(sc.deployment.get(w, 0)), sc.max_crews_per_ward)) for w in wards.index])
+        errs = deployment_errors(sc.deployment, sc.total_crews, sc.max_crews_per_ward)
+        if errs:  # never silently clip an infeasible plan
+            raise ValueError("; ".join(errs))
+        crews = np.array([max(0, int(sc.deployment.get(w, 0))) for w in wards.index])
         mode = "manual"
     else:
         # crews only go to wards in the planning pool (one city, or all 60 wards)
@@ -194,18 +241,34 @@ def plan(eng, sm: SupplyModel, sc: Scenario) -> dict:
 
     # ---- 1. constrained allocation of consumables
     supplies_summary = {}
+    exact = sc.stock_mode == "exact"
+    typed = {"saline_bags_needed": sc.saline_available, "diagnostic_kits_needed": sc.kits_available}
     for c in CONSUMABLES:
         d = pool[c].to_numpy()
-        avail = int(np.floor(sc.stock_pct / 100 * d.sum()))
-        alloc = water_fill(d, weight, avail)
+        if exact:
+            if typed[c] is None:
+                raise ValueError(f"stock_mode 'exact' needs a whole number for {c}")
+            avail = max(0, int(typed[c]))
+        else:
+            avail = pct_units(sc.stock_pct, int(d.sum()))
+        alloc = water_fill(d, weight, avail)  # never above a ward's demand, never above avail
         df.loc[pool.index, f"{c}_allocated"] = alloc
         supplies_summary[c] = {"required": int(d.sum()), "available": avail, "allocated": int(alloc.sum()),
-                               "shortfall": int(d.sum() - alloc.sum()),
-                               "wards_short": int((alloc < d).sum())}
+                               "shortfall": int(d.sum() - alloc.sum()), "unused": int(avail - alloc.sum()),
+                               "wards_short": int((alloc < d).sum()),
+                               "source": "user_entered" if exact else "pct_of_demand", "verified": False}
 
     # ---- 2. bed capacity + intra-city overflow routing
     cap_base = pd.Series(sm.capacity).reindex(df["ward_id"]).fillna(1).astype(int).to_numpy()
     cap = np.maximum(0, np.round(cap_base * sc.capacity_scale_pct / 100)).astype(int)
+    if sc.beds_total is not None:
+        # an exact bed total covers the planning pool only (one city, or all 60 wards);
+        # wards in other cities keep their scaled baseline
+        in_bed_pool = (df["city"] == sc.city).to_numpy() if sc.city else np.ones(len(df), bool)
+        split = split_total({w: int(b) for w, b, k in zip(df["ward_id"], cap_base, in_bed_pool) if k}, int(sc.beds_total))
+        for i, w in enumerate(df["ward_id"]):
+            if w in split:
+                cap[i] = split[w]
     for i, w in enumerate(df["ward_id"]):
         if w in sc.capacity_overrides:
             cap[i] = max(0, int(sc.capacity_overrides[w]))
@@ -330,11 +393,15 @@ def plan(eng, sm: SupplyModel, sc: Scenario) -> dict:
             "risk_weight": wr, "demand_basis": sc.demand_basis, "capacity_scale_pct": sc.capacity_scale_pct,
             "capacity_overrides": sc.capacity_overrides, "crew_mode": mode,
             "plan_with_intervention": sc.plan_with_intervention,
+            "stock_mode": "exact" if exact else "pct",
+            "saline_available": sc.saline_available if exact else None,
+            "kits_available": sc.kits_available if exact else None,
+            "beds_total": sc.beds_total, "bed_mode": "exact" if sc.beds_total is not None else "scale",
+            "bed_pool": sc.city or "all",
         },
         "assumptions": assumptions_text(sm),
         "supplies": supplies_summary,
-        "crews": {"total": sc.total_crews if mode == "optimised" else used, "assigned": used,
-                  "unused": max(0, sc.total_crews - used) if mode == "optimised" else 0,
+        "crews": {"total": sc.total_crews, "assigned": used, "unused": max(0, sc.total_crews - used),
                   "high_risk_wards_without_crew": int(sum(1 for w in ward_rows if "high_risk_no_crew" in w["flags"] and w["in_pool"]))},
         "alerts": {"critical": sum(1 for w in ward_rows if w["severity"] == "critical" and w["in_pool"]),
                    "warning": sum(1 for w in ward_rows if w["severity"] == "warning" and w["in_pool"])},
@@ -359,7 +426,9 @@ def assumptions_text(sm: SupplyModel) -> list[dict]:
          "text": "Planning baseline capacity (editable assumption), derived from historical ward demand: 90th percentile "
                  "of weekly hospital_beds_required per ward, rounded up. Not official hospital capacity data."},
         {"id": "stock", "kind": "scenario",
-         "text": "Available stock is a scenario control: a percentage of the projected total demand. It is not official inventory data."},
+         "text": "Available stock is either a scenario percentage of the projected total demand (rounded up to whole units, "
+                 "the same share for saline and kits) or the exact saline bags and test kits the officer typed. "
+                 "Either way it is a planning input, not verified inventory data."},
         {"id": "crews", "kind": "scenario",
          "text": "Total crews and the effect per crew are user-set scenario parameters. The dataset has no intervention records, "
                  "so simulated reductions are planning scenarios, not proven causal estimates."},

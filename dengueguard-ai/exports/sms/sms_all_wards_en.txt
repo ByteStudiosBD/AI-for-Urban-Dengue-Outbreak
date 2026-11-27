@@ -16,7 +16,7 @@ DENGUEGUARD GCC_Ward_02 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 17/26, Ki
 DENGUEGUARD GCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 16/24, Kits 8/12, Beds 2/3. Crews 0. Deficit: saline,kits,beds. Do: order 8 saline+4 kits; 1 no bed-tell city office; request spray team.
 DENGUEGUARD DSCC_Ward_12 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 16/24, Kits 8/12, Beds 3/3. Crews 0. Deficit: saline,kits. Do: order 8 saline+4 kits; request spray team.
 DENGUEGUARD DNCC_Ward_09 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 17/26, Kits 9/13, Beds 3/3. Crews 1. Deficit: saline,kits. Do: order 9 saline+4 kits; spray 1 team.
-DENGUEGUARD DNCC_Ward_10 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 15/24, Kits 7/12, Beds 2/3. Crews 0. Deficit: saline,kits,beds. Do: order 9 saline+5 kits; 1 no bed-tell city office; request spray team.
+DENGUEGUARD DNCC_Ward_10 wk 2025-09-08: CRITICAL. Pred 10 cases. Saline 15/24, Kits 8/12, Beds 2/3. Crews 0. Deficit: saline,kits,beds. Do: order 9 saline+4 kits; 1 no bed-tell city office; request spray team.
 DENGUEGUARD NCC_Ward_05 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 16/26, Kits 8/13, Beds 3/3. Crews 0. Deficit: saline,kits. Do: order 10 saline+5 kits; request spray team.
 DENGUEGUARD DNCC_Ward_01 wk 2025-09-08: CRITICAL. Pred 11 cases. Saline 16/26, Kits 8/13, Beds 2/3. Crews 0. Deficit: saline,kits,beds. Do: order 10 saline+5 kits; 1 no bed-tell city office; request spray team.
 DENGUEGUARD DSCC_Ward_13 wk 2025-09-08: CRITICAL. Pred 9 cases. Saline 13/21, Kits 6/10, Beds 3/3 (1 routed). Crews 0. Deficit: saline,kits. Do: order 8 saline+4 kits; send 1 pt to DSCC_Ward_17; request spray team.

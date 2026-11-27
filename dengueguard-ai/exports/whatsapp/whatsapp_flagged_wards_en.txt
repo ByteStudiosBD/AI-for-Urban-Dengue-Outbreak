@@ -410,14 +410,14 @@ Predicted cases: *10* (expected forecast; 90% interval 2.25–16.79)
 
 *Supplies (allocated / required)*
 • Saline: 15 / 24
-• Kits: 7 / 12
+• Kits: 8 / 12
 • Beds: 2 / 3 (local capacity 2)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
 *What to do*
-1. Request 9 more saline bags and 5 more test kits from the city store.
+1. Request 9 more saline bags and 4 more test kits from the city store.
 2. 1 patient has no free bed anywhere in this city: report to the city health office today.
 3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
 4. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
