@@ -14,7 +14,7 @@ import type { ConsumableKey, OpsWard } from '@/types/api'
 
 const PAGE = 10
 
-function ItemCard({ label, need, have, short, wards }: { label: string; need: number; have: number; short: number; wards: number }) {
+function ItemCard({ label, need, have, short, spare, wards }: { label: string; need: number; have: number; short: number; spare: number; wards: number }) {
   const { t, fmtNum } = useI18n()
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-panel p-5">
@@ -25,7 +25,7 @@ function ItemCard({ label, need, have, short, wards }: { label: string; need: nu
         <div><dt className="text-[13px] text-muted">{t('s.sup.short')}</dt><dd className={cn('num text-2xl font-semibold', short ? 'text-risk-critical' : 'text-risk-low')}>{short ? fmtNum(short) : '0 ✓'}</dd></div>
       </dl>
       <FillBar value={have} max={need} className="h-2.5" />
-      <p className="text-[13px] text-muted">{short ? t('s.sup.itemShort', { w: wards }) : t('s.sup.itemOk')}</p>
+      <p className="text-[13px] text-muted">{short ? t('s.sup.itemShort', { w: wards }) : t('s.sup.itemOk')}{spare > 0 && ` ${t('s.sup.itemSpare', { n: fmtNum(spare) })}`}</p>
     </div>
   )
 }
@@ -98,13 +98,13 @@ export default function ResourceAllocation() {
           <BigAnswer tone={sal.shortfall || kit.shortfall ? 'bad' : 'good'}
             title={sal.shortfall ? t('s.sup.ansBad', { w: sal.wards_short }) : kit.shortfall ? t('s.sup.ansKits', { w: kit.wards_short }) : t('s.sup.ansOk')}>
             {sal.shortfall || kit.shortfall
-              ? <>{t('s.sup.ansBadSub', { s: fmtNum(sal.shortfall), k: fmtNum(kit.shortfall) })} {t('s.sup.ansWhy', { n: Math.round(p.scenario.stock_pct) })}</>
+              ? <>{t('s.sup.ansBadSub', { s: fmtNum(sal.shortfall), k: fmtNum(kit.shortfall) })} {p.scenario.stock_mode === 'exact' ? t('s.sup.ansWhyExact', { s: fmtNum(sal.available), k: fmtNum(kit.available) }) : t('s.sup.ansWhy', { n: Math.round(p.scenario.stock_pct) })}</>
               : t('s.sup.ansOkSub')}
           </BigAnswer>
 
           <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)]">
-            <ItemCard label={t('s.sup.saline')} need={sal.required} have={sal.available} short={sal.shortfall} wards={sal.wards_short} />
-            <ItemCard label={t('s.sup.kits')} need={kit.required} have={kit.available} short={kit.shortfall} wards={kit.wards_short} />
+            <ItemCard label={t('s.sup.saline')} need={sal.required} have={sal.available} short={sal.shortfall} spare={sal.unused} wards={sal.wards_short} />
+            <ItemCard label={t('s.sup.kits')} need={kit.required} have={kit.available} short={kit.shortfall} spare={kit.unused} wards={kit.wards_short} />
             <div className="rounded-2xl border border-line-soft bg-panel p-5"><StockField size="md" /></div>
           </div>
         </div>

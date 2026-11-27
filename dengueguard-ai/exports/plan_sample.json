@@ -13,7 +13,13 @@
   "capacity_scale_pct": 75.0,
   "capacity_overrides": {},
   "crew_mode": "optimised",
-  "plan_with_intervention": false
+  "plan_with_intervention": false,
+  "stock_mode": "pct",
+  "saline_available": null,
+  "kits_available": null,
+  "beds_total": null,
+  "bed_mode": "scale",
+  "bed_pool": "all"
  },
  "assumptions": [
   {
@@ -29,7 +35,7 @@
   {
    "id": "stock",
    "kind": "scenario",
-   "text": "Available stock is a scenario control: a percentage of the projected total demand. It is not official inventory data."
+   "text": "Available stock is either a scenario percentage of the projected total demand (rounded up to whole units, the same share for saline and kits) or the exact saline bags and test kits the officer typed. Either way it is a planning input, not verified inventory data."
   },
   {
    "id": "crews",
@@ -43,14 +49,20 @@
    "available": 711,
    "allocated": 711,
    "shortfall": 474,
-   "wards_short": 60
+   "unused": 0,
+   "wards_short": 60,
+   "source": "pct_of_demand",
+   "verified": false
   },
   "diagnostic_kits_needed": {
    "required": 576,
-   "available": 345,
-   "allocated": 345,
-   "shortfall": 231,
-   "wards_short": 60
+   "available": 346,
+   "allocated": 346,
+   "shortfall": 230,
+   "unused": 0,
+   "wards_short": 60,
+   "source": "pct_of_demand",
+   "verified": false
   }
  },
  "crews": {
@@ -856,7 +868,7 @@
    },
    "allocated": {
     "saline_bags_needed": 15,
-    "diagnostic_kits_needed": 7
+    "diagnostic_kits_needed": 8
    },
    "crews": 0,
    "beds": {

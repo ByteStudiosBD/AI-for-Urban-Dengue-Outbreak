@@ -87,7 +87,7 @@ export default function OpsHome() {
           <Todo n={1} icon={Boxes} search={search} to="/allocation" cta={t('s.home.cta1')}
             done={sal.shortfall + kit.shortfall === 0}
             title={sal.shortfall ? t('s.home.t1', { w: sal.wards_short, n: fmtNum(sal.shortfall) }) : kit.shortfall ? t('s.home.t1kits', { w: kit.wards_short, n: fmtNum(kit.shortfall) }) : t('s.home.t1ok')}
-            sub={sal.shortfall && kit.shortfall ? t('s.home.t1sub', { n: fmtNum(kit.shortfall) }) : sal.shortfall + kit.shortfall === 0 ? t('s.home.t1okSub', { n: Math.round(p.scenario.stock_pct) }) : undefined} />
+            sub={sal.shortfall && kit.shortfall ? t('s.home.t1sub', { n: fmtNum(kit.shortfall) }) : sal.shortfall + kit.shortfall === 0 ? (p.scenario.stock_mode === 'exact' ? t('s.home.t1okSubExact', { s: fmtNum(sal.available), k: fmtNum(kit.available) }) : t('s.home.t1okSub', { n: Math.round(p.scenario.stock_pct) })) : undefined} />
           <Todo n={2} icon={BedDouble} search={search} to="/overflow" cta={t('s.home.cta2')}
             done={noBed === 0 && moved === 0}
             title={noBed && !moved ? t('s.home.t2noMove', { dp: t(noBed === 1 ? 's.beds.pat1' : 's.beds.patN', { n: noBed }) }) : moved && !noBed ? t('s.home.t2moveOnly', { mp: t(moved === 1 ? 's.beds.pat1' : 's.beds.patN', { n: moved }) }) : noBed || moved ? t('s.home.t2', { mp: t(moved === 1 ? 's.beds.pat1' : 's.beds.patN', { n: moved }), dp: t(noBed === 1 ? 's.beds.pat1' : 's.beds.patN', { n: noBed }) }) : t('s.home.t2ok')}

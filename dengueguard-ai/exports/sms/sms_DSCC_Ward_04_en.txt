@@ -1,1 +1,1 @@
-DENGUEGUARD DSCC_Ward_04 wk 2025-09-08: WARNING. Pred 14 cases. Saline 29/33, Kits 14/16, Beds 4/4 (1 routed). Crews 2. Deficit: saline,kits.
+DENGUEGUARD DSCC_Ward_04 wk 2025-09-08: WARNING. Pred 14 cases. Saline 29/33, Kits 14/16, Beds 4/4 (1 routed). Crews 2. Deficit: saline,kits. Do: order 4 saline+2 kits; send 1 pt to DSCC_Ward_07; spray 2 teams.

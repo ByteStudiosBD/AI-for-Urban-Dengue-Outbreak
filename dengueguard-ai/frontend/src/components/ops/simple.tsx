@@ -1,7 +1,5 @@
 import { ChevronDown, ChevronLeft, ChevronRight, CircleCheck, History, Minus, Plus, RotateCcw, SlidersHorizontal, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
-import { useAsync } from '@/lib/useAsync'
-import { api } from '@/services/api'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n'
 import { addWeeks, cn, snapToMonday } from '@/lib/utils'
@@ -215,10 +213,19 @@ function AreaChoice() {
   const { city, set } = useFilters()
   const { controls, setControls } = useOps()
   const value = controls.pool === 'all' ? '__all' : city
+  // typed stock and bed numbers belong to the area they were typed for: never carry them silently to another area
+  const clearTyped = { beds_total: null, ...(controls.stock_mode === 'exact' ? { stock_mode: 'pct' as const, saline_available: null, kits_available: null } : {}) }
   return (
+    <div className="flex flex-col gap-2">
     <Choice<string> label={t('s.set.area')} value={value}
-      onChange={(v) => { if (v === '__all') setControls({ pool: 'all' }); else { set({ city: v }); setControls({ pool: 'city' }) } }}
+      onChange={(v) => {
+        if (v === value) return
+        if (v === '__all') setControls({ pool: 'all', ...clearTyped })
+        else { set({ city: v }); setControls({ pool: 'city', ...clearTyped }) }
+      }}
       options={[{ value: '__all', label: t('s.set.allAreas') }, ...(meta?.cities ?? []).map((c) => ({ value: c, label: c }))]} />
+    <p className="text-[13px] text-muted">{t('s.set.areaHelp')}</p>
+    </div>
   )
 }
 
@@ -250,71 +257,59 @@ function UnitSwitch({ value, onChange, numberLabel, disabled }: { value: Unit; o
   )
 }
 
-/** Percent of demand that gives exactly `b` bags under the server's floor rule, kept inside the allowed 30–100%. */
-function bagsToPct(b: number, need: number) {
-  if (need <= 0) return 100
-  if (b >= need) return 100
-  return Math.max(30, Math.min(100, ((b + 0.5) / need) * 100))
-}
+/** Largest number an officer can type for stock or beds (a typo guard, not a planning limit). */
+const MAX_UNITS = 1_000_000
 
 /**
- * Stock available. The problem set defines stock as 30–100% of demand, so the plan always stores a percentage;
- * officers can type a number of saline bags instead and it is converted exactly (same floor rule as the server).
+ * Stock available, in one of two modes (both are planning inputs, not verified inventory):
+ *  - percent: the problem set's 30–100% scenario, the same share for saline and kits, rounded UP to whole units;
+ *  - numbers: saline bags and test kits typed separately and used exactly as typed (0 allowed, never raised to 30%).
+ * Every figure shown here comes from the server's plan, so this panel, the pages and the messages always agree.
  */
 export function StockField({ size }: { size?: 'lg' | 'md' }) {
   const { t, fmtNum } = useI18n()
   const { controls, setControls } = useOps()
+  const { city } = useFilters()
   const plan = usePlan().data
-  const [unit, setUnit] = useState<Unit>('number')
-  const need = plan?.supplies.saline_bags_needed.required ?? 0
-  const kitNeed = plan?.supplies.diagnostic_kits_needed.required ?? 0
-  const pct = controls.stock_pct
-  const bags = Math.floor((pct / 100) * need)
-  const kits = Math.floor((pct / 100) * kitNeed)
-  const byNumber = unit === 'number'
-  const minBags = Math.ceil(0.3 * need)
-  const typed = controls.stock_bags
-  const outside = typed !== null && need > 0 && (typed < minBags || typed > need)
+  const sal = plan?.supplies.saline_bags_needed
+  const kit = plan?.supplies.diagnostic_kits_needed
+  const exact = controls.stock_mode === 'exact'
+  const area = controls.pool === 'city' ? city : t('s.set.allAreas')
+  // switching to numbers starts from what the current plan has, so nothing jumps; switching back clears the typed numbers
+  const setUnit = (u: Unit) => {
+    if (u === 'number' && !exact) setControls({ stock_mode: 'exact', saline_available: sal?.available ?? 0, kits_available: kit?.available ?? 0 })
+    if (u === 'pct' && exact) setControls({ stock_mode: 'pct', saline_available: null, kits_available: null })
+  }
+  const line = (item: string, s: NonNullable<typeof sal>) =>
+    t('s.set.stockLine', { item, have: fmtNum(s.available), need: fmtNum(s.required), short: fmtNum(s.shortfall), spare: fmtNum(s.unused) })
   return (
     <div className="flex flex-col gap-3">
-      <UnitSwitch value={byNumber ? 'number' : 'pct'} onChange={setUnit} numberLabel={t('s.unit.bags')} />
-      {byNumber ? (
-        <NumberField size={size} label={t('s.set.stockBags')} help={t('s.set.stockBagsHelp', { need: fmtNum(need) })} value={typed ?? bags} min={0} max={99999}
-          presets={need > 0 ? [...new Set([30, 50, 75, 100].map((p) => Math.max(minBags, Math.floor((p / 100) * need))))] : []}
-          onChange={(b) => setControls({ stock_bags: b, ...(need > 0 ? { stock_pct: bagsToPct(b, need) } : {}) })} />
+      <UnitSwitch value={exact ? 'number' : 'pct'} onChange={setUnit} numberLabel={t('s.unit.items')} disabled={!plan} />
+      {exact ? (
+        <>
+          <NumberField size={size} label={t('s.set.stockBags')} help={sal ? t('s.set.stockBagsHelp', { need: fmtNum(sal.required) }) : undefined}
+            value={controls.saline_available ?? 0} min={0} max={MAX_UNITS} onChange={(b) => setControls({ saline_available: b })} />
+          <NumberField size={size} label={t('s.set.kitsN')} help={kit ? t('s.set.kitsNHelp', { need: fmtNum(kit.required) }) : undefined}
+            value={controls.kits_available ?? 0} min={0} max={MAX_UNITS} onChange={(k) => setControls({ kits_available: k })} />
+          <p className="text-[13px] text-muted">{t('s.set.stockTyped', { area })}</p>
+        </>
       ) : (
-        <NumberField size={size} label={t('s.set.stock')} help={t('s.set.stockHelp')} value={Math.round(pct)} min={30} max={100} unit="%" presets={[30, 50, 75, 100]}
-          onChange={(v) => setControls({ stock_bags: null, stock_pct: v })} />
+        <>
+          <NumberField size={size} label={t('s.set.stock')} help={t('s.set.stockHelp')} value={Math.round(controls.stock_pct)} min={30} max={100} unit="%" presets={[30, 50, 75, 100]}
+            onChange={(v) => setControls({ stock_pct: v })} />
+          <p className="text-[13px] text-muted">{t('s.set.stockPctNote')}</p>
+        </>
       )}
-      {outside && <p role="status" className="text-[13px] font-medium text-risk-medium">{typed! > need ? t('s.set.stockMore', { x: fmtNum(typed), hi: fmtNum(need), spare: fmtNum(typed! - need) }) : t('s.set.stockLess', { x: fmtNum(typed), lo: fmtNum(minBags) })}</p>}
-      {need > 0 ? (
-        <p className="num rounded-xl bg-panel-2/60 px-3 py-2 text-[13px] text-ink">
-          {t('s.set.stockIs', { b: fmtNum(bags), bn: fmtNum(need), k: fmtNum(kits), kn: fmtNum(kitNeed), p: Math.round(pct) })}
+      {sal && kit && (sal.required > 0 || kit.required > 0 || exact) ? (
+        <p className="num flex flex-col gap-1 rounded-xl bg-panel-2/60 px-3 py-2 text-[13px] text-ink" role="status">
+          <span>{line(t('s.sup.saline'), sal)}</span>
+          <span>{line(t('s.sup.kits'), kit)}</span>
         </p>
-      ) : plan && <p className="text-[13px] text-muted">{byNumber ? t('s.set.stockQuiet') : t('s.set.stockNone')}</p>}
+      ) : plan && <p className="text-[13px] text-muted">{t('s.set.stockNone')}</p>}
     </div>
   )
 }
 
-/** Normal (planning baseline) number of beds across all 60 wards, from the assumptions endpoint. */
-function useBaseBeds() {
-  const { data } = useAsync(() => api.opsAssumptions(), [])
-  const perWard = data?.capacity.per_ward ?? {}
-  return { perWard, total: Object.values(perWard).reduce((a, b) => a + b, 0) }
-}
-
-/** Split a typed bed total over the wards in proportion to their normal beds, summing exactly to `total` (largest remainder). */
-export function splitBeds(perWard: Record<string, number>, total: number): Record<string, number> {
-  const ids = Object.keys(perWard).sort()
-  const base = ids.reduce((a, w) => a + perWard[w], 0)
-  if (!base) return {}
-  const exact = ids.map((w) => (perWard[w] * total) / base)
-  const out = exact.map(Math.floor)
-  let left = total - out.reduce((a, b) => a + b, 0)
-  const order = ids.map((_, i) => i).sort((a, b) => (exact[b] - out[b]) - (exact[a] - out[a]) || perWard[ids[b]] - perWard[ids[a]] || a - b)
-  for (const i of order) { if (left <= 0) break; out[i] += 1; left -= 1 }
-  return Object.fromEntries(ids.map((w, i) => [w, out[i]]))
-}
 
 export function TeamsField({ size }: { size?: 'lg' | 'md' }) {
   const { t } = useI18n()
@@ -323,37 +318,49 @@ export function TeamsField({ size }: { size?: 'lg' | 'md' }) {
     onChange={(v) => setControls({ total_crews: v, deployment: null })} />
 }
 
-/** Hospital beds: a total number of beds (default) or a percentage of the normal estimate. */
+/**
+ * Hospital beds: an exact number of beds (default) or a percentage of the normal estimate.
+ * The exact number covers the planning area: all 5 cities, or only the chosen city (other cities keep normal beds).
+ * The server splits it over the wards and is the only place it is applied; 0 is allowed.
+ */
 export function BedsField() {
   const { t, fmtNum } = useI18n()
   const { controls, setControls } = useOps()
+  const { city } = useFilters()
   const plan = usePlan().data
-  const { perWard, total: base } = useBaseBeds()
-  const [unit, setUnit] = useState<Unit>('number')
+  const [unit, setUnit] = useState<Unit>(controls.beds_total !== null || controls.capacity_scale_pct === 100 ? 'number' : 'pct')
   const pct = controls.capacity_scale_pct
-  const byNumber = unit === 'number' && base > 0
-  const total = controls.beds_total ?? Math.round((base * pct) / 100)
-  const used = plan?.cities.reduce((a, c) => a + c.bed_capacity, 0)
-  const min = Math.ceil(base * 0.25)
-  // a typed total is split exactly over the wards; a percentage scales every ward instead
-  const setTotal = (n: number) => setControls({ beds_total: n, capacity_overrides: splitBeds(perWard, n), capacity_scale_pct: (n / base) * 100 })
+  const one = controls.pool === 'city'
+  const inArea = (plan?.wards ?? []).filter((w) => !one || w.city === city)
+  const base = inArea.reduce((a, w) => a + w.beds.capacity_baseline, 0)
+  const used = plan ? inArea.reduce((a, w) => a + w.beds.capacity, 0) : undefined
+  const byNumber = unit === 'number'
+  const setTotal = (n: number) => setControls({ beds_total: n })
   const setPct = (v: number) => setControls({ beds_total: null, capacity_overrides: {}, capacity_scale_pct: v })
-  const edited = controls.beds_total === null ? Object.keys(controls.capacity_overrides).length : 0
+  // switching unit drops the other mode's value so nothing stale stays in the plan
+  const switchUnit = (u: Unit) => {
+    setUnit(u)
+    if (u === 'pct' && controls.beds_total !== null) setControls({ beds_total: null, capacity_overrides: {} })
+  }
+  const edited = Object.keys(controls.capacity_overrides).length
   return (
     <div className="flex flex-col gap-3">
-      <UnitSwitch value={byNumber ? 'number' : 'pct'} onChange={setUnit} numberLabel={t('s.unit.beds')} disabled={base === 0} />
+      <UnitSwitch value={byNumber ? 'number' : 'pct'} onChange={switchUnit} numberLabel={t('s.unit.beds')} disabled={!plan} />
       {byNumber ? (
-        <NumberField label={t('s.set.bedsN')} help={t('s.set.bedsNHelp', { n: fmtNum(base) })} value={total} min={min} max={base * 3}
-          presets={[50, 75, 100, 125].map((p) => Math.max(min, Math.round((base * p) / 100)))}
+        <NumberField label={one ? t('s.set.bedsNCity', { city }) : t('s.set.bedsN')}
+          help={one ? t('s.set.bedsNHelpCity', { city, n: fmtNum(base), w: inArea.length }) : t('s.set.bedsNHelp', { n: fmtNum(base) })}
+          value={controls.beds_total ?? used ?? base} min={0} max={MAX_UNITS}
+          presets={base > 0 ? [...new Set([50, 75, 100, 125].map((p) => Math.round((base * p) / 100)))] : []}
           onChange={setTotal} />
       ) : (
         <NumberField label={t('s.set.beds')} help={t('s.set.bedsHelp')} value={Math.round(pct)} min={25} max={300} step={5} unit="%" presets={[50, 75, 100, 125]}
           onChange={setPct} />
       )}
-      {used !== undefined && base > 0 && (
-        <p className="num rounded-xl bg-panel-2/60 px-3 py-2 text-[13px] text-ink">
-          {t('s.set.bedsIs', { n: fmtNum(used), p: Math.round(pct), base: fmtNum(base) })}
+      {used !== undefined && (
+        <p className="num rounded-xl bg-panel-2/60 px-3 py-2 text-[13px] text-ink" role="status">
+          {base > 0 ? t('s.set.bedsIs', { n: fmtNum(used), p: Math.round((100 * used) / base), base: fmtNum(base) }) : t('s.set.bedsIsZero', { n: fmtNum(used) })}
           {edited > 0 && ` ${t('s.set.bedsEdited', { n: edited })}`}
+          {' '}{t('s.set.bedsTyped')}
         </p>
       )}
     </div>
@@ -441,7 +448,7 @@ function SettingsSheet({ open, onClose }: { open: boolean; onClose: () => void }
 /** The current plan in plain words, with the only two buttons needed to change it. Shown on every operations page. */
 export function PlanBar() {
   const { t, fmtDate } = useI18n()
-  const { controls: c, reset, setControls } = useOps()
+  const { controls: c, reset } = useOps()
   const { asOf, h, city, set } = useFilters()
   const { meta } = useMetadata()
   const [open, setOpen] = useState(false)
@@ -455,23 +462,18 @@ export function PlanBar() {
     setConfirm(false)
   }
   const bags = plan?.supplies.saline_bags_needed
+  const kits = plan?.supplies.diagnostic_kits_needed
   const beds = plan?.cities.reduce((a, x) => a + x.bed_capacity, 0)
-  // typed saline bags stay fixed: when demand changes (week, area, a bad week…) recalculate the percentage
-  const need = bags?.required
-  useEffect(() => {
-    if (c.stock_bags === null || !need) return
-    const pct = bagsToPct(c.stock_bags, need)
-    if (Math.abs(pct - c.stock_pct) > 1e-9) setControls({ stock_pct: pct })
-  }, [need, c.stock_bags, c.stock_pct, setControls])
   const quiet = !!plan && plan.wards.every((w) => w.planning_cases_whole === 0)
   const expert = c.demand_basis !== OPS_DEFAULTS.demand_basis || c.effect_per_crew_pct !== OPS_DEFAULTS.effect_per_crew_pct
     || c.max_crews_per_ward !== OPS_DEFAULTS.max_crews_per_ward || c.risk_weight !== OPS_DEFAULTS.risk_weight || c.plan_with_intervention
-    || (c.beds_total === null && Object.keys(c.capacity_overrides).length > 0) || c.deployment !== null
+    || Object.keys(c.capacity_overrides).length > 0 || c.deployment !== null
   const parts = [
     t('s.set.weekOf', { date: fmtDate(asOf, 'long') }),
     t('s.set.nextN', { n: h }),
     c.pool === 'city' ? city : t('s.set.allAreas'),
-    bags && bags.required > 0 ? t('s.bar.stockBags', { n: Math.round(c.stock_pct), b: bags.available }) : t('s.bar.stock', { n: Math.round(c.stock_pct) }),
+    c.stock_mode === 'exact' ? t('s.bar.stockExact', { s: c.saline_available ?? 0, k: c.kits_available ?? 0 })
+      : bags && bags.required > 0 ? t('s.bar.stockBags', { n: Math.round(c.stock_pct), b: bags.available, k: kits?.available ?? 0 }) : t('s.bar.stock', { n: Math.round(c.stock_pct) }),
     t('s.bar.teams', { n: c.total_crews }),
     beds !== undefined ? t('s.bar.bedsN', { n: beds }) : t('s.bar.beds', { n: Math.round(c.capacity_scale_pct) }),
   ]

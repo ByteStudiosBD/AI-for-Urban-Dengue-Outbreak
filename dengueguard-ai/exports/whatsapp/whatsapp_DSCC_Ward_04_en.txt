@@ -1,5 +1,5 @@
 *DengueGuard dispatch — DSCC_Ward_04 (Dhaka South)*
-Status: *WARNING* · Risk tier: Critical
+Status: *WARNING* · Risk tier: Very high
 Target week: 2025-09-08 (2 weeks ahead)
 Predicted cases: *14* (expected forecast; 90% interval 6.74–21.28)
 
@@ -7,9 +7,14 @@ Predicted cases: *14* (expected forecast; 90% interval 6.74–21.28)
 • Saline: 29 / 33
 • Kits: 14 / 16
 • Beds: 4 / 4 (local capacity 3)
-  → route 1 patient(s) to DSCC_Ward_07
 
 *Spraying crews assigned:* 2
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 4 more saline bags and 2 more test kits from the city store.
+2. Send 1 patient to DSCC_Ward_07 (same city); call ahead to confirm the bed.
+3. Deploy 2 spraying teams this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 14 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._

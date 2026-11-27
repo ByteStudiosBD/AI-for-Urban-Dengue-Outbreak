@@ -15,13 +15,92 @@ SUPPLY_LABEL = {
 }
 SEVERITY = {"en": {"critical": "CRITICAL", "warning": "WARNING", "ok": "OK"},
             "bn": {"critical": "জরুরি", "warning": "সতর্কতা", "ok": "স্বাভাবিক"}}
-TIER_BN = {"Low": "নিম্ন", "Medium": "মাঝারি", "High": "উচ্চ", "Critical": "সংকটপূর্ণ"}
+# the top model tier is shown as "Very high" so it is never confused with a supply shortage
+TIER = {"en": {"Low": "Low", "Medium": "Medium", "High": "High", "Critical": "Very high"},
+        "bn": {"Low": "নিম্ন", "Medium": "মাঝারি", "High": "উচ্চ", "Critical": "অতি উচ্চ"}}
+TIER_BN = TIER["bn"]
 BN_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
 
 
 def _n(x, lang: str) -> str:
     s = str(x)
     return s.translate(BN_DIGITS) if lang == "bn" else s
+
+
+def _pl(n: int, word: str) -> str:
+    """English singular/plural."""
+    return word if n == 1 else word + "s"
+
+
+def _gaps(w: dict) -> tuple[int, int]:
+    """Saline bags and test kits still missing after allocation (0 when outside the stock pool)."""
+    g = [w["required"][c] - w["allocated"][c] if w["allocated"][c] is not None else 0
+         for c in ("saline_bags_needed", "diagnostic_kits_needed")]
+    return max(0, g[0]), max(0, g[1])
+
+
+def actions(plan: dict, w: dict, lang: str = "en") -> list[str]:
+    """Operational next steps for one ward, derived only from the plan numbers (no clinical advice)."""
+    s = plan["scenario"]
+    sal, kit = _gaps(w)
+    out_t, in_t = _transfers_for(plan, w["ward_id"])
+    b = w["beds"]
+    n = lambda x: _n(x, lang)  # noqa: E731
+    bn = lang == "bn"
+    acts = []
+    if sal or kit:
+        if bn:
+            parts = ([f"{n(sal)} ব্যাগ স্যালাইন"] if sal else []) + ([f"{n(kit)}টি পরীক্ষার কিট"] if kit else [])
+            acts.append(f"সিটি স্টোর থেকে আরও {' ও '.join(parts)} চেয়ে নিন।")
+        else:
+            parts = ([f"{sal} more saline {_pl(sal, 'bag')}"] if sal else []) + ([f"{kit} more test {_pl(kit, 'kit')}"] if kit else [])
+            acts.append(f"Request {' and '.join(parts)} from the city store.")
+    for t in out_t:
+        acts.append(f"{n(t['patients'])} জন রোগীকে {t['to_ward']}-এ পাঠান (একই শহর); আগে ফোন করে শয্যা নিশ্চিত করুন।" if bn else
+                    f"Send {t['patients']} {_pl(t['patients'], 'patient')} to {t['to_ward']} (same city); call ahead to confirm the {_pl(t['patients'], 'bed')}.")
+    for t in in_t:
+        acts.append(f"{t['from_ward']} থেকে আসা {n(t['patients'])} জন রোগীর জন্য শয্যা প্রস্তুত রাখুন।" if bn else
+                    f"Keep {t['patients']} {_pl(t['patients'], 'bed')} ready for patients from {t['from_ward']}.")
+    if b["net_deficit"] > 0:
+        acts.append(f"এই শহরে {n(b['net_deficit'])} জন রোগীর জন্য খালি শয্যা নেই: আজই সিটি স্বাস্থ্য অফিসে জানান।" if bn else
+                    f"{b['net_deficit']} {_pl(b['net_deficit'], 'patient')} {'has' if b['net_deficit'] == 1 else 'have'} no free bed anywhere in this city: report to the city health office today.")
+    if w["crews"] > 0:
+        acts.append(f"এই সপ্তাহে {n(w['crews'])}টি স্প্রে দল পাঠান: ড্রেন, পাত্র ও নির্মাণস্থলে জমে থাকা পানি পরিষ্কার করুন।" if bn else
+                    f"Deploy {w['crews']} spraying {_pl(w['crews'], 'team')} this week: clear standing water in drains, containers and building sites.")
+    elif "high_risk_no_crew" in w["flags"]:
+        acts.append("উচ্চ ঝুঁকি কিন্তু স্প্রে দল নেই: দল চেয়ে নিন, অথবা এলাকাবাসীকে নিয়ে জমে থাকা পানি পরিষ্কার করুন।" if bn else
+                    "High risk but no spraying team: request one, or organise a community clean-up of standing water.")
+    if w["planning_cases_whole"] > 0:
+        acts.append(f"স্থানীয় ক্লিনিককে জানান: {n(s['target_date'])}-এর সপ্তাহে প্রায় {n(w['planning_cases_whole'])} জন ডেঙ্গু রোগী আসতে পারে।" if bn else
+                    f"Tell local clinics to expect about {w['planning_cases_whole']} dengue cases in the week of {s['target_date']}.")
+    if not acts or (w["severity"] == "ok" and not w["crews"] and not out_t and not in_t and len(acts) <= 1):
+        acts.append("এই সপ্তাহে কোনো ঘাটতি নেই: নিয়মিত নজরদারি চালিয়ে যান।" if bn else
+                    "No shortage this week: continue routine monitoring.")
+    return acts
+
+
+def _sms_actions(plan: dict, w: dict, lang: str) -> str:
+    """Very short form of the next steps for SMS."""
+    sal, kit = _gaps(w)
+    out_t, in_t = _transfers_for(plan, w["ward_id"])
+    b = w["beds"]
+    bn = lang == "bn"
+    n = lambda x: _n(x, lang)  # noqa: E731
+    p = []
+    if sal or kit:
+        p.append(("+".join(([f"{n(sal)} স্যালাইন"] if sal else []) + ([f"{n(kit)} কিট"] if kit else [])) + " চান") if bn else
+                 "order " + "+".join(([f"{sal} saline"] if sal else []) + ([f"{kit} kits"] if kit else [])))
+    p += [f"{n(t['patients'])} রোগী {t['to_ward']}-এ পাঠান" if bn else f"send {t['patients']} pt to {t['to_ward']}" for t in out_t]
+    p += [f"{n(t['patients'])} শয্যা প্রস্তুত" if bn else f"ready {t['patients']} {_pl(t['patients'], 'bed')}" for t in in_t]
+    if b["net_deficit"] > 0:
+        p.append(f"{n(b['net_deficit'])} শয্যাহীন-সিটি অফিসে জানান" if bn else f"{b['net_deficit']} no bed-tell city office")
+    if w["crews"] > 0:
+        p.append(f"{n(w['crews'])} দল স্প্রে" if bn else f"spray {w['crews']} {_pl(w['crews'], 'team')}")
+    elif "high_risk_no_crew" in w["flags"]:
+        p.append("স্প্রে দল চান" if bn else "request spray team")
+    if not p:
+        return "করণীয়: নিয়মিত নজরদারি।" if bn else "Do: routine monitoring."
+    return ("করণীয়: " + "; ".join(p) + "।") if bn else ("Do: " + "; ".join(p) + ".")
 
 
 def _deficits(w: dict) -> list[str]:
@@ -57,6 +136,7 @@ def sms(plan: dict, w: dict, lang: str = "en") -> str:
                  f"স্প্রে দল {_n(w['crews'], lang)}।"]
         if d:
             parts.append("ঘাটতি: " + ", ".join(L[c] for c in d) + "।")
+        parts.append(_sms_actions(plan, w, lang))
         return " ".join(parts)
     parts = [f"DENGUEGUARD {w['ward_id']} wk {s['target_date']}: {SEVERITY[lang][w['severity']]}.",
              f"Pred {w['planning_cases_whole']} cases.",
@@ -65,6 +145,7 @@ def sms(plan: dict, w: dict, lang: str = "en") -> str:
              f"Crews {w['crews']}."]
     if d:
         parts.append("Deficit: " + ",".join(L[c].lower() for c in d) + ".")
+    parts.append(_sms_actions(plan, w, lang))
     return " ".join(parts)
 
 
@@ -72,7 +153,6 @@ def whatsapp(plan: dict, w: dict, lang: str = "en") -> str:
     s = plan["scenario"]
     L = SUPPLY_LABEL[lang]
     b = w["beds"]
-    out_t, in_t = _transfers_for(plan, w["ward_id"])
     d = _deficits(w)
     lo, hi = w["interval"]
     basis = "upper 90% bound" if s["demand_basis"] == "upper" else "expected forecast"
@@ -86,30 +166,24 @@ def whatsapp(plan: dict, w: dict, lang: str = "en") -> str:
             lines.append(f"• {L[c]}: {_n(w['allocated'][c], lang)} / {_n(w['required'][c], lang)}")
         lines.append(f"• {L['hospital_beds_required']}: {_n(b['required'] - b['net_deficit'], lang)} / {_n(b['required'], lang)}"
                      f" (স্থানীয় ধারণক্ষমতা {_n(b['capacity'], lang)})")
-        for t in out_t:
-            lines.append(f"  → {_n(t['patients'], lang)} জন রোগী {t['to_ward']}-এ স্থানান্তর")
-        for t in in_t:
-            lines.append(f"  ← {t['from_ward']} থেকে {_n(t['patients'], lang)} জন রোগী গ্রহণ")
         lines += ["", f"*স্প্রে দল:* {_n(w['crews'], lang)}"]
         if d:
             lines.append("⚠️ *ঘাটতি:* " + ", ".join(L[c] for c in d))
+        lines += ["", "*করণীয়*"] + [f"{_n(i, lang)}. {a}" for i, a in enumerate(actions(plan, w, lang), 1)]
         lines += ["", "_পরিকল্পনা পরিস্থিতি; ধারণক্ষমতা ও মজুত সম্পাদনযোগ্য অনুমান, সরকারি তথ্য নয়।_"]
         return "\n".join(lines)
     lines = [f"*DengueGuard dispatch — {w['ward_id']} ({w['city']})*",
-             f"Status: *{SEVERITY[lang][w['severity']]}* · Risk tier: {w['risk_tier']}",
+             f"Status: *{SEVERITY[lang][w['severity']]}* · Risk tier: {TIER['en'].get(w['risk_tier'], w['risk_tier'])}",
              f"Target week: {s['target_date']} ({s['horizon_weeks']} weeks ahead)",
              f"Predicted cases: *{w['planning_cases_whole']}* ({basis}; 90% interval {lo}–{hi})",
              "", "*Supplies (allocated / required)*"]
     for c in ("saline_bags_needed", "diagnostic_kits_needed"):
         lines.append(f"• {L[c]}: {w['allocated'][c]} / {w['required'][c]}")
     lines.append(f"• Beds: {b['required'] - b['net_deficit']} / {b['required']} (local capacity {b['capacity']})")
-    for t in out_t:
-        lines.append(f"  → route {t['patients']} patient(s) to {t['to_ward']}")
-    for t in in_t:
-        lines.append(f"  ← receive {t['patients']} patient(s) from {t['from_ward']}")
     lines += ["", f"*Spraying crews assigned:* {w['crews']}"]
     if d:
         lines.append("⚠️ *Deficit:* " + ", ".join(L[c] for c in d))
+    lines += ["", "*What to do*"] + [f"{i}. {a}" for i, a in enumerate(actions(plan, w, lang), 1)]
     lines += ["", "_Planning scenario. Capacity and stock are editable assumptions, not official data._"]
     return "\n".join(lines)
 
@@ -144,7 +218,7 @@ def brief_html(plan: dict, city: str | None = None) -> str:
         rq = w["required"]
         fmt = lambda c: f"{a[c]}/{rq[c]}" if a[c] is not None else f"–/{rq[c]}"
         rows.append(
-            f"<tr><td class=l>{e(w['ward_id'])}</td><td class=l>{e(w['risk_tier'])}</td><td>{w['priority']}</td>"
+            f"<tr><td class=l>{e(w['ward_id'])}</td><td class=l>{e(TIER['en'].get(w['risk_tier'], w['risk_tier']))}</td><td>{w['priority']}</td>"
             f"<td>{w['planning_cases_whole']}</td><td>{fmt('saline_bags_needed')}</td><td>{fmt('diagnostic_kits_needed')}</td>"
             f"<td>{b['required']}</td><td>{b['capacity']}</td><td>{b['routed_out'] or ''}</td><td>{b['routed_in'] or ''}</td>"
             f"<td>{b['net_deficit'] or ''}</td><td>{w['crews'] or ''}</td>"
@@ -174,14 +248,25 @@ def brief_html(plan: dict, city: str | None = None) -> str:
                      f"<td>{sb['hospital_beds_required'].sum()} → {ss['hospital_beds_required'].sum()}</td>"
                      f"<td>{sb['saline_bags_needed'].sum()} → {ss['saline_bags_needed'].sum()}</td></tr>")
     assumptions = "".join(f"<li>{e(a['text'])}</li>" for a in plan["assumptions"])
+    # next steps for every ward that has something to act on (shortage, transfer or spraying team)
+    todo = [w for w in sorted(wards, key=lambda w: -w["priority"])
+            if w["severity"] != "ok" or w["crews"] or w["beds"]["routed_out"] or w["beds"]["routed_in"]]
+    action_rows = ("".join(f"<li><b>{e(w['ward_id'])}</b>: " + " ".join(e(a) for a in actions(plan, w, "en")) + "</li>" for w in todo)
+                   or "<li>No ward needs action beyond routine monitoring.</li>")
     basis = "upper bound of the 90% prediction interval (surge planning)" if s["demand_basis"] == "upper" else "expected forecast"
     pool_note = "" if s["city"] in (None, city) else f" Stock pool: {e(s['city'])}."
+    ps = plan["supplies"]
+    stock_txt = (f"stock entered by user for {e(s['city'] or 'all 60 wards')}: {ps['saline_bags_needed']['available']} saline bags, "
+                 f"{ps['diagnostic_kits_needed']['available']} test kits (not verified inventory)"
+                 if s.get("stock_mode") == "exact" else f"stock {s['stock_pct']:g}% of demand")
+    beds_txt = (f"{s['beds_total']} beds entered by user ({'all cities' if s.get('bed_pool') == 'all' else e(s.get('bed_pool'))})"
+                if s.get("beds_total") is not None else f"bed capacity {s['capacity_scale_pct']:g}% of baseline")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><style>{CSS}</style></head><body>
 <p class="noprint note">Use your browser's Print → Save as PDF to export this brief.</p>
 <h1>DengueGuard AI — {e(title)}</h1>
 <div class="meta">Reference week {s['as_of']} · target week {s['target_date']} ({s['horizon_weeks']} weeks ahead) · demand basis: {basis}
- · stock {s['stock_pct']:g}% of demand · {s['total_crews']} crews · effect {s['effect_per_crew_pct']:g}%/crew (scenario) · bed capacity {s['capacity_scale_pct']:g}% of baseline.{pool_note}<br>Generated {now}, offline, from deterministic templates.</div>
+ · {stock_txt} · {s['total_crews']} crews · effect {s['effect_per_crew_pct']:g}%/crew (scenario) · {beds_txt}.{pool_note}<br>Generated {now}, offline, from deterministic templates.</div>
 <h2>Summary</h2><div class="kpis">
 <div class="kpi">Wards<b>{len(wards)}</b></div><div class="kpi">Critical alerts<b class="crit">{crit}</b></div>
 <div class="kpi">Wards with a shortfall<b>{short}</b></div>
@@ -195,6 +280,7 @@ def brief_html(plan: dict, city: str | None = None) -> str:
 <h2>Hospital beds by city (intra-city routing only)</h2>
 <table><tr><th class=l>City</th><th>Beds required</th><th>Capacity*</th><th>Patients routed</th><th>Net deficit</th><th>Headroom left</th><th>Utilisation</th></tr>{city_rows}</table>
 <h2>Patient transfers</h2><table><tr><th class=l>City</th><th class=l>From ward</th><th class=l>To ward</th><th>Patients</th></tr>{tr_rows}</table>
+<h2>What each ward should do</h2><ul>{action_rows}</ul>
 <h2>Vector-control scenario (2–4 weeks)</h2>
 <table><tr><th class=l>Horizon</th><th>Cases, no action</th><th>Cases, with crews</th><th>Beds</th><th>Saline</th></tr>{sim_rows}</table>
 <p class="note">{e(sim['label'])}</p>

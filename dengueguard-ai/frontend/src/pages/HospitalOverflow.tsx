@@ -40,9 +40,9 @@ export default function HospitalOverflow() {
     { req: 0, cap: 0, moved: 0, def: 0 })
   const cityWards = (p?.wards ?? []).filter((w) => w.city === city).sort((a, b) => a.ward_id.localeCompare(b.ward_id))
   const overrides = controls.capacity_overrides
-  // a typed bed total is stored as overrides for every ward; only count wards the officer edited one by one
-  const nEdits = controls.beds_total === null ? Object.keys(overrides).length : 0
-  const setCap = (ward: string, v: number) => setControls({ capacity_overrides: { ...overrides, [ward]: v }, beds_total: null })
+  // one-ward edits sit on top of the typed total or percentage and change only that ward
+  const nEdits = Object.keys(overrides).length
+  const setCap = (ward: string, v: number) => setControls({ capacity_overrides: { ...overrides, [ward]: v } })
 
   return (
     <div className="flex flex-col gap-5">
@@ -154,12 +154,12 @@ export default function HospitalOverflow() {
             <Choice<string> label={t('s.beds.pickCity')} value={city} onChange={(v) => set({ city: v })}
               options={(meta?.cities ?? []).map((c) => ({ value: c, label: c }))} />
             {nEdits > 0 && (
-              <Button className="h-11 self-start" onClick={() => setControls({ capacity_overrides: {}, beds_total: null })}><RotateCcw /> {t('s.beds.undo', { n: nEdits })}</Button>
+              <Button className="h-11 self-start" onClick={() => setControls({ capacity_overrides: {} })}><RotateCcw /> {t('s.beds.undo', { n: nEdits })}</Button>
             )}
             {!p ? <LoadingBlock className="h-40" /> : (
               <ul className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
                 {cityWards.map((w) => (
-                  <li key={w.ward_id} className={cn('rounded-xl border p-3', w.beds.capacity_overridden && controls.beds_total === null ? 'border-accent/60' : 'border-line-soft')}>
+                  <li key={w.ward_id} className={cn('rounded-xl border p-3', w.beds.capacity_overridden ? 'border-accent/60' : 'border-line-soft')}>
                     <NumberField size="md" label={w.ward_id} help={t('s.beds.wardHelp', { need: w.beds.required, base: w.beds.capacity_baseline })}
                       value={overrides[w.ward_id] ?? w.beds.capacity} min={0} max={999} onChange={(v) => setCap(w.ward_id, v)} />
                   </li>
