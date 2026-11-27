@@ -113,10 +113,28 @@ def test_dispatch_and_brief(c):
     n = d["notices"][0]
     assert "DSCC_Ward_04" in n["sms"] and "Saline" in n["sms"] and "Crews" in n["sms"]
     assert "allocated / required" in n["whatsapp"]
+    # every notice tells the ward what to do, using the same numbers as the plan
+    assert "Do: order" in n["sms"] and "*What to do*" in n["whatsapp"] and "Request" in n["whatsapp"]
+    assert "Risk tier: Critical" not in n["whatsapp"]
     bn = c.post("/api/ops/dispatch", json={**PEAK, "lang": "bn", "ward_id": "DSCC_Ward_04"}).json()
-    assert "স্যালাইন" in bn["notices"][0]["sms"]
+    assert "স্যালাইন" in bn["notices"][0]["sms"] and "করণীয়" in bn["notices"][0]["whatsapp"]
     html = c.post("/api/ops/brief", json={**PEAK, "brief_city": "Gazipur"}).text
     assert "Commissioner brief" in html and "GCC_Ward_01" in html and "DSCC_Ward_04" not in html
+    assert "What each ward should do" in html
+
+
+def test_actions_follow_the_plan(c):
+    from backend.operations import dispatch
+    p = c.post("/api/ops/plan", json={**PEAK, "stock_pct": 60, "total_crews": 12, "capacity_scale_pct": 75}).json()
+    for w in p["wards"]:
+        acts = " ".join(dispatch.actions(p, w, "en"))
+        sal = w["required"]["saline_bags_needed"] - w["allocated"]["saline_bags_needed"]
+        assert (f"{sal} more saline bag" in acts) == (sal > 0)
+        for t in p["transfers"]:
+            if t["from_ward"] == w["ward_id"]:
+                assert f"to {t['to_ward']} (same city)" in acts
+        assert (" spraying team" in acts and "Deploy" in acts) == (w["crews"] > 0)
+        assert ("no free bed" in acts) == (w["beds"]["net_deficit"] > 0)
 
 
 def test_ops_validation_errors(c):

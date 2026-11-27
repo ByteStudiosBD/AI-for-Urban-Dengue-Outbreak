@@ -1,5 +1,5 @@
 *DengueGuard dispatch — DSCC_Ward_04 (Dhaka South)*
-Status: *WARNING* · Risk tier: Critical
+Status: *WARNING* · Risk tier: Very high
 Target week: 2025-09-08 (2 weeks ahead)
 Predicted cases: *14* (expected forecast; 90% interval 6.74–21.28)
 
@@ -7,17 +7,22 @@ Predicted cases: *14* (expected forecast; 90% interval 6.74–21.28)
 • Saline: 29 / 33
 • Kits: 14 / 16
 • Beds: 4 / 4 (local capacity 3)
-  → route 1 patient(s) to DSCC_Ward_07
 
 *Spraying crews assigned:* 2
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 4 more saline bags and 2 more test kits from the city store.
+2. Send 1 patient to DSCC_Ward_07 (same city); call ahead to confirm the bed.
+3. Deploy 2 spraying teams this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 14 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
 
 *DengueGuard dispatch — CCC_Ward_03 (Chattogram)*
-Status: *WARNING* · Risk tier: Critical
+Status: *WARNING* · Risk tier: Very high
 Target week: 2025-09-08 (2 weeks ahead)
 Predicted cases: *15* (expected forecast; 90% interval 7.43–21.96)
 
@@ -25,10 +30,15 @@ Predicted cases: *15* (expected forecast; 90% interval 7.43–21.96)
 • Saline: 31 / 36
 • Kits: 15 / 17
 • Beds: 4 / 4 (local capacity 3)
-  → route 1 patient(s) to CCC_Ward_05
 
 *Spraying crews assigned:* 2
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 5 more saline bags and 2 more test kits from the city store.
+2. Send 1 patient to CCC_Ward_05 (same city); call ahead to confirm the bed.
+3. Deploy 2 spraying teams this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 15 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -43,10 +53,15 @@ Predicted cases: *12* (expected forecast; 90% interval 4.85–19.38)
 • Saline: 24 / 29
 • Kits: 11 / 14
 • Beds: 4 / 4 (local capacity 3)
-  → route 1 patient(s) to DNCC_Ward_13
 
 *Spraying crews assigned:* 2
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 5 more saline bags and 3 more test kits from the city store.
+2. Send 1 patient to DNCC_Ward_13 (same city); call ahead to confirm the bed.
+3. Deploy 2 spraying teams this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 12 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -61,10 +76,15 @@ Predicted cases: *12* (expected forecast; 90% interval 5.01–19.54)
 • Saline: 22 / 29
 • Kits: 11 / 14
 • Beds: 4 / 4 (local capacity 3)
-  → route 1 patient(s) to DSCC_Ward_16
 
 *Spraying crews assigned:* 2
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Send 1 patient to DSCC_Ward_16 (same city); call ahead to confirm the bed.
+3. Deploy 2 spraying teams this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 12 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -79,10 +99,15 @@ Predicted cases: *12* (expected forecast; 90% interval 4.29–18.82)
 • Saline: 22 / 29
 • Kits: 11 / 14
 • Beds: 4 / 4 (local capacity 3)
-  → route 1 patient(s) to CCC_Ward_09
 
 *Spraying crews assigned:* 1
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Send 1 patient to CCC_Ward_09 (same city); call ahead to confirm the bed.
+3. Deploy 1 spraying team this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 12 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -101,6 +126,12 @@ Predicted cases: *12* (expected forecast; 90% interval 4.37–18.9)
 *Spraying crews assigned:* 1
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. Deploy 1 spraying team this week: clear standing water in drains, containers and building sites.
+4. Tell local clinics to expect about 12 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -117,6 +148,11 @@ Predicted cases: *11* (expected forecast; 90% interval 4.01–18.54)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 11 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -135,6 +171,12 @@ Predicted cases: *9* (expected forecast; 90% interval 1.44–15.97)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 6 more saline bags and 3 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -151,6 +193,11 @@ Predicted cases: *10* (expected forecast; 90% interval 2.5–17.03)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -169,6 +216,11 @@ Predicted cases: *11* (expected forecast; 90% interval 3.41–17.94)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 11 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -185,6 +237,11 @@ Predicted cases: *10* (expected forecast; 90% interval 2.99–17.52)
 
 *Spraying crews assigned:* 1
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Deploy 1 spraying team this week: clear standing water in drains, containers and building sites.
+3. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -203,6 +260,12 @@ Predicted cases: *10* (expected forecast; 90% interval 2.29–16.82)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -219,6 +282,11 @@ Predicted cases: *8* (expected forecast; 90% interval 1.2–15.73)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 6 more saline bags and 3 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -237,6 +305,11 @@ Predicted cases: *8* (expected forecast; 90% interval 1.07–15.6)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 6 more saline bags and 3 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -253,6 +326,11 @@ Predicted cases: *11* (expected forecast; 90% interval 3.97–18.51)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 11 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -271,6 +349,12 @@ Predicted cases: *10* (expected forecast; 90% interval 2.5–17.03)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -287,6 +371,11 @@ Predicted cases: *10* (expected forecast; 90% interval 3.05–17.58)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -305,6 +394,11 @@ Predicted cases: *11* (expected forecast; 90% interval 3.85–18.39)
 *Spraying crews assigned:* 1
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. Deploy 1 spraying team this week: clear standing water in drains, containers and building sites.
+3. Tell local clinics to expect about 11 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -321,6 +415,12 @@ Predicted cases: *10* (expected forecast; 90% interval 2.25–16.79)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
+
+*What to do*
+1. Request 9 more saline bags and 5 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 10 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -339,6 +439,11 @@ Predicted cases: *11* (expected forecast; 90% interval 3.35–17.88)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 11 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -356,6 +461,12 @@ Predicted cases: *11* (expected forecast; 90% interval 3.34–17.87)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 11 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -369,10 +480,15 @@ Predicted cases: *9* (expected forecast; 90% interval 1.84–16.37)
 • Saline: 13 / 21
 • Kits: 6 / 10
 • Beds: 3 / 3 (local capacity 2)
-  → route 1 patient(s) to DSCC_Ward_17
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Send 1 patient to DSCC_Ward_17 (same city); call ahead to confirm the bed.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -391,6 +507,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.86–15.39)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -407,6 +528,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.95–15.48)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -425,6 +551,11 @@ Predicted cases: *8* (expected forecast; 90% interval 1.22–15.75)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -441,6 +572,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.35–14.89)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -459,6 +595,11 @@ Predicted cases: *7* (expected forecast; 90% interval 0.0–14.27)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -475,6 +616,12 @@ Predicted cases: *9* (expected forecast; 90% interval 2.05–16.58)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
+
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -493,6 +640,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.7)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 6 more saline bags and 3 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -509,6 +660,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.06)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 6 more saline bags and 3 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -527,6 +682,10 @@ Predicted cases: *7* (expected forecast; 90% interval 0.0–14.24)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -543,6 +702,11 @@ Predicted cases: *7* (expected forecast; 90% interval 0.0–14.29)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -561,6 +725,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.62–15.15)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -577,6 +746,11 @@ Predicted cases: *9* (expected forecast; 90% interval 2.14–16.67)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -595,6 +769,10 @@ Predicted cases: *7* (expected forecast; 90% interval 0.0–14.06)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -611,6 +789,12 @@ Predicted cases: *9* (expected forecast; 90% interval 1.87–16.41)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
+
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -629,6 +813,12 @@ Predicted cases: *9* (expected forecast; 90% interval 1.65–16.19)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -645,6 +835,11 @@ Predicted cases: *7* (expected forecast; 90% interval 0.0–14.3)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -663,6 +858,11 @@ Predicted cases: *7* (expected forecast; 90% interval 0.0–14.34)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -679,6 +879,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.15)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -697,6 +901,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.5)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 7 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -713,6 +921,11 @@ Predicted cases: *7* (expected forecast; 90% interval 0.13–14.66)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -731,6 +944,12 @@ Predicted cases: *9* (expected forecast; 90% interval 1.72–16.26)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits, Beds
 
+*What to do*
+1. Request 11 more saline bags and 5 more test kits from the city store.
+2. 1 patient has no free bed anywhere in this city: report to the city health office today.
+3. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+4. Tell local clinics to expect about 9 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -747,6 +966,11 @@ Predicted cases: *8* (expected forecast; 90% interval 1.21–15.74)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -765,6 +989,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.56–15.1)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -781,6 +1010,11 @@ Predicted cases: *7* (expected forecast; 90% interval 0.07–14.6)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 7 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -799,6 +1033,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–12.98)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -816,6 +1054,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.91–15.44)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 10 more saline bags and 5 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -829,10 +1072,14 @@ Predicted cases: *5* (expected forecast; 90% interval 0.0–12.03)
 • Saline: 5 / 12
 • Kits: 3 / 6
 • Beds: 1 / 1 (local capacity 2)
-  ← receive 1 patient(s) from DSCC_Ward_04
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Keep 1 bed ready for patients from DSCC_Ward_04.
+3. Tell local clinics to expect about 5 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -851,6 +1098,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.44)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -867,6 +1118,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.48)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -885,6 +1140,11 @@ Predicted cases: *8* (expected forecast; 90% interval 0.36–14.89)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 11 more saline bags and 5 more test kits from the city store.
+2. High risk but no spraying team: request one, or organise a community clean-up of standing water.
+3. Tell local clinics to expect about 8 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -898,10 +1158,14 @@ Predicted cases: *5* (expected forecast; 90% interval 0.0–12.01)
 • Saline: 5 / 12
 • Kits: 3 / 6
 • Beds: 1 / 1 (local capacity 2)
-  ← receive 1 patient(s) from DNCC_Ward_12
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Keep 1 bed ready for patients from DNCC_Ward_12.
+3. Tell local clinics to expect about 5 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -916,10 +1180,14 @@ Predicted cases: *5* (expected forecast; 90% interval 0.0–12.42)
 • Saline: 5 / 12
 • Kits: 3 / 6
 • Beds: 1 / 1 (local capacity 2)
-  ← receive 1 patient(s) from DSCC_Ward_06
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Keep 1 bed ready for patients from DSCC_Ward_06.
+3. Tell local clinics to expect about 5 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -934,10 +1202,14 @@ Predicted cases: *5* (expected forecast; 90% interval 0.0–12.56)
 • Saline: 5 / 12
 • Kits: 3 / 6
 • Beds: 1 / 1 (local capacity 2)
-  ← receive 1 patient(s) from DSCC_Ward_13
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Keep 1 bed ready for patients from DSCC_Ward_13.
+3. Tell local clinics to expect about 5 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -952,10 +1224,14 @@ Predicted cases: *5* (expected forecast; 90% interval 2.35–7.02)
 • Saline: 5 / 12
 • Kits: 3 / 6
 • Beds: 1 / 1 (local capacity 2)
-  ← receive 1 patient(s) from CCC_Ward_01
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 3 more test kits from the city store.
+2. Keep 1 bed ready for patients from CCC_Ward_01.
+3. Tell local clinics to expect about 5 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -974,6 +1250,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–12.94)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 8 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -987,10 +1267,14 @@ Predicted cases: *5* (expected forecast; 90% interval 0.0–12.63)
 • Saline: 5 / 12
 • Kits: 2 / 6
 • Beds: 1 / 1 (local capacity 2)
-  ← receive 1 patient(s) from CCC_Ward_03
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 7 more saline bags and 4 more test kits from the city store.
+2. Keep 1 bed ready for patients from CCC_Ward_03.
+3. Tell local clinics to expect about 5 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
@@ -1009,6 +1293,10 @@ Predicted cases: *6* (expected forecast; 90% interval 0.0–13.1)
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
 
+*What to do*
+1. Request 9 more saline bags and 4 more test kits from the city store.
+2. Tell local clinics to expect about 6 dengue cases in the week of 2025-09-08.
+
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
 
 ----------
@@ -1025,5 +1313,9 @@ Predicted cases: *4* (expected forecast; 90% interval 1.59–6.26)
 
 *Spraying crews assigned:* 0
 ⚠️ *Deficit:* Saline, Kits
+
+*What to do*
+1. Request 6 more saline bags and 3 more test kits from the city store.
+2. Tell local clinics to expect about 4 dengue cases in the week of 2025-09-08.
 
 _Planning scenario. Capacity and stock are editable assumptions, not official data._
