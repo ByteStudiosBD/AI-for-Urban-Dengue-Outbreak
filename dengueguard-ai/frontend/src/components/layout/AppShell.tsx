@@ -9,12 +9,14 @@ import { RouteErrorBoundary } from './RouteErrorBoundary'
 import { SiteFooter } from './SiteFooter'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
+import { AnalysisTabs } from './AnalysisTabs'
 
 const TITLES: Record<string, TKey> = {
   '/risk': 'ro.title', '/data': 'data.title',
   '/dashboard': 'nav.overview', '/predictions': 'nav.predictions', '/heatmap': 'heat.title',
   '/weather': 'nav.weather', '/validation': 'nav.validation',
-  '/allocation': 'ops.alloc.title', '/overflow': 'ops.ovf.title', '/simulator': 'ops.sim.title', '/dispatch': 'ops.disp.title',
+  '/home': 'nav.home', '/analysis': 'ux.nav.analysis',
+  '/allocation': 'ux.nav.supplies', '/overflow': 'ux.nav.beds', '/simulator': 'ux.nav.mosquito', '/dispatch': 'ux.nav.dispatch',
 }
 
 export function AppShell() {
@@ -31,7 +33,7 @@ export function AppShell() {
     <div className="min-h-dvh bg-canvas text-ink">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:rounded-lg focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-ink">Skip to content</a>
       <Sidebar mobileOpen={menu} onClose={() => setMenu(false)} />
-      <div className="flex min-h-dvh flex-col lg:pl-[76px]">
+      <div className="flex min-h-dvh flex-col lg:pl-[88px]">
         <TopBar title={title} onMenu={() => setMenu(true)} />
         <main id="main" className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
           {error ? (
@@ -40,6 +42,7 @@ export function AppShell() {
             <LoadingBlock className="h-80" />
           ) : (
             <RouteErrorBoundary key={pathname}>
+              <AnalysisTabs />
               <Suspense fallback={<LoadingBlock className="h-80" />}>
                 <PageTransition key={pathname}>
                   <Outlet />

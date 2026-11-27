@@ -16,7 +16,7 @@ export default function LoginPage() {
   const { t } = useI18n()
   const nav = useNavigate()
   const [params] = useSearchParams()
-  const next = safeNext(params.get('next'))
+  const next = safeNext(params.get('next'), '/home')
   const { setSession } = useSession()
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
