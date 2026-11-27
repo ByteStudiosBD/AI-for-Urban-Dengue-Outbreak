@@ -36,7 +36,9 @@ export default function InterventionSimulator() {
   const saline = sim?.per_horizon.reduce((a, h) => a + h.saline_baseline - h.saline_scenario, 0) ?? 0
   const ranking = (sim?.ranking ?? []).filter((r) => p!.scenario.city === null || r.city === p!.scenario.city)
   // automatic mode lists only wards that get teams; manual mode lists every ward, best first
-  const list = manual ? ranking : ranking.filter((r) => r.crews > 0)
+  // ranked by intervention ROI: cases prevented per crew, or the first crew's ROI for a ward without one
+  const roi = (r: (typeof ranking)[number]) => r.roi_cases_per_crew ?? r.first_crew_roi
+  const list = (manual ? ranking : ranking.filter((r) => r.crews > 0)).slice().sort((a, b) => roi(b) - roi(a))
   const visible = more ? list : list.slice(0, PAGE)
 
   const setMode = (m: 'auto' | 'manual') => {
@@ -143,6 +145,11 @@ export default function InterventionSimulator() {
                   <RiskBadge tier={r.risk_tier} size="sm" />
                   <p className="min-w-44 text-[15px]">
                     {r.crews > 0 ? t('s.mos.stops', { n: fmtNum(r.cases_prevented, 1) }) : <span className="text-muted">{t('s.mos.couldStop', { n: fmtNum(r.first_crew_roi, 1) })}</span>}
+                  </p>
+                  {/* the value the list is ranked by: cases prevented per crew (ROI); a ward without a team shows its first team's ROI */}
+                  <p className="num min-w-28 text-[15px] font-semibold text-accent" title={t('s.mos.roiLabel')}>
+                    <span className="sr-only">{t('s.mos.roiLabel')}: </span>
+                    {t('s.mos.perTeam', { r: fmtNum(roi(r), 1) })}
                   </p>
                   {manual ? (
                     <div className="flex items-center gap-2" role="group" aria-label={t('s.mos.teamsFor', { ward: r.ward_id })}>
