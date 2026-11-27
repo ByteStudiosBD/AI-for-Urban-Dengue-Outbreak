@@ -1,6 +1,6 @@
 import * as P from '@radix-ui/react-popover'
 import { Bell, Building2, ChevronLeft, ChevronRight, Download, Globe, History, LogOut, Menu, UserRound } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
 import { Tooltip } from '@/components/ui/tooltip'
@@ -186,10 +186,14 @@ function Profile() {
   )
 }
 
+/** Operations pages carry their own plan settings bar, so the analysis filters are hidden there. */
+const OPS_PATHS = ['/home', '/allocation', '/overflow', '/simulator', '/dispatch']
+
 export function TopBar({ title, onMenu }: { title: string; onMenu: () => void }) {
   const { t, fmtDate } = useI18n()
   const { meta } = useMetadata()
   const { city, set } = useFilters()
+  const ops = OPS_PATHS.includes(useLocation().pathname)
   return (
     <header className="z-20 border-b border-line-soft bg-canvas/90 backdrop-blur-md lg:sticky lg:top-0">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-3 px-4 py-3 sm:px-6 lg:px-8">
@@ -205,11 +209,14 @@ export function TopBar({ title, onMenu }: { title: string; onMenu: () => void })
         <div className="flex items-center gap-2">
           <LanguageToggle className="hidden sm:inline-flex" />
           <Alerts />
-          <ExportButton />
+          {!ops && <ExportButton />}
           <Profile />
           <ThemeToggle />
         </div>
       </div>
+      {ops ? (
+        <div className="px-4 pb-3 sm:hidden"><LanguageToggle /></div>
+      ) : (
       <div className="flex flex-wrap items-center gap-2 px-4 pb-3 sm:px-6 lg:px-8">
         {meta && (
           <Select
@@ -226,6 +233,7 @@ export function TopBar({ title, onMenu }: { title: string; onMenu: () => void })
         <HorizonControl />
         <LanguageToggle className="sm:hidden" />
       </div>
+      )}
     </header>
   )
 }

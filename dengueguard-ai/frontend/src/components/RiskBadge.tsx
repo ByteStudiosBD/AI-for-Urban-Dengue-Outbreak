@@ -9,7 +9,7 @@ export const TIER_COLOR: Record<RiskTier, string> = {
   Critical: 'var(--color-risk-critical)',
 }
 /** Text marker so tiers never depend on colour alone. */
-export const TIER_MARK: Record<RiskTier, string> = { Low: 'L', Medium: 'M', High: 'H', Critical: 'C' }
+export const TIER_MARK: Record<RiskTier, string> = { Low: 'L', Medium: 'M', High: 'H', Critical: 'VH' }
 
 export function RiskBadge({ tier, size = 'md', className }: { tier: RiskTier; size?: 'sm' | 'md'; className?: string }) {
   const { t } = useI18n()
