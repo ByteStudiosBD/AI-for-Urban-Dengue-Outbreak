@@ -19,13 +19,17 @@ export interface OpsControls {
   demand_basis: DemandBasis
   capacity_scale_pct: number
   capacity_overrides: Record<string, number>
+  /** UI only: total beds the officer typed; the per-ward split of it is sent as capacity_overrides. */
+  beds_total: number | null
+  /** UI only: saline bags the officer typed; stock_pct is recalculated from it whenever demand changes. */
+  stock_bags: number | null
   deployment: Record<string, number> | null
   plan_with_intervention: boolean
 }
 
 export const OPS_DEFAULTS: OpsControls = {
   pool: 'all', stock_pct: 100, total_crews: 10, effect_per_crew_pct: 10, max_crews_per_ward: 3, risk_weight: 0.7,
-  demand_basis: 'expected', capacity_scale_pct: 100, capacity_overrides: {}, deployment: null, plan_with_intervention: false,
+  demand_basis: 'expected', capacity_scale_pct: 100, capacity_overrides: {}, beds_total: null, stock_bags: null, deployment: null, plan_with_intervention: false,
 }
 
 const KEY = 'dg.ops.v1'
@@ -82,7 +86,7 @@ export function usePlanParams(): PlanParams | null {
   const { city, asOf, h, ready } = useFilters()
   return useMemo(() => {
     if (!ready) return null
-    const { pool, ...rest } = controls
+    const { pool, beds_total: _bedsTotal, stock_bags: _stockBags, ...rest } = controls
     return { ...rest, as_of: asOf, horizon_weeks: h, city: pool === 'city' ? city : null }
   }, [controls, city, asOf, h, ready])
 }

@@ -1,206 +1,142 @@
-import { ArrowRight, Building2, Siren } from 'lucide-react'
+import { ArrowRight, Search, Send } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AssumptionList, Control, Disclosure, FillBar, HorizonPicker, KindTag, Segmented, SeverityBadge, StepCard, tFlag } from '@/components/ops/controls'
+import { FillBar, SeverityBadge, tFlag } from '@/components/ops/controls'
+import { BigAnswer, DetailsButton, HowCalculated, PageIntro, PlanBar, Section, ShowMore, StockField } from '@/components/ops/simple'
 import { RiskBadge } from '@/components/RiskBadge'
-import { Card, CardHeader } from '@/components/ui/card'
-import { Select } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 import { EmptyState, ErrorState, LoadingBlock } from '@/components/ui/states'
 import { useI18n } from '@/i18n'
 import { cn } from '@/lib/utils'
-import { useFilters, useMetadata } from '@/state/AppData'
-import { useOps, usePlan } from '@/state/Ops'
+import { useFilters } from '@/state/AppData'
+import { usePlan } from '@/state/Ops'
 import type { ConsumableKey, OpsWard } from '@/types/api'
 
-type Filter = 'all' | 'flagged' | 'critical'
+const PAGE = 10
 
-function SupplyCell({ w, k }: { w: OpsWard; k: ConsumableKey }) {
-  const { fmtNum } = useI18n()
-  const a = w.allocated[k]
-  const r = w.required[k]
-  if (a === null) return <span className="text-faint">—</span>
+function ItemCard({ label, need, have, short, wards }: { label: string; need: number; have: number; short: number; wards: number }) {
+  const { t, fmtNum } = useI18n()
   return (
-    <div className="flex min-w-24 flex-col gap-1">
-      <span className="num text-sm"><span className={cn('font-semibold', a < r && 'text-risk-critical')}>{fmtNum(a)}</span><span className="text-muted"> / {fmtNum(r)}</span></span>
-      <FillBar value={a} max={r} />
+    <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-panel p-5">
+      <p className="text-lg font-semibold text-ink">{label}</p>
+      <dl className="grid grid-cols-3 gap-2">
+        <div><dt className="text-[13px] text-muted">{t('s.sup.need')}</dt><dd className="num text-2xl font-semibold">{fmtNum(need)}</dd></div>
+        <div><dt className="text-[13px] text-muted">{t('s.sup.have')}</dt><dd className="num text-2xl font-semibold">{fmtNum(have)}</dd></div>
+        <div><dt className="text-[13px] text-muted">{t('s.sup.short')}</dt><dd className={cn('num text-2xl font-semibold', short ? 'text-risk-critical' : 'text-risk-low')}>{short ? fmtNum(short) : '0 ✓'}</dd></div>
+      </dl>
+      <FillBar value={have} max={need} className="h-2.5" />
+      <p className="text-[13px] text-muted">{short ? t('s.sup.itemShort', { w: wards }) : t('s.sup.itemOk')}</p>
     </div>
   )
 }
 
+function Fact({ label, a, r }: { label: string; a: number | null; r: number }) {
+  const { fmtNum } = useI18n()
+  if (a === null) return null
+  return <span className="num text-[15px]"><span className="text-muted">{label} </span><span className={cn('font-semibold', a < r ? 'text-risk-critical' : 'text-ink')}>{fmtNum(a)}</span><span className="text-muted"> / {fmtNum(r)}</span></span>
+}
+
+function WardRow({ w }: { w: OpsWard }) {
+  const { t, fmtNum } = useI18n()
+  const [open, setOpen] = useState(false)
+  return (
+    <li className="border-b border-line-soft py-3 last:border-0">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="min-w-40 flex-1 basis-40">
+          <p className="font-mono text-[15px] font-semibold text-ink">{w.ward_id}</p>
+          <p className="text-[13px] text-muted">{w.city}</p>
+        </div>
+        <div className="flex flex-wrap gap-x-5 gap-y-1">
+          <Fact label={t('s.sup.saline')} a={w.allocated.saline_bags_needed} r={w.required.saline_bags_needed} />
+          <Fact label={t('s.sup.kits')} a={w.allocated.diagnostic_kits_needed} r={w.required.diagnostic_kits_needed} />
+        </div>
+        <SeverityBadge severity={w.severity} />
+        <DetailsButton open={open} onClick={() => setOpen((v) => !v)} label={w.ward_id} />
+      </div>
+      {open && (
+        <dl className="mt-3 grid gap-3 rounded-xl bg-panel-2/50 p-4 text-[15px] sm:grid-cols-2 lg:grid-cols-4">
+          <div><dt className="text-[13px] text-muted">{t('s.sup.dCases')}</dt><dd className="num font-semibold">{fmtNum(w.planning_cases_whole)} <span className="text-[13px] font-normal text-muted">({t('s.sup.dRange', { a: fmtNum(w.interval[0], 0), b: fmtNum(w.interval[1], 0) })})</span></dd></div>
+          <div><dt className="text-[13px] text-muted">{t('s.sup.dRisk')}</dt><dd><RiskBadge tier={w.risk_tier} size="sm" /></dd></div>
+          <div><dt className="text-[13px] text-muted">{t('s.sup.dBeds')}</dt><dd className="num font-semibold">{fmtNum(w.beds.required)}{w.beds.net_deficit > 0 && <span className="text-risk-critical"> · {t('s.sup.dNoBed', { n: w.beds.net_deficit })}</span>}</dd></div>
+          <div><dt className="text-[13px] text-muted">{t('s.sup.dTeams')}</dt><dd className="num font-semibold">{w.crews}</dd></div>
+          {w.flags.length > 0 && <div className="sm:col-span-2 lg:col-span-4"><dt className="text-[13px] text-muted">{t('s.sup.dNotes')}</dt><dd>{w.flags.map((f) => tFlag(t, f)).join(' · ')}</dd></div>}
+        </dl>
+      )}
+    </li>
+  )
+}
+
 export default function ResourceAllocation() {
-  const { t, fmtNum, fmtDate } = useI18n()
-  const { meta } = useMetadata()
-  const { city, set, search } = useFilters()
-  const { controls } = useOps()
+  const { t, fmtNum } = useI18n()
+  const { search } = useFilters()
   const q = usePlan()
-  const [filter, setFilter] = useState<Filter>('flagged')
   const p = q.data
+  const [all, setAll] = useState(false)
+  const [more, setMore] = useState(false)
+  const [query, setQuery] = useState('')
 
   const rows = useMemo(() => {
-    const ws = (p?.wards ?? []).filter((w) => w.in_pool)
-    if (filter === 'flagged') return ws.filter((w) => w.severity !== 'ok')
-    if (filter === 'critical') return ws.filter((w) => w.severity === 'critical')
-    return ws
-  }, [p, filter])
+    const isShort = (w: OpsWard) => (['saline_bags_needed', 'diagnostic_kits_needed'] as ConsumableKey[])
+      .some((k) => w.allocated[k] !== null && w.allocated[k]! < w.required[k])
+    const qq = query.trim().toLowerCase()
+    return (p?.wards ?? []).filter((w) => w.in_pool && (all || isShort(w)) && (!qq || w.ward_id.toLowerCase().includes(qq) || w.city.toLowerCase().includes(qq)))
+      .sort((a, b) => b.priority - a.priority)
+  }, [p, all, query])
 
   if (q.error) return <ErrorState error={q.error} onRetry={q.retry} />
-  const pool = (p?.wards ?? []).filter((w) => w.in_pool)
-  const bedsNeeded = pool.reduce((a, w) => a + w.beds.required, 0)
-  const bedsShort = pool.reduce((a, w) => a + w.beds.net_deficit, 0)
-  const supplyRows: Array<{ key: ConsumableKey; label: string }> = [
-    { key: 'saline_bags_needed', label: t('ops.supply.saline_bags_needed') },
-    { key: 'diagnostic_kits_needed', label: t('ops.supply.diagnostic_kits_needed') },
-  ]
+  const sal = p?.supplies.saline_bags_needed
+  const kit = p?.supplies.diagnostic_kits_needed
+  const shown = more ? rows : rows.slice(0, PAGE)
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="grid gap-5 lg:grid-cols-2">
-        <StepCard n={1} title={t('ux.sup.s1')} sub={t('ux.sup.s1Sub')}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Control id="pool" />
-            <div className="flex flex-col gap-2">
-              <span className="text-xs font-medium text-muted">{t('top.city')}</span>
-              <Select label={t('top.city')} value={city} onValueChange={(v) => set({ city: v })} icon={<Building2 />}
-                options={(meta?.cities ?? []).map((c) => ({ value: c, label: c }))} />
-            </div>
-            <HorizonPicker />
-            <Control id="basis" />
-          </div>
-          <p className="text-xs text-faint">{t('ux.sup.basisHelp')}</p>
-        </StepCard>
+      <PlanBar />
+      <PageIntro>{t('s.sup.intro')}</PageIntro>
 
-        <StepCard n={2} title={t('ux.sup.s2')} sub={t('ux.sup.s2Sub')}>
-          <Control id="stock" />
-          <Control id="crews" />
-          <Disclosure title={t('ux.sup.advanced')} sub={t('ux.sup.advancedSub')}>
-            <Control id="risk" />
-            <Control id="intervention" />
-          </Disclosure>
-        </StepCard>
-      </div>
+      {!p || !sal || !kit ? <LoadingBlock className="h-40" /> : (
+        <div className={cn('flex flex-col gap-5 transition-opacity', q.pending && 'opacity-70')}>
+          <BigAnswer tone={sal.shortfall || kit.shortfall ? 'bad' : 'good'}
+            title={sal.shortfall ? t('s.sup.ansBad', { w: sal.wards_short }) : kit.shortfall ? t('s.sup.ansKits', { w: kit.wards_short }) : t('s.sup.ansOk')}>
+            {sal.shortfall || kit.shortfall
+              ? <>{t('s.sup.ansBadSub', { s: fmtNum(sal.shortfall), k: fmtNum(kit.shortfall) })} {t('s.sup.ansWhy', { n: Math.round(p.scenario.stock_pct) })}</>
+              : t('s.sup.ansOkSub')}
+          </BigAnswer>
 
-      <StepCard n={3} title={t('ux.sup.s3')}
-        sub={p ? t('ux.sup.s3Sub', { date: fmtDate(p.scenario.target_date, 'long'), h: p.scenario.horizon_weeks, pool: p.scenario.city ?? t('ops.ctl.poolAll') }) : t('common.loading')}
-        action={<KindTag kind="calculated" />}
-        className={cn('transition-opacity duration-200', q.pending && p && 'opacity-70')}>
-        {p && p.alerts.critical > 0 && (
-          <div role="alert" className="flex items-start gap-3 rounded-xl border border-risk-critical/40 bg-risk-critical/8 px-4 py-3">
-            <Siren className="mt-0.5 size-5 shrink-0 text-risk-critical" aria-hidden />
-            <div className="text-sm">
-              <p className="font-semibold text-ink">{t('ops.alloc.criticalBanner', { n: p.alerts.critical })}</p>
-              <p className="text-xs text-muted">{t('ops.alloc.criticalBannerSub', { stock: controls.stock_pct })}</p>
-            </div>
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.9fr)]">
+            <ItemCard label={t('s.sup.saline')} need={sal.required} have={sal.available} short={sal.shortfall} wards={sal.wards_short} />
+            <ItemCard label={t('s.sup.kits')} need={kit.required} have={kit.available} short={kit.shortfall} wards={kit.wards_short} />
+            <div className="rounded-2xl border border-line-soft bg-panel p-5"><StockField size="md" /></div>
           </div>
-        )}
-        {!p ? <LoadingBlock className="h-40" /> : (
-          <div className="-mx-5 overflow-x-auto px-5">
-            <table className="w-full min-w-[560px] text-sm">
-              <thead>
-                <tr className="border-b border-line text-left text-[11px] tracking-[0.05em] text-muted uppercase">
-                  <th className="py-2 pr-3 font-semibold">{t('ux.sup.item')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ux.sup.needed')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ux.sup.available')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ux.sup.allocated')}</th>
-                  <th className="py-2 text-right font-semibold">{t('ux.sup.shortage')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {supplyRows.map(({ key, label }) => {
-                  const s = p.supplies[key]
-                  return (
-                    <tr key={key} className="border-b border-line-soft">
-                      <th scope="row" className="py-3 pr-3 text-left font-semibold">{label}</th>
-                      <td className="num py-3 pr-3 text-right">{fmtNum(s.required)}</td>
-                      <td className="num py-3 pr-3 text-right">{fmtNum(s.available)}</td>
-                      <td className="num py-3 pr-3 text-right font-semibold">{fmtNum(s.allocated)}</td>
-                      <td className={cn('num py-3 text-right font-semibold', s.shortfall ? 'text-risk-critical' : 'text-risk-low')}>
-                        {s.shortfall ? t('ux.sup.shortBy', { n: fmtNum(s.shortfall), w: s.wards_short }) : t('ux.sup.noShortage')}
-                      </td>
-                    </tr>
-                  )
-                })}
-                <tr className="border-b border-line-soft">
-                  <th scope="row" className="py-3 pr-3 text-left font-semibold">{t('ops.supply.hospital_beds_required')}</th>
-                  <td className="num py-3 pr-3 text-right">{fmtNum(bedsNeeded)}</td>
-                  <td colSpan={2} className="py-3 pr-3 text-right text-xs text-muted">{t('ux.sup.bedsNote')}</td>
-                  <td className={cn('num py-3 text-right font-semibold', bedsShort ? 'text-risk-critical' : 'text-risk-low')}>
-                    {bedsShort ? t('ux.sup.bedsShort', { n: bedsShort }) : t('ux.sup.noShortage')}
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" className="py-3 pr-3 text-left font-semibold">{t('ux.sup.crewsRow')}</th>
-                  <td colSpan={3} className="num py-3 pr-3 text-right">{t('ux.sup.crewsVal', { a: p.crews.assigned, b: p.crews.total })}</td>
-                  <td className={cn('py-3 text-right text-xs font-semibold', p.crews.high_risk_wards_without_crew ? 'text-risk-medium' : 'text-risk-low')}>
-                    {t('ops.alloc.crewsSub', { n: p.crews.high_risk_wards_without_crew })}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
-        <div className="flex flex-wrap gap-x-5 gap-y-2">
-          <Link to={{ pathname: '/overflow', search }} className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">{t('ux.sup.toBeds')} <ArrowRight className="size-3.5" aria-hidden /></Link>
-          <Link to={{ pathname: '/dispatch', search }} className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">{t('ux.sup.toDispatch')} <ArrowRight className="size-3.5" aria-hidden /></Link>
         </div>
-      </StepCard>
+      )}
 
-      <Card interactive={false} className={cn('min-w-0 transition-opacity duration-200', q.pending && p && 'opacity-70')}>
-        <CardHeader
-          title={t('ux.sup.wardTitle')}
-          sub={t('ux.sup.wardSub')}
-          action={
-            <div className="w-full sm:w-96">
-              <Segmented<Filter> label={t('ops.alloc.show')} value={filter} onChange={setFilter}
-                options={[{ value: 'flagged', label: t('ux.sup.fShort') }, { value: 'critical', label: t('ops.alloc.fCritical') }, { value: 'all', label: t('ops.alloc.fAll') }]} />
-            </div>
-          }
-        />
-        {!p ? <LoadingBlock className="h-80" /> : rows.length === 0 ? <EmptyState message={filter === 'all' ? t('ops.alloc.none') : t('ux.sup.noneShort')} /> : (
-          <div className="-mx-5 overflow-x-auto px-5">
-            <table className="w-full min-w-[920px] text-sm">
-              <thead>
-                <tr className="border-b border-line text-left text-[11px] tracking-[0.05em] text-muted uppercase">
-                  <th className="py-2 pr-3 font-semibold">{t('common.ward')}</th>
-                  <th className="py-2 pr-3 font-semibold">{t('risk.tier')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ops.col.priority')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ux.sup.colCases')}</th>
-                  <th className="py-2 pr-3 font-semibold">{t('ops.col.saline')}</th>
-                  <th className="py-2 pr-3 font-semibold">{t('ops.col.kits')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ops.col.beds')}</th>
-                  <th className="py-2 pr-3 text-right font-semibold">{t('ops.col.crews')}</th>
-                  <th className="py-2 font-semibold">{t('ops.col.status')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((w) => (
-                  <tr key={w.ward_id} className="border-b border-line-soft align-top transition-colors last:border-0 hover:bg-panel-2/50">
-                    <td className="py-2.5 pr-3"><span className="font-mono text-xs font-semibold">{w.ward_id}</span><span className="block text-[11px] text-faint">{w.city}</span></td>
-                    <td className="py-2.5 pr-3"><RiskBadge tier={w.risk_tier} size="sm" /></td>
-                    <td className="num py-2.5 pr-3 text-right font-semibold">{fmtNum(w.priority, 0)}</td>
-                    <td className="num py-2.5 pr-3 text-right"><span className="font-semibold">{fmtNum(w.planning_cases_whole)}</span>
-                      <span className="block text-[11px] text-faint">{fmtNum(w.interval[0], 0)}–{fmtNum(w.interval[1], 0)}</span></td>
-                    <td className="py-2.5 pr-3"><SupplyCell w={w} k="saline_bags_needed" /></td>
-                    <td className="py-2.5 pr-3"><SupplyCell w={w} k="diagnostic_kits_needed" /></td>
-                    <td className="num py-2.5 pr-3 text-right">{fmtNum(w.beds.required)}{w.beds.net_deficit > 0 && <span className="block text-[11px] text-risk-critical">{t('ux.sup.bedsShortCell', { n: w.beds.net_deficit })}</span>}</td>
-                    <td className="num py-2.5 pr-3 text-right font-semibold">{w.crews || <span className="text-faint">0</span>}</td>
-                    <td className="py-2.5">
-                      <SeverityBadge severity={w.severity} />
-                      {w.flags.length > 0 && <ul className="mt-1 text-[11px] leading-snug text-faint">{w.flags.map((f) => <li key={f}>{tFlag(t, f)}</li>)}</ul>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <Section
+        title={all ? t('s.sup.listAll') : t('s.sup.listShort')}
+        sub={t('s.sup.listSub')}
+        action={<Button className="h-11" onClick={() => setAll((v) => !v)}>{all ? t('s.sup.onlyShort') : t('s.sup.showAllWards')}</Button>}
+        className={cn('transition-opacity', q.pending && p && 'opacity-70')}>
+        <label className="mb-2 flex h-12 items-center gap-2 rounded-xl border border-line bg-canvas px-3 focus-within:border-accent sm:max-w-sm">
+          <Search className="size-5 text-muted" aria-hidden />
+          <span className="sr-only">{t('s.search')}</span>
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('s.search')} className="w-full bg-transparent text-[15px] outline-none placeholder:text-faint" />
+        </label>
+        {!p ? <LoadingBlock className="h-60" /> : rows.length === 0 ? <EmptyState message={query ? t('top.noWardMatch') : t('s.sup.noneShort')} /> : (
+          <div className="flex flex-col">
+            <ul>{shown.map((w) => <WardRow key={w.ward_id} w={w} />)}</ul>
+            <ShowMore shown={PAGE} total={rows.length} open={more} onClick={() => setMore((v) => !v)} />
           </div>
         )}
-      </Card>
+        <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-line-soft pt-4">
+          <Button asChild variant="primary" size="lg"><Link to={{ pathname: '/dispatch', search }}><Send /> {t('s.sup.toDispatch')}</Link></Button>
+          <Link to={{ pathname: '/overflow', search }} className="inline-flex min-h-11 items-center gap-1 text-[15px] font-semibold text-accent hover:underline">{t('s.sup.bedsNote')} <ArrowRight className="size-4" aria-hidden /></Link>
+        </div>
+      </Section>
 
-      <Disclosure title={t('ux.sup.howTitle')} sub={t('ux.sup.howSub')}>
-        <ol className="flex list-decimal flex-col gap-2 pl-4 text-sm leading-relaxed text-muted">
+      <HowCalculated>
+        <ol className="flex list-decimal flex-col gap-2 pl-5">
           <li>{t('ops.alloc.how1')}</li><li>{t('ops.alloc.how2')}</li><li>{t('ops.alloc.how3')}</li><li>{t('ops.alloc.how4')}</li>
         </ol>
-        <AssumptionList />
-      </Disclosure>
+      </HowCalculated>
     </div>
   )
 }
