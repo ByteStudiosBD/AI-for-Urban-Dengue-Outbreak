@@ -4,6 +4,7 @@ from __future__ import annotations
 import logging
 import math
 from contextlib import asynccontextmanager
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -11,13 +12,16 @@ from fastapi import FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from backend.api import auth
 from backend.config import ROOT
 from backend.data_processing.loader import EXPECTED_COLUMNS, coverage_report
+from backend.operations import dispatch
+from backend.operations.planner import Scenario, assumptions_text, plan
+from backend.operations.supplies import get_supply_model
 from backend.prediction_engine.engine import TIERS, ModelUnavailable, get_engine
 
 logging.basicConfig(level=logging.INFO)
@@ -34,6 +38,7 @@ class ApiError(Exception):
 async def lifespan(_: FastAPI):
     try:
         get_engine()  # load model + score all rows once
+        get_supply_model()  # fit supply rules from the onsite workbook once
     except ModelUnavailable as exc:
         log.error("Model unavailable at startup: %s", exc)
     yield
@@ -389,6 +394,89 @@ def validation_series(horizon_weeks: int = HORIZON, ward_id: str | None = None, 
                     "actual": _f(r.actual, 2), "predicted": _f(r.predicted, 2), "lower": _f(r.lower, 2),
                     "upper": _f(r.upper, 2), "wards": int(r.wards)} for r in g.itertuples()],
     }
+
+
+# ---------------------------------------------------------------- Phase 2: operations
+class PlanBody(BaseModel):
+    as_of: str | None = None
+    horizon_weeks: int = Field(2, ge=2, le=4)
+    city: str | None = None
+    stock_pct: float = Field(100, ge=30, le=100)
+    total_crews: int = Field(10, ge=0, le=500)
+    effect_per_crew_pct: float = Field(10, ge=0, le=50)
+    max_crews_per_ward: int = Field(3, ge=1, le=20)
+    risk_weight: float = Field(0.7, ge=0, le=1)
+    demand_basis: Literal["expected", "upper"] = "expected"
+    capacity_scale_pct: float = Field(100, ge=25, le=300)
+    capacity_overrides: dict[str, int] = Field(default_factory=dict)
+    deployment: dict[str, int] | None = None
+    plan_with_intervention: bool = False
+
+
+class DispatchBody(PlanBody):
+    ward_id: str | None = None
+    lang: Literal["en", "bn"] = "en"
+    only_flagged: bool = False
+
+
+def _scenario(eng, body: PlanBody) -> Scenario:
+    _city_or_404(eng, body.city)
+    wards = set(eng.raw["ward_id"])
+    for name, d in (("capacity_overrides", body.capacity_overrides), ("deployment", body.deployment or {})):
+        bad = [w for w in d if w not in wards]
+        if bad:
+            raise ApiError(422, "unknown_ward", f"{name} has unknown ward_id(s): {', '.join(bad[:5])}")
+        if any(v < 0 for v in d.values()):
+            raise ApiError(422, "invalid_parameter", f"{name} values must be >= 0")
+    return Scenario(as_of=_asof(eng, 2, body.as_of), horizon=body.horizon_weeks, city=body.city,
+                    stock_pct=body.stock_pct, total_crews=body.total_crews,
+                    effect_per_crew_pct=body.effect_per_crew_pct, max_crews_per_ward=body.max_crews_per_ward,
+                    risk_weight=body.risk_weight, demand_basis=body.demand_basis,
+                    capacity_scale_pct=body.capacity_scale_pct, capacity_overrides=body.capacity_overrides,
+                    deployment=body.deployment, plan_with_intervention=body.plan_with_intervention)
+
+
+@app.get("/api/ops/assumptions")
+def ops_assumptions():
+    """Supply rules fitted from the onsite workbook, per-ward planning capacity and scenario defaults."""
+    sm = get_supply_model()
+    return {**sm.describe(), "assumptions": assumptions_text(sm), "defaults": PlanBody().model_dump(),
+            "network_required": False, "llm_calls_per_request": 0}
+
+
+@app.post("/api/ops/plan")
+def ops_plan(body: PlanBody):
+    eng = get_engine()
+    return plan(eng, get_supply_model(), _scenario(eng, body))
+
+
+@app.post("/api/ops/dispatch")
+def ops_dispatch(body: DispatchBody):
+    eng = get_engine()
+    p = plan(eng, get_supply_model(), _scenario(eng, body))
+    wards = [w for w in p["wards"] if w["in_pool"]]
+    if body.ward_id:
+        _ward(eng, body.ward_id)
+        wards = [w for w in p["wards"] if w["ward_id"] == body.ward_id]
+    if body.only_flagged:
+        wards = [w for w in wards if w["severity"] != "ok"]
+    return {"scenario": p["scenario"], "lang": body.lang, "generator": "deterministic template (offline)",
+            "notices": [{"ward_id": w["ward_id"], "city": w["city"], "severity": w["severity"],
+                         "sms": dispatch.sms(p, w, body.lang), "whatsapp": dispatch.whatsapp(p, w, body.lang)}
+                        for w in wards]}
+
+
+class BriefBody(PlanBody):
+    brief_city: str | None = None  # which wards the brief lists; the stock pool stays `city`
+
+
+@app.post("/api/ops/brief")
+def ops_brief(body: BriefBody):
+    """Printable HTML commissioner brief (print to PDF from the browser)."""
+    eng = get_engine()
+    _city_or_404(eng, body.brief_city)
+    p = plan(eng, get_supply_model(), _scenario(eng, body))
+    return HTMLResponse(dispatch.brief_html(p, body.brief_city))
 
 
 # ---------------------------------------------------------------- auth

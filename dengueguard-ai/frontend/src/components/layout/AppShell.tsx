@@ -14,6 +14,7 @@ const TITLES: Record<string, TKey> = {
   '/risk': 'ro.title', '/data': 'data.title',
   '/dashboard': 'nav.overview', '/predictions': 'nav.predictions', '/heatmap': 'heat.title',
   '/weather': 'nav.weather', '/validation': 'nav.validation',
+  '/allocation': 'ops.alloc.title', '/overflow': 'ops.ovf.title', '/simulator': 'ops.sim.title', '/dispatch': 'ops.disp.title',
 }
 
 export function AppShell() {

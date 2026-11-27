@@ -1,0 +1,10 @@
+{
+ "as_of": "2025-08-25",
+ "horizon": 2,
+ "stock_pct": 60.0,
+ "total_crews": 12,
+ "effect_per_crew_pct": 10.0,
+ "max_crews_per_ward": 3,
+ "capacity_scale_pct": 75.0,
+ "demand_basis": "expected"
+}

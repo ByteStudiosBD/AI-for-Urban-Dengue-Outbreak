@@ -9,6 +9,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { I18nProvider } from '@/i18n'
 import { lazyPage } from '@/lib/lazyPage'
 import { MetadataProvider, SessionProvider } from '@/state/AppData'
+import { OpsProvider } from '@/state/Ops'
 
 const LandingPage = lazyPage(() => import('@/pages/LandingPage'))
 const LoginPage = lazyPage(() => import('@/pages/LoginPage'))
@@ -19,6 +20,10 @@ const RiskPredictions = lazyPage(() => import('@/pages/RiskPredictions'))
 const WardRiskHeatmap = lazyPage(() => import('@/pages/WardRiskHeatmap'))
 const WeatherData = lazyPage(() => import('@/pages/WeatherData'))
 const ModelValidation = lazyPage(() => import('@/pages/ModelValidation'))
+const ResourceAllocation = lazyPage(() => import('@/pages/ResourceAllocation'))
+const HospitalOverflow = lazyPage(() => import('@/pages/HospitalOverflow'))
+const InterventionSimulator = lazyPage(() => import('@/pages/InterventionSimulator'))
+const DispatchCenter = lazyPage(() => import('@/pages/DispatchCenter'))
 const NotFound = lazyPage(() => import('@/pages/NotFound'))
 
 // Routes are not keyed by pathname: the app shell (sidebar, top bar) stays mounted
@@ -31,6 +36,7 @@ export default function App() {
       <I18nProvider>
         <SessionProvider>
           <MetadataProvider>
+            <OpsProvider>
             <TooltipProvider>
               <RouteErrorBoundary>
                 <Suspense fallback={<div className="min-h-dvh bg-canvas" />}>
@@ -45,12 +51,17 @@ export default function App() {
                       <Route path="/heatmap" element={<WardRiskHeatmap />} />
                       <Route path="/weather" element={<WeatherData />} />
                       <Route path="/validation" element={<ModelValidation />} />
+                      <Route path="/allocation" element={<ResourceAllocation />} />
+                      <Route path="/overflow" element={<HospitalOverflow />} />
+                      <Route path="/simulator" element={<InterventionSimulator />} />
+                      <Route path="/dispatch" element={<DispatchCenter />} />
                       <Route path="*" element={<NotFound />} />
                     </Route>
                   </Routes>
                 </Suspense>
               </RouteErrorBoundary>
             </TooltipProvider>
+            </OpsProvider>
           </MetadataProvider>
         </SessionProvider>
       </I18nProvider>
